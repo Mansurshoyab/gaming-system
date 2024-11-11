@@ -734,7 +734,7 @@
                 </li>
               </ul>
             </div>
-            <div class="page-category">Inner page content goes here</div>
+            <div class="page-category">{{ $slot }}</div>
           </div>
         </div>
 
@@ -758,6 +758,7 @@
             <div class="copyright">
               2024, made with <i class="fa fa-heart heart text-danger"></i> by
               <a href="http://www.themekita.com">ThemeKita</a>
+              <span>{{ __('v') . version() }}</span>
             </div>
             <div>
               Distributed by
@@ -802,7 +803,6 @@
 
     <!-- Kaiadmin JS -->
     <script src="{{ asset('backend/js/kaiadmin.min.js') }}"></script>
-  </body>
-  <main>{{ $slot }}</main>
     @stack('scripts')
+  </body>
 </html>
