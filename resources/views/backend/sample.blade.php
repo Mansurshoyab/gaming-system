@@ -3,6 +3,10 @@
   @push('styles')
   @endpush
 
+  @push('breadcrumb')
+    <x-backend-breadcrumb />
+  @endpush
+
   <section class="row" >
     <div class="col-sm-12" >
       <div class="card" >
