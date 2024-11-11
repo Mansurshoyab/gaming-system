@@ -11,7 +11,8 @@
     <div class="col-sm-12" >
       <div class="card" >
         <div class="card-body" >
-          <p>{{ __('Inner page content goes here.') }}</p>
+          <p>{{ __('Inner page content goes here.') }}</p> 
+          
         </div>
       </div>
     </div>
