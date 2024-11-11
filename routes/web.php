@@ -7,6 +7,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('layouts')->name('layouts.')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('layouts.backend');
+    });
+    Route::get('/backend', function () {
+        return response()->view('backend.sample', get_defined_vars());
+    })->name('backend');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -17,4 +26,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

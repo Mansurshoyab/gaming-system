@@ -9,6 +9,7 @@
     @stack('styles')
   </head>
   <body>
+    <main>{{ $slot }}</main>
     @stack('scripts')
   </body>
 </html>
