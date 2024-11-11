@@ -16,6 +16,19 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
+    |---------------------------------------------------------------------------
+    | Application Tagline
+    |---------------------------------------------------------------------------
+    |
+    | This value is the tagline of your application, which can be used in
+    | various places throughout the framework to provide a short description
+    | or slogan that represents the essence or purpose of the application.
+    |
+    */
+
+    'tagline' => env('APP_TAGLINE', 'Play. Win. Earn. '),
+
+    /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
