@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Partials\Backend;
+namespace App\View\Partials\Backend;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Footer extends Component
+class Navbar extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Footer extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('partials.backend.footer');
+        return view('partials.backend.navbar');
     }
 }
