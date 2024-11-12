@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
         });
+
+        Schema::create('payouts', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,5 +28,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('wallets');
+        Schema::dropIfExists('payouts');
     }
 };
