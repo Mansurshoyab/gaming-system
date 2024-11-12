@@ -21,7 +21,12 @@ return new class extends Migration {
 
         Schema::create('rounds', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('member_id')->unsigned();
+            $table->foreignId('match_id')->unsigned();
+            $table->timestamp('start')->nullable();
+            $table->timestamp('end')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('bets', function (Blueprint $table) {
