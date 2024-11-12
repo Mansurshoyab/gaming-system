@@ -19,13 +19,18 @@ return new class extends Migration {
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('roles');
+        Schema::dropIfExists('permissions');
     }
 };
