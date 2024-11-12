@@ -18,6 +18,11 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
         });
+
+        Schema::create('experiences', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -26,5 +31,6 @@ return new class extends Migration {
     public function down(): void {
         Schema::dropIfExists('genres');
         Schema::dropIfExists('games');
+        Schema::dropIfExists('experiences');
     }
 };
