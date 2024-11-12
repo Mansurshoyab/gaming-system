@@ -42,7 +42,16 @@ return new class extends Migration {
 
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('member_id')->nullable();
+            $table->foreignId('country_id')->nullable();
+            $table->foreignId('province_id')->nullable();
+            $table->foreignId('city_id')->nullable();
+            $table->string('timezone')->nullable();
+            $table->string('address')->nullable();
+            $table->unsignedInteger('zip_code')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
