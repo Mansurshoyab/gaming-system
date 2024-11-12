@@ -23,7 +23,12 @@ return new class extends Migration {
 
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('member_id')->nullable();
+            $table->string('title', 100)->nullable();
+            $table->string('description', 250)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('messages', function (Blueprint $table) {
