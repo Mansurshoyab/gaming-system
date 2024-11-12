@@ -32,7 +32,12 @@ return new class extends Migration {
 
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('country_id');
+            $table->foreignId('province_id');
+            $table->string('name')->nullable();
+            $table->enum('status', Status::fetch())->default(Status::PENDING);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('locations', function (Blueprint $table) {
