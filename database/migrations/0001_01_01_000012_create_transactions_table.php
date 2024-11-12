@@ -1,8 +1,10 @@
 <?php
 
+use App\Enums\GlobalUsage\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 return new class extends Migration {
     /**
@@ -11,7 +13,12 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
+            $table->string('acc_name')->unique();
+            $table->string('acc_code')->unique();
+            $table->string('acc_no');
+            $table->enum('status', Status::fetch())->default(Status::PENDING);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('deposits', function (Blueprint $table) {
