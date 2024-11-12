@@ -33,7 +33,13 @@ return new class extends Migration {
 
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('member_id')->nullable();
+            $table->foreignId('ticket_id')->nullable();
+            $table->text('content')->nullable();
+            $table->boolean('read')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
