@@ -42,7 +42,17 @@ return new class extends Migration {
 
         Schema::create('records', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('member_id')->unsigned();
+            $table->foreignId('game_id')->unsigned();
+            $table->unsignedInteger('matches')->nullable();
+            $table->unsignedInteger('rounds')->nullable();
+            $table->unsignedInteger('bets')->nullable();
+            $table->unsignedInteger('wins')->nullable();
+            $table->unsignedInteger('losses')->nullable();
+            $table->decimal('total_bet', 10, 2)->default(0);
+            $table->decimal('total_payout', 10, 2)->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
