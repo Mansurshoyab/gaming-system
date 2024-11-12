@@ -22,7 +22,11 @@ return new class extends Migration {
 
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
+            $table->string('guard')->default('admin');
+            $table->foreignId('role_id')->nullable();
+            $table->foreignId('navigation_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
