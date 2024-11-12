@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->foreignId('member_id')->nullable();
             $table->foreignId('account_id')->nullable();
             $table->string('trx_id')->unique();
+            $table->decimal('amount', 10, 2);
             $table->string('note', 250)->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -38,6 +39,7 @@ return new class extends Migration {
             $table->foreignId('member_id')->nullable();
             $table->foreignId('account_id')->nullable();
             $table->string('trx_id')->unique();
+            $table->decimal('amount', 10, 2);
             $table->string('note', 250)->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -45,7 +47,16 @@ return new class extends Migration {
 
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('member_id')->nullable();
+            $table->foreignId('account_id')->nullable();
+            $table->string('trx_id')->unique();
+            $table->decimal('debit', 10, 2)->nullable();
+            $table->decimal('credit', 10, 2)->nullable();
+            $table->decimal('amount', 10, 2);
+            $table->string('note', 250)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
