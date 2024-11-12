@@ -23,7 +23,13 @@ return new class extends Migration {
 
         Schema::create('features', function (Blueprint $table) {
             $table->id();
+            $table->string('icon')->nullable();
+            $table->string('label', 25)->unique();
+            $table->string('description', 250)->nullable();
+            $table->string('key', 25)->unique();
+            $table->enum('status', Status::fetch())->default(Status::PENDING);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
