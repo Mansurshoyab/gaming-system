@@ -34,7 +34,12 @@ return new class extends Migration {
 
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('member_id')->unsigned();
+            $table->unsignedInteger('level')->default(1);
+            $table->unsignedInteger('needed')->default(100);
+            $table->unsignedInteger('current')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
