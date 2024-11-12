@@ -15,6 +15,21 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
         });
+
+        Schema::create('rounds', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
+
+        Schema::create('bets', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
+
+        Schema::create('records', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,5 +38,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('matches');
+        Schema::dropIfExists('rounds');
+        Schema::dropIfExists('bets');
+        Schema::dropIfExists('records');
     }
 };
