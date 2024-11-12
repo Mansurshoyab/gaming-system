@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\GameManagement\Outcome;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -36,6 +37,7 @@ return new class extends Migration {
             $table->foreignId('round_id')->unsigned();
             $table->decimal('amount', 10, 2)->default(0);
             $table->decimal('payout', 10, 2)->default(0);
+            $table->enum('status', Outcome::fetch())->default(Outcome::HELD);
             $table->timestamps();
             $table->softDeletes();
         });
