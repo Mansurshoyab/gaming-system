@@ -22,7 +22,14 @@ return new class extends Migration {
 
         Schema::create('games', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('genre_id')->unsigned();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('slug')->unique();
+            $table->enum('status', Status::fetch())->default(Status::PENDING);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('experiences', function (Blueprint $table) {
