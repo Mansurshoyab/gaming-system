@@ -15,6 +15,16 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
         });
+
+        Schema::create('tickets', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
+
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,5 +33,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('notifications');
+        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('messages');
     }
 };
