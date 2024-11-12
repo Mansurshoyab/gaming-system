@@ -31,6 +31,19 @@ return new class extends Migration {
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Schema::create('navigations', function (Blueprint $table) {
+            $table->id();
+            $table->string('icon')->nullable();
+            $table->string('guard')->default('admin');
+            $table->string('label')->nullable();
+            $table->foreignId('parent_id')->nullable();
+            $table->string('route')->nullable();
+            $table->string('instance')->nullable();
+            $table->boolean('submenu')->default(false);
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -39,5 +52,6 @@ return new class extends Migration {
     public function down(): void {
         Schema::dropIfExists('settings');
         Schema::dropIfExists('features');
+        Schema::dropIfExists('navigations');
     }
 };
