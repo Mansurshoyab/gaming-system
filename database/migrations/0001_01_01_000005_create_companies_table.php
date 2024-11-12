@@ -11,7 +11,20 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 50)->nullable();
+            $table->string('tagline', 100)->nullable();
+            $table->string('description', 250)->nullable();
+            $table->string('email', 100)->nullable();
+            $table->string('phone', 19)->nullable();
+            $table->string('hotline', 8)->nullable();
+            $table->string('logo')->nullable();
+            $table->string('favicon')->nullable();
+            $table->string('screenshot')->nullable();
+            $table->string('domain', 100)->nullable();
+            $table->string('timezone', 64)->nullable();
+            $table->json('social_media')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('branches', function (Blueprint $table) {
