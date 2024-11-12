@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\GlobalUsage\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +21,12 @@ return new class extends Migration {
 
         Schema::create('payouts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('member_id')->nullable();
+            $table->foreignId('account_id')->nullable();
+            $table->string('account_no')->nullable();
+            $table->enum('status', Status::fetch())->default(Status::PENDING);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
