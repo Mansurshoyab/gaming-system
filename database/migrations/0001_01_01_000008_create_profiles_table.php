@@ -22,7 +22,14 @@ return new class extends Migration {
 
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('member_id')->nullable();
+            $table->foreignId('avatar_id')->nullable();
+            $table->string('biography', 250)->nullable();
+            $table->string('motto', 50)->nullable();
+            $table->date('dob')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('activities', function (Blueprint $table) {
