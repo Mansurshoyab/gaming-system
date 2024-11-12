@@ -4,13 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('personal_access_tokens', function (Blueprint $table) {
             $table->id();
             $table->morphs('tokenable');
@@ -24,7 +22,21 @@ return new class extends Migration
 
         Schema::create('systems', function (Blueprint $table) {
             $table->id();
+            $table->json('informations')->nullable();
+            $table->json('variables')->nullable();
+            $table->json('badges')->nullable();
+            $table->text('highlights')->nullable();
+            $table->text('introduction')->nullable();
+            $table->json('about')->nullable();
+            $table->json('services')->nullable();
+            $table->json('technology')->nullable();
+            $table->json('features')->nullable();
+            $table->text('backend')->nullable();
+            $table->text('frontend')->nullable();
+            $table->json('prerequisites')->nullable();
+            $table->text('license')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('modules', function (Blueprint $table) {
@@ -36,8 +48,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('personal_access_tokens');
         Schema::dropIfExists('systems');
         Schema::dropIfExists('modules');
