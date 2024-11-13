@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Miscellaneous\Indicator;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +17,7 @@ return new class extends Migration {
             $table->string('icon', 25)->nullable();
             $table->string('title', 50)->nullable();
             $table->string('description', 250)->nullable();
+            $table->enum('type', Indicator::fetch())->default(Indicator::OTHERS);
             $table->boolean('read')->default(false);
             $table->timestamps();
             $table->softDeletes();
