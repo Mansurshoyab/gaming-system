@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Layouts\Authorize as AuthorizeLayout;
 use App\View\Layouts\Backend as BackendLayout;
 use App\View\Partials\Backend\Sidebar as BackendSidebar;
 use App\View\Partials\Backend\Navbar as BackendNavbar;
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Layouts
         Blade::component('backend-layout', BackendLayout::class);
+        Blade::component('authorize-layout', AuthorizeLayout::class);
 
         // Backend Partials
         Blade::component('backend-sidebar', BackendSidebar::class);
