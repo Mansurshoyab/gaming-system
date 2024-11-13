@@ -2,6 +2,7 @@
 
 use App\Enums\GlobalUsage\Status;
 use App\Enums\ProfileManagement\Gender;
+use App\Enums\ProfileManagement\Marital;
 use App\Enums\ProfileManagement\Religion;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -33,6 +34,7 @@ return new class extends Migration {
             $table->date('dob')->nullable();
             $table->enum('gender', Gender::fetch())->nullable();
             $table->enum('religion', Religion::fetch())->nullable();
+            $table->enum('marital', Marital::fetch())->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
