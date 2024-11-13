@@ -19,7 +19,7 @@ class RoleSeeder extends Seeder
         Role::truncate();
         Permission::truncate();
 
-        // Dummy roles data
+        // Default roles data
         $roles = [
             [
                 'title' => 'Super Admin',
