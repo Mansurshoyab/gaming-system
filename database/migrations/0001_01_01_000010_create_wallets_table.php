@@ -12,7 +12,6 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
             $table->foreignId('member_id')->nullable();
             $table->decimal('amount', 10, 2)->default(0);
             $table->timestamps();
@@ -21,7 +20,6 @@ return new class extends Migration {
 
         Schema::create('payouts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
             $table->foreignId('member_id')->nullable();
             $table->foreignId('account_id')->nullable();
             $table->string('account_no')->nullable();

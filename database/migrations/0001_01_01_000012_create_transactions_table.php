@@ -25,7 +25,6 @@ return new class extends Migration {
 
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
             $table->foreignId('member_id')->nullable();
             $table->foreignId('account_id')->nullable();
             $table->string('trx_id')->unique();
@@ -38,7 +37,6 @@ return new class extends Migration {
 
         Schema::create('withdraws', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
             $table->foreignId('member_id')->nullable();
             $table->foreignId('account_id')->nullable();
             $table->string('trx_id')->unique();
