@@ -8,12 +8,14 @@ use Illuminate\View\Component;
 
 class Breadcrumb extends Component
 {
+    public string $module;
+    public array $breadcrumbs;
     /**
      * Create a new component instance.
      */
-    public function __construct()
-    {
-        //
+    public function __construct(string $module = "Sample Page", array $breadcrumbs = []) {
+        $this->module = $module;
+        $this->breadcrumbs = $breadcrumbs;
     }
 
     /**
