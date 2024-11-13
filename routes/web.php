@@ -14,6 +14,9 @@ Route::prefix('layouts')->name('layouts.')->group(function () {
     Route::get('/backend', function () {
         return response()->view('backend.sample', get_defined_vars());
     })->name('backend');
+    Route::get('/authorize', function () {
+        return response()->view('authorize.sample', get_defined_vars());
+    })->name('authorize');
 });
 
 Route::get('/dashboard', function () {
