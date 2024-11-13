@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\GlobalUsage\Status;
+use App\Enums\ProfileManagement\Gender;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,7 @@ return new class extends Migration {
             $table->string('image')->unique();
             $table->string('title')->unique();
             $table->string('note')->nullable();
+            $table->enum('gender', [Gender::MALE, Gender::FEMALE])->nullable();
             $table->enum('status', Status::fetch())->default(Status::PENDING);
             $table->timestamps();
             $table->softDeletes();
@@ -28,6 +30,7 @@ return new class extends Migration {
             $table->string('biography', 250)->nullable();
             $table->string('motto', 50)->nullable();
             $table->date('dob')->nullable();
+            $table->enum('gender', Gender::fetch())->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
