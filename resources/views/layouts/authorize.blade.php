@@ -8,16 +8,16 @@
     <title>{{ $page . ' | ' . config('app.name') . '-' . config('app.tagline') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        .frosted-glass {
-          background-color: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .link:not(:last-child):after {
-          content: '|';
-          padding-left: 5px;
-        }
-      </style>
+      .frosted-glass {
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .link:not(:last-child):after {
+        content: '|';
+        padding-left: 5px;
+      }
+    </style>
     @stack('styles')
   </head>
   <body class="min-h-screen bg-gray-950 text-white flex items-center justify-center" >

@@ -1,0 +1,46 @@
+<x-authorize-layout page="{{ __('Admin Login') }}" >
+
+  @push('styles')
+  @endpush
+
+  @push('title')
+    <div class="text-center mb-8" >
+      <h1 class="text-3xl font-bold text-gold" >{{ __('Casino King') }}</h1>
+      <p class="text-sm text-gray-400" >{{ __('Play. Win. Earn.') }}</p>
+    </div>
+  @endpush
+
+  <form action="{{ route('login') }}" class="space-y-6" method="POST" >
+    @csrf
+    {{-- Username / Email Field --}}
+    <div>
+      <label for="identifier" class="block text-sm font-medium" >{{ __('Username / Email') }}</label>
+      <input type="text" name="identifier" class="w-full mt-1 px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" id="identifier" placeholder="Enter your email" value="{{ __('king@casino.com') }}" required />
+    </div>
+    {{-- Password Field --}}
+    <div>
+      <label for="password" class="block text-sm font-medium" >{{ __('Password') }}</label>
+      <input type="password" name="password" class="w-full mt-1 px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" id="password" placeholder="Enter your password" value="{{ __('12345678') }}" required />
+    </div>
+    {{-- Remember Me and Forgot Password --}}
+    <div class="flex items-center justify-between text-sm text-gray-400" >
+      <label class="flex items-center space-x-2" >
+        <input type="checkbox" class="form-checkbox text-yellow-500 bg-gray-800 rounded" />
+        <span>{{ __('Remember Me') }}</span>
+      </label>
+      @if (Route::has('password.request'))
+        <a href="{{ route('password.request') }}" class="hover:underline text-yellow-400" >{{ __('Forgot Password?') }}</a>
+      @endif
+    </div>
+    {{-- Login Button --}}
+    <div>
+      <button type="submit" class="w-full py-2 px-4 bg-yellow-500 rounded-lg text-black font-semibold hover:bg-yellow-400 transition duration-200" >
+        <span>{{ __('Login') }}</span>
+      </button>
+    </div>
+  </form>
+
+  @push('scripts')
+  @endpush
+
+</x-authorize-layout>
