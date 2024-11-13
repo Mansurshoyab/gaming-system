@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\FinanceManagement\Payment;
+use App\Enums\FinanceManagement\Purpose;
 use App\Enums\GlobalUsage\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -54,6 +55,7 @@ return new class extends Migration {
             $table->foreignId('member_id')->nullable();
             $table->foreignId('account_id')->nullable();
             $table->string('trx_id')->unique();
+            $table->enum('type', Purpose::fetch())->default(Purpose::OTHERS);
             $table->decimal('debit', 10, 2)->nullable();
             $table->decimal('credit', 10, 2)->nullable();
             $table->decimal('amount', 10, 2);
