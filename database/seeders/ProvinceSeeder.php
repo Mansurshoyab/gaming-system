@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\GlobalUsage\Status;
+use App\Models\SystemConfiguration\Province;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class ProvinceSeeder extends Seeder
 {
@@ -12,6 +14,39 @@ class ProvinceSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Province::truncate();
+
+        $csvPath = Storage::disk('private')->path('locations/states.csv');
+
+        if (!Storage::disk('private')->exists('locations/states.csv')) {
+            $this->command->error("CSV file not found at path: $csvPath");
+            return;
+        }
+
+        $batchSize = 500;
+        $provincesData = [];
+
+        if (($file = fopen($csvPath, 'r')) !== false) {
+            fgetcsv($file);
+
+            while (($data = fgetcsv($file)) !== false) {
+                $provincesData[] = [
+                    'country_id' => $data[2],
+                    'name'       => $data[1],
+                    'status'     => Status::ENABLE,
+                ];
+
+                if (count($provincesData) === $batchSize) {
+                    Province::insert($provincesData);
+                    $provincesData = [];
+                }
+            }
+
+            if (count($provincesData) > 0) {
+                Province::insert($provincesData);
+            }
+
+            fclose($file);
+        }
     }
 }
