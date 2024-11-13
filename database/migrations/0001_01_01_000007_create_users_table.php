@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\UserManagement\Approval;
+use App\Enums\UserManagement\Source;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -25,6 +26,7 @@ return new class extends Migration {
             $table->foreignId('role_id')->default(10);
             $table->enum('status', Approval::fetch())->default(Approval::PENDING);
             $table->boolean('verified')->default(false);
+            $table->enum('source', Source::fetch())->default(Source::REGISTER);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
@@ -44,6 +46,7 @@ return new class extends Migration {
             $table->string('password');
             $table->enum('status', Approval::fetch())->default(Approval::PENDING);
             $table->boolean('verified')->default(false);
+            $table->enum('source', Source::fetch())->default(Source::REGISTER);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
