@@ -4,7 +4,7 @@
   @endpush
 
   @push('breadcrumb')
-    <x-backend-breadcrumb module="{{ __('User Management') }}" :breadcrumbs="[['title' => 'Role', 'route' => 'roles.index'], ['title' => 'Add']]" />
+    <x-backend-breadcrumb module="{{ __('User Management') }}" :breadcrumbs="[['title' => 'Roles', 'route' => 'roles.index'], ['title' => 'Add']]" />
   @endpush
 
   <section class="row" >
