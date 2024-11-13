@@ -50,7 +50,7 @@
         </div>
         <div class="card-body" >
           <div class="table-responsive" >
-            <table id="homeTable" class="display table table-striped table-hover table-head-bg-black table-bordered-bd-black datatables" >
+            <table id="homeTable" class="display table table-striped table-hover table-head-bg-black datatables" >
               <thead>
                 <tr>
                   <th>{{ __('SL') }}</th>
@@ -63,16 +63,18 @@
               </thead>
               <tbody>
                 @foreach ($roles as $key => $role)
-                  <td>{{ str_pad($loop->iteration, strlen(count($roles)), '0', STR_PAD_LEFT) . '.' }}</td>
-                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                    <strong>{{ $role->title }}</strong>
-                  </td>
-                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $role->users->count() }}</td>
-                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                    <span>{{ ucfirst($role->status) }}</span>
-                  </td>
-                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $role->created_at->diffForHumans() }}</td>
-                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" ></td>
+                  <tr>
+                    <td>{{ str_pad($loop->iteration, strlen(count($roles)), '0', STR_PAD_LEFT) . '.' }}</td>
+                    <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                      <strong>{{ $role->title }}</strong>
+                    </td>
+                    <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $role->users->count() }}</td>
+                    <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                      <span>{{ ucfirst($role->status) }}</span>
+                    </td>
+                    <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $role->created_at->diffForHumans() }}</td>
+                    <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" ></td>
+                  </tr>
                 @endforeach
               </tbody>
             </table>
@@ -111,9 +113,9 @@
 
   @push('scripts')
     <script>
-      $(document).ready(function () {
-        $(".datatables").DataTable({});
-      };
+      $(document).ready( function () {
+        $("#homeTable").DataTable({});
+      });
     </script>
   @endpush
 
