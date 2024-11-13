@@ -15,11 +15,9 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        // Roles table truncate
         Role::truncate();
         Permission::truncate();
 
-        // Default roles data
         $roles = [
             [
                 'title' => 'Super Admin',
@@ -63,7 +61,6 @@ class RoleSeeder extends Seeder
             ]
         ];
 
-        // Role data inserted
         foreach ($roles as $key => $role) {
             $role['slug'] = Str::slug($role['title']);
             $role['status'] = Status::ENABLE;
