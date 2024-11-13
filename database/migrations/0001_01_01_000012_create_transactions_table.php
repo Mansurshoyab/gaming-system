@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\FinanceManagement\Payment;
 use App\Enums\GlobalUsage\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -28,6 +29,7 @@ return new class extends Migration {
             $table->foreignId('account_id')->nullable();
             $table->string('trx_id')->unique();
             $table->decimal('amount', 10, 2);
+            $table->enum('status', Payment::fetch())->default(Payment::REQUESTED);
             $table->string('note', 250)->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -40,6 +42,7 @@ return new class extends Migration {
             $table->foreignId('account_id')->nullable();
             $table->string('trx_id')->unique();
             $table->decimal('amount', 10, 2);
+            $table->enum('status', Payment::fetch())->default(Payment::REQUESTED);
             $table->string('note', 250)->nullable();
             $table->timestamps();
             $table->softDeletes();
