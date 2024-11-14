@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->string('label', 25)->unique();
             $table->string('description', 250)->nullable();
             $table->string('key', 25)->unique();
-            $table->enum('status', Status::fetch())->default(Status::PENDING);
+            $table->enum('status', Status::fetch())->default(Status::PENDING);  
             $table->timestamps();
             $table->softDeletes();
         });
@@ -35,7 +35,7 @@ return new class extends Migration {
         Schema::create('navigations', function (Blueprint $table) {
             $table->id();
             $table->string('icon')->nullable();
-            $table->string('guard')->default('admin');
+            $table->string('guard')->default('admin'); 
             $table->string('label')->nullable();
             $table->foreignId('parent_id')->nullable();
             $table->string('route')->nullable();

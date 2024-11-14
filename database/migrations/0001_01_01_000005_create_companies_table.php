@@ -12,7 +12,7 @@ return new class extends Migration {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->nullable();
-            $table->string('tagline', 100)->nullable();
+            $table->string('tagline', 100)->nullable(); 
             $table->string('description', 250)->nullable();
             $table->date('estd_date')->nullable();
             $table->string('email', 100)->nullable();
@@ -28,7 +28,7 @@ return new class extends Migration {
             $table->softDeletes();
         });
 
-        Schema::create('branches', function (Blueprint $table) {
+        Schema::create('branches', function (Blueprint $table) { 
             $table->id();
             $table->foreignId('company_id')->default(1);
             $table->string('name')->nullable();

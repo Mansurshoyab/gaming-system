@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->json('variables')->nullable();
             $table->json('badges')->nullable();
             $table->json('highlights')->nullable();
-            $table->text('introduction')->nullable();
+            $table->text('introduction')->nullable();  
             $table->json('about')->nullable();
             $table->json('services')->nullable();
             $table->json('technology')->nullable();

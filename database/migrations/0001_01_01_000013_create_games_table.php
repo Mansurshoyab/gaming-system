@@ -39,7 +39,7 @@ return new class extends Migration {
             $table->unsignedInteger('needed')->default(100);
             $table->unsignedInteger('current')->default(0);
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes(); 
         });
     }
 

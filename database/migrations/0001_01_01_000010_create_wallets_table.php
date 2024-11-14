@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->foreignId('member_id')->nullable();
             $table->decimal('amount', 10, 2)->default(0);
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes(); 
         });
 
         Schema::create('payouts', function (Blueprint $table) {

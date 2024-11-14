@@ -27,7 +27,7 @@ class Role extends Model
     {
         return [
             'status' => 'string',
-            'deleted_at' => 'datetime',
+            'deleted_at' => 'datetime', 
         ];
     }
 

@@ -35,7 +35,7 @@ return new class extends Migration {
             $table->foreignId('member_id')->unsigned();
             $table->foreignId('match_id')->unsigned();
             $table->foreignId('round_id')->unsigned();
-            $table->decimal('amount', 10, 2)->default(0);
+            $table->decimal('amount', 10, 2)->default(0); 
             $table->decimal('payout', 10, 2)->default(0);
             $table->enum('status', Outcome::fetch())->default(Outcome::HELD);
             $table->timestamps();
