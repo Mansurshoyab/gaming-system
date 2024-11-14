@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('name')->unique();
             $table->string('iso3')->unique();
             $table->string('iso2')->unique();
-            $table->string('phone_code')->unique();
+            $table->string('phone_code');
             $table->enum('status', Status::fetch())->default(Status::PENDING);
             $table->timestamps();
             $table->softDeletes();
