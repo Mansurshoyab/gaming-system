@@ -55,14 +55,4 @@ return [
     | Path to a screenshot representing the company website or platform.
     */
     'screenshot' => env('COMPANY_SCREENSHOT', 'screenshot.jpg'),
-
-    /*
-    | Official website domain of the company.
-    */
-    'domain' => env('COMPANY_DOMAIN', 'casinoking.com'),
-
-    /*
-    | Default timezone used across the application for localization.
-    */
-    'timezone' => env('APP_TIMEZONE', 'Asia/Dhaka'),
 ];

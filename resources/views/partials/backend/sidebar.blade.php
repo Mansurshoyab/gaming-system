@@ -332,6 +332,29 @@
           <h4 class="text-section py-0 my-1" >{{ __('System & Configuration') }}</h4>
         </li>
         <li class="nav-item" >
+          <a href="#setup" class="nav-link py-1" data-bs-toggle="collapse" >
+            <i class="fas fa-cogs" ></i>
+            <p>{{ __('System Setup') }}</p>
+            <span class="caret" ></span>
+          </a>
+          <div class="collapse" id="setup" >
+            <ul class="nav nav-collapse py-0" >
+              <li class="nav-item" >
+                <a href="{{ route('system.settings') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                  <i class="far fa-circle" ></i>
+                  <span class="ms-2" >{{ __('General Settings') }}</span>
+                </a>
+              </li>
+              <li class="nav-item" >
+                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                  <i class="far fa-circle" ></i>
+                  <span class="ms-2" >{{ __('SMTP Setup') }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item" >
           <a href="#location" class="nav-link py-1" data-bs-toggle="collapse" >
             <i class="fas fa-map-marker-alt" ></i>
             <p>{{ __('Locations') }}</p>
@@ -386,14 +409,14 @@
                   <span class="ms-2" >{{ __('Documentation') }}</span>
                 </a>
               </li>
+              <li class="nav-item" >
+                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                  <i class="far fa-circle" ></i>
+                  <span class="ms-2" >{{ __('System Modules') }}</span>
+                </a>
+              </li>
             </ul>
           </div>
-        </li>
-        <li class="nav-item" >
-          <a href="javascript:void(0);" class="nav-link py-1" >
-            <i class="fas fa-cogs" ></i>
-            <p>{{ __('System Modules') }}</p>
-          </a>
         </li>
       </ul>
     </div>

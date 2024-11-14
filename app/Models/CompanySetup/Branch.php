@@ -4,7 +4,7 @@ namespace App\Models\CompanySetup;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Branch extends Model 
+class Branch extends Model
 {
     protected $fillable = [
         'company_id',
@@ -13,11 +13,11 @@ class Branch extends Model
         'email',
         'phone',
         'hotline',
-        'timezone',
         'opening_time',
         'closing_time',
         'address',
-        'social_media'
+        'social_media',
+        'status'
     ];
 
     protected function casts(): array
@@ -25,6 +25,7 @@ class Branch extends Model
         return [
             'address' => 'json',
             'social_media' => 'json',
+            'status' => 'string',
             'deleted_at' => 'datetime',
         ];
     }

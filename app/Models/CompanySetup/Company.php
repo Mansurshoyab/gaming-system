@@ -17,8 +17,6 @@ class Company extends Model
         'logo',
         'favicon',
         'screenshot',
-        'domain',
-        'timezone',
         'social_media',
     ];
 

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\SystemConfiguration;
 
 use App\Http\Controllers\Controller;
 use App\Models\SystemConfiguration\System;
+use DateTimeZone;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Symfony\Component\Intl\Languages;
 
 class SystemController extends Controller
 {
@@ -62,5 +65,15 @@ class SystemController extends Controller
     public function destroy(System $system)
     {
         //
+    }
+
+    public function general(): Response {
+        try {
+            $timezones = DateTimeZone::listIdentifiers();
+            $languages = Languages::getNames();
+            return response()->view('backend.system-configuration.setup.index', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 }
