@@ -27,6 +27,11 @@ return [
     'description' => env('COMPANY_DESCRIPTION', 'Casino King is a top online casino platform offering diverse games, secure betting, and live dealer experiences, designed to provide players with thrilling entertainment and winning opportunities.'),
 
     /*
+    | Company established date used for branding and information.
+    */
+    'estd_date' => env('COMPANY_ESTABLISHED_DATE', '2020-01-01'),
+
+    /*
     | Official email address for general inquiries and support.
     */
     'email' => env('COMPANY_EMAIL', 'info@casinoking.com'),
