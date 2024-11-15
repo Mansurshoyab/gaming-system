@@ -40,6 +40,8 @@
         @endforeach
       </div>
     </div>
+    <script src="{{ asset('plugins/js/jquery-3.7.1.min.js') }}" ></script>
+    <script src="{{ asset('plugins/js/axios.min.js') }}" ></script>
     <script>
       var year = document.getElementById("year");
       year.textContent = new Date().getFullYear();
