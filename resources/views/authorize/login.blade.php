@@ -30,8 +30,8 @@
     </div>
     {{-- Remember Me and Forgot Password --}}
     <div class="flex items-center justify-between text-sm text-gray-400" >
-      <label class="flex items-center space-x-2" >
-        <input type="checkbox" name="remember" class="form-checkbox text-yellow-500 bg-gray-800 rounded" />
+      <label class="flex items-center space-x-2" for="remember_me" >
+        <input type="checkbox" name="remember" class="form-checkbox text-yellow-500 bg-gray-800 rounded" id="remember_me" />
         <span>{{ __('Remember Me') }}</span>
       </label>
       @if (Route::has('password.request'))
