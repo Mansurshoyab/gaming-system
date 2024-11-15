@@ -18,20 +18,14 @@
                 <strong>{{ auth()->user()->firstname . ' ' . auth()->user()->lastname . '!' }}</strong>
                 <span>🚀</span>
               </h5>
-              {{-- <p class="mb-2" style="font-size: 1.25rem !important;" >
-                <span>{{ __('Welcome to Casino King.') }}</span>
-                <span>{{ __('Here, you have the power to') }}</span>
-                <span class="fw-bold" >{{ __('oversee, control,') }}</span>
-                <span>{{ __('and enhance performance to new heights! Your passion fuels our achievements, and we\'re thrilled to have you leading this adventure.') }}</span>
-              </p> --}}
               <p class="mb-2" style="font-size: 1rem !important;">
                 <span>{{ __('Welcome to Casino King!') }}</span>
                 <span>{{ __('Take charge to') }}</span>
                 <span class="fw-bold">{{ __('oversee, control, and elevate performance!') }}</span>
                 <span>{{ __('Your passion drives our success as we reach new heights together.') }}</span>
                 <span>{{ __('We\'re thrilled to have you lead this exciting journey at Casino King, where each decision makes a difference.') }}</span>
-            </p>
-
+              </p>
+              <x-form-button :icon="true" :name="__('plus')" :label="__('Submit')" />
             </div>
           </div>
           <div class="col-sm-4 text-center text-sm-left">
