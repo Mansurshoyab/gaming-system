@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\UserManagement\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,7 @@ class LoginRequest extends FormRequest
         return [
             'identifier' => ['required', 'string'],
             'password' => ['required', 'string'],
+            'remember' => ['nullable', 'boolean'],
         ];
     }
 
@@ -37,25 +39,60 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    // public function authenticate(): void
+    // {
+    //     $this->ensureIsNotRateLimited();
+
+    //     $identifier = $this->input('identifier');
+
+    //     if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
+    //         $credentials = ['email' => $identifier, 'password' => $this->input('password')];
+    //     } elseif (preg_match('/^\+?[1-9]\d{1,14}$/', $identifier)) {
+    //         $credentials = ['phone' => $identifier, 'password' => $this->input('password')];
+    //     } else {
+    //         $credentials = ['username' => $identifier, 'password' => $this->input('password')];
+    //     }
+
+    //     if (! Auth::attempt($credentials, $this->boolean('remember'))) {
+    //         RateLimiter::hit($this->throttleKey());
+
+    //         throw ValidationException::withMessages([
+    //             'identifier' => trans('auth.failed'),
+    //         ]);
+    //     }
+
+    //     RateLimiter::clear($this->throttleKey());
+    // }
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
 
         $identifier = $this->input('identifier');
+        $password = $this->input('password');
+        $remember = $this->boolean('remember');
 
         if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
-            $credentials = ['email' => $identifier, 'password' => $this->input('password')];
+            $credentials = ['email' => $identifier];
         } elseif (preg_match('/^\+?[1-9]\d{1,14}$/', $identifier)) {
-            $credentials = ['phone' => $identifier, 'password' => $this->input('password')];
+            $credentials = ['phone' => $identifier];
         } else {
-            $credentials = ['username' => $identifier, 'password' => $this->input('password')];
+            $credentials = ['username' => $identifier];
         }
 
-        if (! Auth::attempt($credentials, $this->boolean('remember'))) {
+        $user = User::where($credentials)->first();
+
+        if (!$user) {
+            RateLimiter::hit($this->throttleKey());
+            throw ValidationException::withMessages([
+                'identifier' => 'User not found',
+            ]);
+        }
+
+        if (!Auth::attempt(array_merge($credentials, ['password' => $password]), $remember)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'identifier' => trans('auth.failed'),
+                'password' => 'Password incorrect',
             ]);
         }
 

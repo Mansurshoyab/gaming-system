@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
 
         foreach ($users as $key => $user) {
             $user['username'] = strtolower($user['firstname'] . '.' . $user['lastname']);
-            $user['email'] = $key === 0 ? 'king@casion.com' : (strtolower($user['firstname']) . '@example.com');
+            $user['email'] = $key === 0 ? 'king@casino.com' : (strtolower($user['firstname']) . '@example.com');
             $user['email_verified_at'] = now();
             $user['phone'] = '+8801234567' . (890 + $key);
             $user['phone_verified_at'] = now();

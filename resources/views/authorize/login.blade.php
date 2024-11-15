@@ -15,12 +15,18 @@
     {{-- Username / Email Field --}}
     <div>
       <label for="identifier" class="block text-sm font-medium" >{{ __('Username / Email') }}</label>
-      <input type="text" name="identifier" class="w-full mt-1 px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" id="identifier" placeholder="Enter your email" value="{{ __('king@casino.com') }}" required />
+      <input type="text" name="identifier" class="w-full mt-1 px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" id="identifier" placeholder="Enter your email" value="{{ old('identifier', 'king@casino.com') }}" required />
+      @if ($errors->has('identifier'))
+        <p class="text-red-500 text-sm mt-1">{{ $errors->first('identifier') }}</p>
+      @endif
     </div>
     {{-- Password Field --}}
     <div>
       <label for="password" class="block text-sm font-medium" >{{ __('Password') }}</label>
       <input type="password" name="password" class="w-full mt-1 px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500" id="password" placeholder="Enter your password" value="{{ __('12345678') }}" required />
+      @if ($errors->has('password'))
+        <p class="text-red-500 text-sm mt-1">{{ $errors->first('password') }}</p>
+      @endif
     </div>
     {{-- Remember Me and Forgot Password --}}
     <div class="flex items-center justify-between text-sm text-gray-400" >
