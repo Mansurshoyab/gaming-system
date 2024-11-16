@@ -9,6 +9,7 @@ use App\View\Partials\Backend\Navbar as BackendNavbar;
 use App\View\Partials\Backend\Breadcrumb as BackendBreadcrumb;
 use App\View\Partials\Backend\Footer as BackendFooter;
 use App\View\Components\Elements\Button as FormButton;
+use App\View\Components\Elements\Textarea as FormTextarea;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -38,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('backend-footer', BackendFooter::class);
 
         // Form Elements
+        Blade::component('form-textarea', FormTextarea::class);
         Blade::component('form-button', FormButton::class);
     }
 }

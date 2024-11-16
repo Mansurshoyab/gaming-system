@@ -1,13 +1,5 @@
 <x-backend-layout page="{{ __('Add New Role') }}" >
 
-  @push('styles')
-    <style>
-      .resize-none {
-        resize: none;
-      }
-    </style>
-  @endpush
-
   @push('breadcrumb')
     <x-backend-breadcrumb module="{{ __('User Management') }}" :breadcrumbs="[['title' => 'Roles', 'route' => 'roles.index'], ['title' => 'Add']]" />
   @endpush
@@ -32,10 +24,7 @@
               </div>
             </div>
             <div class="col-12" >
-              <label for="description" class="form-label mb-0">
-                <strong>{{ __('Description') }}</strong>
-              </label>
-              <textarea class="form-control py-1 resize-none" id="description" rows="4"></textarea>
+              <x-form-textarea :label="__('Description')" :rows="__('4')" />
             </div>
             <div class="col-6" >
               <label for="slug" class="form-label mb-0" >

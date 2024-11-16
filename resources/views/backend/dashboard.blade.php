@@ -25,7 +25,6 @@
                 <span>{{ __('Your passion drives our success as we reach new heights together.') }}</span>
                 <span>{{ __('We\'re thrilled to have you lead this exciting journey at Casino King, where each decision makes a difference.') }}</span>
               </p>
-              <x-form-button :icon="true" :name="__('plus')" :label="__('Submit')" />
             </div>
           </div>
           <div class="col-sm-4 text-center text-sm-left">
