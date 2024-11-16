@@ -17,7 +17,7 @@ class AuthController extends Controller
         try {
             $request->validate([
                 'identifier' => 'required',
-                'password' => 'required',
+                'password' => 'required', 
             ]);
             $identifier = $request->input('identifier');
             $password = $request->input('password');
@@ -46,6 +46,26 @@ class AuthController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function dataCheck(Request $request){
+
+        $email = $request->email;
+
+        $member = Member::where('email' , $email)->first();
+
+        if ($member) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email Already Exist',
+            ]);
+        }else{
+            return response()->json([
+                'success' => true,
+                'message' => 'Email Is not exist',
+            ]);
+        }
+        
     }
 
     public function register(Request $request)
