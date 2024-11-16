@@ -53,13 +53,10 @@
         <div class="card-footer" >
           <div class="row" >
             <div class="col d-grid" >
-              <a href="{{ route('roles.index') }}" class="btn btn-info py-1" role="button" >
-                <i class="fas fa-arrow-left" ></i>
-                <strong class="ms-1" >{{ __('Discard') }}</strong>
-              </a>
+              <x-form-discard :route="route('roles.index')" :icon="__('arrow-left')" />
             </div>
             <div class="col d-grid" >
-              <x-form-button :type="__('submit')" :icon="__('plus')" :label="__('Create')" :theme="__('primary')" :classes="__('py-1')" />
+              <x-form-button :type="__('submit')" :icon="__('plus')" :label="__('Create')" :theme="__('primary')" />
             </div>
           </div>
         </div>
