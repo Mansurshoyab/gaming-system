@@ -1,8 +1,8 @@
-@props(['type' => 'button', 'theme' => 'primary', 'icon' => false, 'name' => 'save', 'label' => 'Button'])
+@props(['type' => 'button', 'theme' => 'primary', 'classes' => 'py-1', 'id' => null, 'disabled' => false, 'icon' => null, 'label' => 'Button'])
 
-<button type="{{ $type }}" class="btn btn-{{ $theme }}" >
-  @if ( $icon !== false )
-    <i class="fas fa-{{ $name }}" ></i>
+<button type="{{ $type }}" class="btn btn-{{ $theme }} {{ $classes }}" @if ( $id !== null ) id="{{ $id }}" @endif @if ( $disabled !== false ) disabled @endif >
+  @if ( $icon !== null )
+    <i class="fas fa-{{ $icon }}" ></i>
   @endif
-  <strong class="ms-1" >{{ $label }}</strong>
+  <strong @if ( $icon !== null ) class="ms-1" @endif >{{ $label }}</strong>
 </button>

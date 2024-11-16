@@ -59,7 +59,7 @@
               </a>
             </div>
             <div class="col d-grid" >
-              <x-form-button :type="__('submit')" :icon="true" :name="__('plus')" :label="__('Create')" :theme="__('primary py-1')" />
+              <x-form-button :type="__('submit')" :icon="__('plus')" :label="__('Create')" :theme="__('primary')" :classes="__('py-1')" />
             </div>
           </div>
         </div>

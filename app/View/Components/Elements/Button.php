@@ -8,17 +8,19 @@ use Illuminate\View\Component;
 
 class Button extends Component
 {
-    public $type, $theme, $icon, $name, $label;
+    public $type, $theme, $classes, $id, $icon, $disable, $label;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($type = 'button', $theme = 'primary', $icon = false, $name = 'save', $label = 'Button')
+    public function __construct($type = 'button', $theme = 'primary', $classes = 'py-1', $id = null, $disable = false, $icon = null, $label = 'Button')
     {
         $this->type = __($type);
         $this->theme = __($theme);
+        $this->classes = __($classes);
+        $this->id = __($id);
+        $this->disable = __($disable);
         $this->icon = __($icon);
-        $this->name = __($name);
         $this->label = __($label);
     }
 
