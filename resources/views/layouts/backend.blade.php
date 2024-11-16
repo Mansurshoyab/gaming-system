@@ -60,6 +60,7 @@
     <script src="{{ asset('backend/js/core/popper.min.js') }}" ></script>
     <script src="{{ asset('backend/js/core/bootstrap.min.js') }}" ></script>
     <script src="{{ asset('plugins/js/axios.min.js') }}" ></script>
+    <script src="{{ asset('plugins/js/select2.full.min.js') }}" ></script>
     <script src="{{ asset('backend/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js') }}" ></script>
     <script src="{{ asset('backend/js/plugin/chart.js/chart.min.js') }}" ></script>
     <script src="{{ asset('backend/js/plugin/jquery.sparkline/jquery.sparkline.min.js') }}" ></script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\UserManagement;
 
+use App\Enums\GlobalUsage\Status;
 use App\Http\Controllers\Controller;
 use App\Models\UserManagement\Role;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ class RoleController extends Controller
     public function create(): Response
     {
         try {
+            $status = Status::fetch();
             return response()->view('backend.user-management.roles.create', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());

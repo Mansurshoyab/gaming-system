@@ -9,6 +9,7 @@ use App\View\Partials\Backend\Navbar as BackendNavbar;
 use App\View\Partials\Backend\Breadcrumb as BackendBreadcrumb;
 use App\View\Partials\Backend\Footer as BackendFooter;
 use App\View\Components\Elements\Textarea as FormTextarea;
+use App\View\Components\Elements\Enum as FormEnum;
 use App\View\Components\Elements\Discard as FormDiscard;
 use App\View\Components\Elements\Button as FormButton;
 use Illuminate\Support\Facades\Blade;
@@ -41,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Form Elements
         Blade::component('form-textarea', FormTextarea::class);
+        Blade::component('form-enum', FormEnum::class);
         Blade::component('form-discard', FormDiscard::class);
         Blade::component('form-button', FormButton::class);
     }

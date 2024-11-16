@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 
 class Textarea extends Component
 {
-    public $label, $name, $rows, $placeholder, $value, $helper, $count, $max;
+    public $label, $name, $rows, $placeholder, $required, $readonly, $disable, $value, $helper, $count, $max;
 
     /**
      * Create a new component instance.
@@ -18,6 +18,9 @@ class Textarea extends Component
         $name,
         $rows = 4,
         $placeholder = null,
+        $required = false,
+        $readonly = false,
+        $disable = false,
         $value = null,
         $helper = null,
         $count = false,
@@ -27,6 +30,17 @@ class Textarea extends Component
         $this->name = $name;
         $this->rows = $rows;
         $this->placeholder = $placeholder !== null ? __($placeholder) : null;
+        $this->required = $required;
+        if ($readonly) {
+            $this->readonly = true;
+            $this->disable = false;
+        } elseif ($disable) {
+            $this->readonly = false;
+            $this->disable = true;
+        } else {
+            $this->readonly = false;
+            $this->disable = false;
+        }
         $this->value = $value;
         $this->helper = $helper !== null ? __($helper) : null;
         $this->count = (bool)$count;

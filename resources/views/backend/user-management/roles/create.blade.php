@@ -38,15 +38,7 @@
               </div>
             </div>
             <div class="col-6" >
-              <label for="status" class="form-label mb-0" >
-                <strong>{{ __('Status') }}</strong>
-              </label>
-              <select class="form-select" aria-label="Default select example" id="status" >
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
+              <x-form-enum :label="__('Status')" :name="__('status')" :options="$status" />
             </div>
           </div>
         </div>
