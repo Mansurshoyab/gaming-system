@@ -3,10 +3,14 @@
 namespace App\Models\UserManagement;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Sanctum\HasApiTokens;
 
 class Member extends Model
 {
-    protected $fillable =[
+    use HasApiTokens, SoftDeletes;
+
+    protected $fillable = [
         'firstname',
         'lastname',
         'username',
@@ -20,10 +24,10 @@ class Member extends Model
         'status',
         'verified',
         'source',
-         
+
     ];
 
-    protected function casts() :array 
+    protected function casts(): array
     {
         return [
             'source' => 'string',

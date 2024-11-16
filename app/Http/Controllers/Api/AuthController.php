@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserManagement\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function login() {
+    public function login()
+    {
         try {
             return response()->json([
                 'message' => __('API Working')
@@ -26,7 +30,16 @@ class AuthController extends Controller
         }
     }
 
-    public function register() {}
+    public function register(Request $request)
+    {
+        $data = [
+            'firstname' => $request->firstname,
+        ];
+        return response()->json([
+            'message' => 'Registration Successfull',
+            'data' => $data,
+        ], 200);
+    }
 
     public function logout() {}
 }
