@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\UserManagement\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -82,5 +83,34 @@ class AuthController extends Controller
         }
     }
 
-    public function logout() {}
+    public function logout(Request $request)
+    {
+        try {
+            $user = Auth::guard('gamer')->user();
+
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'You are not authenticated',
+                ], 401);
+            }
+
+            if ($request->user('gamer')->currentAccessToken()) {
+                $request->user('gamer')->currentAccessToken()->delete();
+            }
+
+            Auth::guard('gamer')->logout();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Logout successful',
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred during logout',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }
