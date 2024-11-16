@@ -1,4 +1,4 @@
-@props(['label' => null, 'name', 'rows' => 3, 'placeholder' => null, 'helper' => null, 'count' => false, 'max' => 250])
+@props(['label' => null, 'name', 'rows' => 3, 'placeholder' => null, 'value' => null, 'helper' => null, 'count' => false, 'max' => 250])
 
 <div class="form-group px-0">
   @if ($label !== null)
@@ -14,17 +14,17 @@
       rows="{{ $rows }}"
       placeholder="{{ $placeholder ?? __('Type your text here ...') }}"
       aria-describedby="{{ snake_to_kebab_case($name) ?? normal_to_kebab_case($label) }}-helper-text"
-    ></textarea>
+    >{{ old($name, $value) }}</textarea>
   </div>
-  @if ( $helper !== null || $count !== false)
+  @if ($helper !== null || $count !== false)
     <div class="d-flex justify-content-between align-items-center" id="{{ snake_to_kebab_case($name) ?? normal_to_kebab_case($label) }}-helper-text">
-      @if ( $helper !== null )
-        <p class="form-text py-0 my-0" >
+      @if ($helper !== null)
+        <p class="form-text py-0 my-0">
           <span>{{ $helper }}</span>
         </p>
       @endif
-      @if ( $count !== false )
-        <p class="form-text py-0 my-0" >
+      @if ($count !== false)
+        <p class="form-text py-0 my-0">
           <span id="{{ snake_to_camel_case($name) ?? normal_to_camel_case($label) }}CharCount">0</span> / <span id="maxChar">{{ $max }}</span>
         </p>
       @endif
@@ -40,7 +40,7 @@
   </style>
 @endpush
 
-@if ( $count !== false )
+@if ($count !== false)
   @push('scripts')
     <script>
       $(document).ready(function() {
@@ -59,4 +59,3 @@
     </script>
   @endpush
 @endif
-
