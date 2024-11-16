@@ -24,7 +24,7 @@
               </div>
             </div>
             <div class="col-12" >
-              <x-form-textarea :label="__('Description')" :name="__('description')" :rows="__('4')" />
+              <x-form-textarea :label="__('Description')" :name="__('description')" :rows="__('4')" :max="__('20')" />
             </div>
             <div class="col-6" >
               <label for="slug" class="form-label mb-0" >

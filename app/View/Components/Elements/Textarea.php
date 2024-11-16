@@ -8,16 +8,19 @@ use Illuminate\View\Component;
 
 class Textarea extends Component
 {
-    public $label, $name, $rows, $placeholder;
+    public $label, $name, $rows, $placeholder, $helper, $count, $max;
     /**
      * Create a new component instance.
      */
-    public function __construct($label = null, $name, $rows = 4, $placeholder = null)
+    public function __construct($label = null, $name, $rows = 4, $placeholder = null, $helper = null, $count = false, $max = 250)
     {
         $this->label = __($label);
         $this->name = __($name);
         $this->rows = __($rows);
         $this->placeholder = __($placeholder);
+        $this->helper = __($helper);
+        $this->count = __($count);
+        $this->max = __($max);
     }
 
     /**
