@@ -15,16 +15,10 @@ class Member extends Model
         'lastname',
         'username',
         'email',
-        'email_verified_at',
         'phone',
-        'phone_verified_at',
         'otp_code',
-        'otp_verified_at',
         'password',
         'status',
-        'verified',
-        'source',
-
     ];
 
     protected function casts(): array

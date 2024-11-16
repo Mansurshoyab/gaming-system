@@ -10,5 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login']);
-    Route::get('/register', [AuthController::class, 'register']);
+    Route::post('/register', [AuthController::class, 'register']);
 });

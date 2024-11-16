@@ -32,13 +32,35 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $data = [
-            'firstname' => $request->firstname,
-        ];
-        return response()->json([
-            'message' => 'Registration Successfull',
-            'data' => $data,
-        ], 200);
+        try {
+            $validated = $request->validate([
+                'firstname' => 'required|string|max:255',
+                'lastname' => 'required|string|max:255',
+                'email' => 'required|string|email|unique:members|max:255',
+                'phone' => 'required|string|unique:members|max:15',
+                'password' => 'required|string|min:8|confirmed',
+            ]);
+
+            $validated['username'] = 'user' . time();
+            $validated['password'] = Hash::make($validated['password']);
+
+            $member = Member::create($validated);
+
+            return response()->json([
+                'message' => 'Registration Successfull',
+                'data' => $member,
+            ], 200);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => __('Validation failed'),
+                'errors' => $e->errors(),
+            ], 403);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => __('An error occurred during login'),
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     public function logout() {}
