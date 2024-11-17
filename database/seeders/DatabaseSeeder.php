@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             ProvinceSeeder::class,
             CitySeeder::class,
+            GenreSeeder::class,
         ]);
     }
 }
