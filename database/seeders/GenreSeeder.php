@@ -26,6 +26,7 @@ class GenreSeeder extends Seeder
             ['title' => 'Gambling', 'description' => 'Games of chance involving bets or stakes, designed for thrill and risk.'],
             ['title' => 'Prediction', 'description' => 'Games focused on guessing or forecasting outcomes, relying on probability and timing.'],
             ['title' => 'Table', 'description' => 'Classic casino-style table games, like blackjack or roulette, often focused on betting and odds.'],
+            ['title' => 'Others', 'description' => 'Games that do not fit into a specific genre but offer unique or experimental gameplay experiences.'],
         ];
 
         foreach ($genres as $key => $genre) {
