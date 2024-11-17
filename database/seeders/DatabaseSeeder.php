@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            MemberSeeder::class,
             AvatarSeeder::class,
             CountrySeeder::class,
             ProvinceSeeder::class,
