@@ -15,10 +15,12 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            AvatarSeeder::class,
             CountrySeeder::class,
             ProvinceSeeder::class,
             CitySeeder::class,
             GenreSeeder::class,
+            GameSeeder::class,
         ]);
     }
 }
