@@ -30,11 +30,14 @@ class RoleRequest extends FormRequest
         ];
 
         if ($this->isMethod('post')) {
+            // Unique rule for store operation
             $rules['slug'][] = 'unique:roles,slug';
         }
 
         if ($this->isMethod('put') || $this->isMethod('patch')) {
-            $rules['slug'][] = 'unique:roles,slug,' . $this->route('role');
+            // Unique rule for update operation, excluding current record
+            $roleId = $this->route('role')->id ?? null;
+            $rules['slug'][] = 'unique:roles,slug,' . $roleId;
         }
 
         return $rules;
@@ -51,7 +54,7 @@ class RoleRequest extends FormRequest
             'slug.required' => 'The slug is required.',
             'slug.unique' => 'The slug must be unique.',
             'status.required' => 'The status is required.',
-            'status.in' => 'The status must be a valid value: ' . implode(', ', Status::fetch()) . '.',
+            'status.in' => 'The status must be one of: ' . implode(', ', Status::fetch()) . '.',
         ];
     }
 }
