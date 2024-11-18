@@ -13,7 +13,12 @@ class MemberController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $members = Member::orderBy('created_at', 'DESC')->get();
+            return response()->view('backend.user-management.members.index', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**

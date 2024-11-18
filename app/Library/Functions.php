@@ -21,6 +21,23 @@ if (!function_exists('version')) {
     }
 }
 
+if (!function_exists('fullname')) {
+    /**
+     * Get system build version.
+     *
+     * @return string|null
+     */
+    function fullname(object $object)
+    {
+        try {
+            $name = $object->firstname . ' ' . $object->lastname;
+            return $name;
+        } catch (Exception $e) {
+            return 'Not Available';
+        }
+    }
+}
+
 if (!function_exists('normal_to_snake_case')) {
     /**
      * Convert a normal case string to snake_case.

@@ -10,7 +10,7 @@
         @csrf
         <div class="card" >
           <div class="card-header py-1" >
-              <h4 class="card-title" >{{ __('Add New Role') }}</h4>
+              <h4 class="card-title" >{{ __('Add New Role') }}</h4> 
           </div>
           <div class="card-body" >
             <div class="row g-3" >

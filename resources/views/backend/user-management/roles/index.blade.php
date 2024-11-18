@@ -27,7 +27,7 @@
         </li>
       </ul>
     </div>
-  </section>
+  </section> 
 
   <section class="tab-content" id="pills-tabContent" >
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0" >
@@ -73,7 +73,11 @@
                       <span>{{ ucfirst($role->status) }}</span>
                     </td>
                     <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $role->created_at->diffForHumans() }}</td>
-                    <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" ></td>
+                    <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                      <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-sm btn-info">
+                        <i class="fas fa-edit"> </i>
+                      </a>
+                    </td>
                   </tr>
                 @endforeach
               </tbody>

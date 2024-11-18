@@ -46,7 +46,7 @@ class RoleController extends Controller
         try {
             $data = $request->validated();
             Role::create($data);
-            return redirect()->route('roles.index')->with('success', 'Role created successfully.');
+            return redirect()->route('roles.index')->with('created', 'Role created successfully.');
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -63,17 +63,28 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Role $role)
+    public function edit(Role $role): Response
     {
-        //
+        try {
+            $status = Status::fetch();
+            return response()->view('backend.user-management.roles.edit', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
-        //
+        try {
+            $data = $request->validated();
+            $role->update($data);
+            return redirect()->route('roles.index')->with('updated', 'Role updated successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**
