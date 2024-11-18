@@ -65,7 +65,6 @@ class AuthController extends Controller
                 'message' => 'Email Is not exist',
             ]);
         }
-        
     }
 
     public function register(Request $request)
