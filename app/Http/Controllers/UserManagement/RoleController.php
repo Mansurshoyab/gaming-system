@@ -4,7 +4,9 @@ namespace App\Http\Controllers\UserManagement;
 
 use App\Enums\GlobalUsage\Status;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserManagement\RoleRequest;
 use App\Models\UserManagement\Role;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -39,9 +41,15 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request): RedirectResponse
     {
-        //
+        try {
+            $data = $request->validated();
+            Role::create($data);
+            return redirect()->route('roles.index')->with('success', 'Role created successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**

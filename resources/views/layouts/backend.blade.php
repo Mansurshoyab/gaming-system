@@ -31,6 +31,7 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/css/plugins.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/css/sweetalert2.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/css/kaiadmin.min.css') }}" />
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
@@ -70,8 +71,9 @@
     <script src="{{ asset('backend/js/plugin/jsvectormap/jsvectormap.min.js') }}" ></script>
     <script src="{{ asset('backend/js/plugin/jsvectormap/world.js') }}" ></script>
     <script src="{{ asset('backend/js/plugin/gmaps/gmaps.js') }}" ></script>
-    <script src="{{ asset('backend/js/plugin/sweetalert/sweetalert.min.js') }}" ></script>
+    <script src="{{ asset('plugins/js/sweetalert2.min.js') }}" ></script>
     <script src="{{ asset('backend/js/kaiadmin.min.js') }}" ></script>
+    @include('layouts.sweetalert')
     @stack('scripts')
   </body>
 </html>
