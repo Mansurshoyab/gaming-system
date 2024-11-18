@@ -13,29 +13,13 @@
         <div class="card-body" >
           <div class="row g-3" >
             <div class="col-12" >
-              <label for="title" class="form-label mb-0" >
-                <strong>{{ __('Title') }}</strong>
-              </label>
-              <div class="input-group" >
-                <input type="text" class="form-control py-1" id="title" aria-describedby="basic-addon3 basic-addon4" />
-              </div>
-              <div class="form-text" id="basic-addon4" >
-                <span>Example help text goes here.</span>
-              </div>
+              <x-form-input :label="__('Title')" :type="__('text')" :name="__('title')" :count="true" :max="__(25)" />
             </div>
             <div class="col-12" >
-              <x-form-textarea :label="__('Description')" :name="__('description')" :rows="__('4')" :max="__('20')" />
+              <x-form-textarea :label="__('Description')" :name="__('description')" :rows="__('4')" :count="true" :max="__(250)" />
             </div>
             <div class="col-6" >
-              <label for="slug" class="form-label mb-0" >
-                <strong>{{ __('Slug') }}</strong>
-              </label>
-              <div class="input-group" >
-                <input type="text" class="form-control py-1" id="slug" aria-describedby="basic-addon3 basic-addon4" />
-              </div>
-              <div class="form-text" id="basic-addon4" >
-                <span>Example help text goes here.</span>
-              </div>
+              <x-form-input :label="__('Slug')" :type="__('text')" :name="__('slug')" :check="true" :count="true" :slug="__('title')" :max="__(25)" />
             </div>
             <div class="col-6" >
               <x-form-enum :label="__('Status')" :name="__('status')" :options="$status" />
