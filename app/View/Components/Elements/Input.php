@@ -18,7 +18,6 @@ class Input extends Component
         $type = 'text',
         $name,
         $rows = 4,
-        $placeholder = null,
         $required = false,
         $readonly = false,
         $disable = false,
@@ -33,7 +32,6 @@ class Input extends Component
         $this->type = $type;
         $this->name = $name;
         $this->rows = $rows;
-        $this->placeholder = $placeholder !== null ? __($placeholder) : null;
         $this->required = $required;
         if ($readonly) {
             $this->readonly = true;
