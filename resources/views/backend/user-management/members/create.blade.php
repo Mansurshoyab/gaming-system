@@ -6,7 +6,7 @@
 
   <x-base-section :class="__('col-sm-10 col-md-8 col-lg-6 offset-sm-1 offset-md-2 offset-lg-3')" >
     <x-form-design :action="route('members.store')" >
-      <x-card-design :header="__('Add New Member')" >
+      <x-card-design :header="__('Add New Member')" > 
         <div class="row g-3" >
           <div class="col-6" >
             <x-form-input :label="__('First Name')" :type="__('text')" :name="__('firstname')" :count="true" :max="__(50)" :required="true" />

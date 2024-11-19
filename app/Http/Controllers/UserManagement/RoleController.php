@@ -44,7 +44,7 @@ class RoleController extends Controller
     public function store(RoleRequest $request): RedirectResponse
     {
         try {
-            $data = $request->validated();
+            $data = $request->validated(); 
             Role::create($data);
             return redirect()->route('roles.index')->with('created', 'Role created successfully.');
         } catch (\Exception $e) {

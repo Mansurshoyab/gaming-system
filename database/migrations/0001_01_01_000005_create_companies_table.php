@@ -24,7 +24,7 @@ return new class extends Migration {
             $table->string('screenshot')->nullable();
             $table->json('social_media')->nullable();
             $table->timestamps();
-            $table->softDeletes();
+            $table->softDeletes(); 
         });
 
         Schema::create('branches', function (Blueprint $table) {

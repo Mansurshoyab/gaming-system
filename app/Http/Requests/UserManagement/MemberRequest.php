@@ -19,7 +19,7 @@ class MemberRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules(): array 
     {
         $rules = [
             'firstname' => ['required', 'string', 'max:50'],
