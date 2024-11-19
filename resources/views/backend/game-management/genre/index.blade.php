@@ -27,40 +27,26 @@
   <section class="tab-content" id="pills-tabContent" >
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0" >
       <x-card-design :header="__('Manage Genre')" :tool="__('nav-item topbar-icon')" :dropdowns="[['label' => 'Add New', 'icon' => 'plus', 'route' => route('genres.create')]]" >
-        <div class="table-responsive" >
-          <table id="homeTable" class="display table table-striped table-hover table-head-bg-black datatables" >
-            <thead>
-              <tr>
-                <th>{{ __('SL') }}</th>
-                <th>{{ __('Title') }}</th>
-                <th>{{ __('Games') }}</th>
-                <th>{{ __('Status') }}</th>
-                <th>{{ __('Date Created') }}</th>
-                <th width="70" >{{ __('Action') }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($genres as $key => $genre)
-                <tr>
-                  <td>{{ str_pad($loop->iteration, strlen(count($genres)), '0', STR_PAD_LEFT) . '.' }}</td>
-                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                    <strong>{{ $genre->title }}</strong>
-                  </td>
-                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ __('0') }}</td>
-                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                    <span>{{ ucfirst($genre->status) }}</span>
-                  </td>
-                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $genre->created_at->diffForHumans() }}</td>
-                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                    <a href="{{ route('genre.edit', $genre->id) }}" class="btn btn-sm btn-info">
-                      <i class="fas fa-edit"> </i>
-                    </a>
-                  </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
+        <x-data-table :id="__('genreTable')" :striped="true" :hover="true" :theme="__('black')" :headers="['SL', 'Title', 'Games', 'Status', 'Date Created', 'Action']" :datatable="true" >
+          @foreach ($genres as $key => $genre)
+            <tr>
+              <td>{{ str_pad($loop->iteration, strlen(count($genres)), '0', STR_PAD_LEFT) . '.' }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                <strong>{{ $genre->title }}</strong>
+              </td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ __('0') }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                <span>{{ ucfirst($genre->status) }}</span>
+              </td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $genre->created_at->diffForHumans() }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                <a href="{{ route('genres.edit', $genre->id) }}" class="btn btn-sm btn-info">
+                  <i class="fas fa-edit"> </i>
+                </a>
+              </td>
+            </tr>
+          @endforeach
+        </x-data-table>
       </x-card-design>
     </div>
     <div class="tab-pane fade" id="pills-trash" role="tabpanel" aria-labelledby="pills-trash-tab" tabindex="0" >
@@ -91,11 +77,6 @@
   </section>
 
   @push('scripts')
-    <script>
-      $(document).ready( function () {
-        $("#homeTable").DataTable({});
-      });
-    </script>
   @endpush
 
 </x-backend-layout>
