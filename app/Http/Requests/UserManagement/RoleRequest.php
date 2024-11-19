@@ -30,12 +30,10 @@ class RoleRequest extends FormRequest
         ];
 
         if ($this->isMethod('post')) {
-            // Unique rule for store operation
             $rules['slug'][] = 'unique:roles,slug';
         }
 
         if ($this->isMethod('put') || $this->isMethod('patch')) {
-            // Unique rule for update operation, excluding current record
             $roleId = $this->route('role')->id ?? null;
             $rules['slug'][] = 'unique:roles,slug,' . $roleId;
         }
