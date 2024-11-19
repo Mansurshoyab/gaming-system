@@ -8,6 +8,7 @@ use App\View\Partials\Backend\Sidebar as BackendSidebar;
 use App\View\Partials\Backend\Navbar as BackendNavbar;
 use App\View\Partials\Backend\Breadcrumb as BackendBreadcrumb;
 use App\View\Partials\Backend\Footer as BackendFooter;
+use App\View\Components\Designs\Section as BaseSection;
 use App\View\Components\Designs\Form as FormDesign;
 use App\View\Components\Designs\Card as CardDesign;
 use App\View\Components\Elements\Input as FormInput;
@@ -45,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('backend-footer', BackendFooter::class);
 
         // Design Components
+        Blade::component('base-section', BaseSection::class);
         Blade::component('form-design', FormDesign::class);
         Blade::component('card-design', CardDesign::class);
 

@@ -7,16 +7,11 @@
     <x-backend-breadcrumb module="{{ __('Sample Page') }}" :breadcrumbs="[['title' => 'Sample']]" />
   @endpush
 
-  <section class="row" >
-    <div class="col-sm-12" >
-      <div class="card" >
-        <div class="card-body" >
-          <p>{{ __('Inner page content goes here.') }}</p>
-
-        </div>
-      </div>
-    </div>
-  </section>
+  <x-base-section>
+    <x-card-design>
+      <p>{{ __('Inner page content goes here.') }}</p>
+    </x-card-design>
+  </x-base-section>
 
   @push('scripts')
   @endpush

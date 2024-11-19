@@ -7,27 +7,25 @@
     <x-backend-breadcrumb module="{{ __('User Management') }}" :breadcrumbs="[['title' => 'Roles', 'route' => 'roles.index'], ['title' => 'List']]" />
   @endpush
 
-  <section class="row" >
-    <div class="col-sm-12" >
-      <ul class="nav nav-pills mb-5" id="pills-tab" role="tablist" >
-        <li class="nav-item" role="presentation" >
-          <button class="nav-link py-1 active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" >
-            <span>{{ __('Home') }}</span>
-          </button>
-        </li>
-        <li class="nav-item" role="presentation" >
-          <button class="nav-link py-1" id="pills-trash-tab" data-bs-toggle="pill" data-bs-target="#pills-trash" type="button" role="tab" aria-controls="pills-trash" aria-selected="false" >
-            <span>{{ __('Trash') }}</span>
-          </button>
-        </li>
-        <li class="nav-item" role="presentation" >
-          <button type="button" class="nav-link py-1" data-bs-toggle="modal" data-bs-target="#quickPopup" >
-            <span>{{ __('Quick Add') }}</span>
-          </button>
-        </li>
-      </ul>
-    </div>
-  </section>
+  <x-base-section>
+    <ul class="nav nav-pills mb-5" id="pills-tab" role="tablist" >
+      <li class="nav-item" role="presentation" >
+        <button class="nav-link py-1 active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" >
+          <span>{{ __('Home') }}</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation" >
+        <button class="nav-link py-1" id="pills-trash-tab" data-bs-toggle="pill" data-bs-target="#pills-trash" type="button" role="tab" aria-controls="pills-trash" aria-selected="false" >
+          <span>{{ __('Trash') }}</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation" >
+        <button type="button" class="nav-link py-1" data-bs-toggle="modal" data-bs-target="#quickPopup" >
+          <span>{{ __('Quick Add') }}</span>
+        </button>
+      </li>
+    </ul>
+  </x-base-section>
 
   <section class="tab-content" id="pills-tabContent" >
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0" >
