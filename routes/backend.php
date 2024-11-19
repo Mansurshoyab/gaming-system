@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameManagement\GenreController;
 use App\Http\Controllers\ProfileManagement\AdminController;
 use App\Http\Controllers\SystemConfiguration\SystemController;
 use App\Http\Controllers\UserManagement\MemberController;
@@ -16,4 +17,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group( function () {
     });
 
     Route::resource('members', MemberController::class);
+
+    Route::resource('genre', GenreController::class);
 });
