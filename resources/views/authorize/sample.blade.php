@@ -1,7 +1,4 @@
-<x-authorize-layout page="{{ __('Sample Page') }}" >
-
-  @push('styles')
-  @endpush
+<x-authorize-layout :page="__('Sample Page')" >
 
   @push('title')
     <div class="text-center mb-8" >

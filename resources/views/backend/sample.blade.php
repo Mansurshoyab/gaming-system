@@ -1,10 +1,7 @@
-<x-backend-layout page="{{ __('Sample Page') }}" >
-
-  @push('styles')
-  @endpush
+<x-backend-layout :page="__('Sample Page')" >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb module="{{ __('Sample Page') }}" :breadcrumbs="[['title' => 'Sample']]" />
+    <x-backend-breadcrumb :module="__('Sample Page')" :breadcrumbs="[['title' => 'Sample']]" />
   @endpush
 
   <x-base-section>

@@ -1,7 +1,4 @@
-<x-authorize-layout page="{{ __('Admin Login') }}" >
-
-  @push('styles')
-  @endpush
+<x-authorize-layout :page="__('Admin Login')" >
 
   @push('title')
     <div class="text-center mb-8" >

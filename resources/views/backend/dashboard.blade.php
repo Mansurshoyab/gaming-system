@@ -1,10 +1,7 @@
-<x-backend-layout page="{{ __('Dashboard') }}" >
-
-  @push('styles')
-  @endpush
+<x-backend-layout :page="__('Dashboard')" >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb module="{{ __('Admin Dashboard') }}" :breadcrumbs="[['title' => 'Dashboard']]" />
+    <x-backend-breadcrumb :module="__('Admin Dashboard')" :breadcrumbs="[['title' => 'Dashboard']]" />
   @endpush
 
   <x-base-section>

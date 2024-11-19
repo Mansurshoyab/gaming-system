@@ -18,5 +18,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group( function () {
 
     Route::resource('members', MemberController::class);
 
-    Route::resource('genre', GenreController::class);
+    Route::resource('genres', GenreController::class);
 });
