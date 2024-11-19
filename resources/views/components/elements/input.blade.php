@@ -1,4 +1,4 @@
-@props([ 'label' => null, 'type' => 'text', 'name', 'placeholder' => null, 'required' => false, 'readonly' => false, 'disable' => false, 'value' => null, 'helper' => null, 'count' => false, 'check' => false, 'slug' => null, 'max' => 250 ])
+@props([ 'label' => null, 'type' => 'text', 'name', 'required' => false, 'readonly' => false, 'disable' => false, 'value' => null, 'helper' => null, 'count' => false, 'check' => false, 'slug' => null, 'max' => 250 ])
 
 @php
   use Illuminate\Support\Str;
@@ -17,7 +17,7 @@
       </div>
     @endif
     <input type="{{ $type }}" name="{{ $name }}" class="form-control py-1" id="{{ Str::camel($name) }}"
-      placeholder="{{ $placeholder ?? __('Type your text here ...') }}" @if ($value !== null) value="{{ $value }}" @endif
+      placeholder="{{ $label ? ucwords($label) : __('Type your text here ...') }}" @if ($value !== null) value="{{ $value }}" @endif
       aria-describedby="{{ Str::kebab($name) }}-helper-text" @if ($required) required @endif
       @if ($readonly && !$disable) readonly @endif @if ($disable && !$readonly) disabled @endif @if ($max) maxlength="{{ $max }}" @endif
     />

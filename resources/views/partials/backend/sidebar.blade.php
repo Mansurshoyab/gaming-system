@@ -259,7 +259,7 @@
                 </a>
               </li>
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('members.create') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ __('Add New Member') }}</span>
                 </a>
@@ -284,7 +284,7 @@
               <li class="nav-item" >
                 <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
-                  <span class="ms-2" >{{ __('Permissions') }}</span> 
+                  <span class="ms-2" >{{ __('Permissions') }}</span>
                 </a>
               </li>
             </ul>

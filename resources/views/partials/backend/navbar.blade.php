@@ -235,12 +235,11 @@
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="javascript:void(0);">Account Setting</a>
                   <div class="dropdown-divider"></div>
-                  <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+                  <x-form-design :action="route('logout')" >
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" >
                       <span>{{ __('Log Out') }}</span>
                     </a>
-                  </form>
+                  </x-form-design>
                 </li>
               </div>
             </ul>

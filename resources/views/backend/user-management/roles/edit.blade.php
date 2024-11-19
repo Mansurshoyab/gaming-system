@@ -6,12 +6,10 @@
 
   <section class="row" >
     <div class="col-sm-10 col-md-8 col-lg-6 offset-sm-1 offset-md-2 offset-lg-3" >
-      <form action="{{ route('roles.update', $role->id) }}" method="POST" >
-        @csrf
-        @method('put')
+      <x-form-design :action="route('roles.update', $role->id)" :spoof="__('put')" >
         <div class="card" >
           <div class="card-header py-1" >
-              <h4 class="card-title" >{{ __('Update Role') }}</h4> 
+            <h4 class="card-title" >{{ __('Update Role') }}</h4>
           </div>
           <div class="card-body" >
             <div class="row g-3" >
@@ -40,7 +38,7 @@
             </div>
           </div>
         </div>
-      </form>
+      </x-form-design>
     </div>
   </section>
 

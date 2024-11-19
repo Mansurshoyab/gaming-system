@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\UserManagement;
 
+use App\Enums\UserManagement\Approval;
 use App\Http\Controllers\Controller;
 use App\Models\UserManagement\Member;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         try {
             $members = Member::orderBy('created_at', 'DESC')->get();
@@ -24,9 +26,14 @@ class MemberController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
-        //
+        try {
+            $approval = Approval::fetch();
+            return response()->view('backend.user-management.members.create', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**
