@@ -1,10 +1,7 @@
-<x-backend-layout page="{{ __('General Settings') }}" >
-
-  @push('styles')
-  @endpush
+<x-backend-layout :page="__('General Settings')" >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb module="{{ __('System and Configuration') }}" :breadcrumbs="[['title' => 'Setup', 'route' => 'system.settings' ], ['title' => 'General']]" />
+    <x-backend-breadcrumb :module="__('System and Configuration')" :breadcrumbs="[['title' => 'Setup', 'route' => 'system.settings' ], ['title' => 'General']]" />
   @endpush
 
   <x-base-section>

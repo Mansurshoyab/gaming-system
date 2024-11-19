@@ -1,10 +1,7 @@
-<x-backend-layout page="{{ __('Manage Roles') }}" >
-
-  @push('styles')
-  @endpush
+<x-backend-layout :page="__('Manage Roles') " >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb module="{{ __('User Management') }}" :breadcrumbs="[['title' => 'Roles', 'route' => 'roles.index'], ['title' => 'List']]" />
+    <x-backend-breadcrumb :module="__('User Management')" :breadcrumbs="[['title' => 'Roles', 'route' => 'roles.index'], ['title' => 'List']]" />
   @endpush
 
   <x-base-section>
