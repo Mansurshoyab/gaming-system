@@ -3,6 +3,32 @@
     @push('breadcrumb')
       <x-backend-breadcrumb :module="__('Contact Page')" :breadcrumbs="[['title' => 'Contact']]" />
     @endpush
+
+    <x-base-section>
+      <ul class="nav nav-pills mb-5" id="pills-tab" role="tablist" >
+        <li class="nav-item" role="presentation" >
+          <a href="{{ route('company.index') }}" class="nav-link py-1">
+            <span>{{ __('Home') }}</span>
+          </a>
+        </li>
+        <li class="nav-item" role="presentation" >
+          <a href="{{ route('company.image') }}" class="nav-link py-1">
+            <span>{{ __('Images') }}</span>
+          </a>
+        </li>
+        <li class="nav-item" role="presentation" >
+          <a href="{{ route('company.social') }}" class="nav-link py-1">
+            <span>{{ __('Socal-Media') }}</span>
+          </a>
+        </li>
+        <li class="nav-item" role="presentation" >
+          <a href="{{ route('company.contact') }}" class="nav-link py-1">
+            <span>{{ __('Contact') }}</span>
+          </a>
+        </li>
+      </ul>
+    </x-base-section>
+    
   
     <x-base-section>
       <x-card-design>
@@ -14,10 +40,10 @@
                   <x-form-input :label="__('Email')" :type="__('text')" :name="__('email')" :value="$company->email" :check="false" :count="true" :max="__(25)" :required="true" />
                 </div>
                 <div class="col-12" >
-                  <x-form-input :label="__('Phone')" :type="__('text')" :name="__('Phone')" :value="$company->phone" :check="false" :count="true" :max="__(25)" :required="true" />
+                  <x-form-input :label="__('Phone')" :type="__('text')" :name="__('phone')" :value="$company->phone" :check="false" :count="true" :max="__(25)" :required="true" />
                 </div>
                 <div class="col-12" >
-                  <x-form-input :label="__('Hotline')" :type="__('text')" :name="__('Hotline')" :value="$company->hotline" :check="false" :count="true" :max="__(25)" :required="true" />
+                  <x-form-input :label="__('Hotline')" :type="__('text')" :name="__('hotline')" :value="$company->hotline" :check="false" :count="true" :max="__(8)" :required="true" />
                 </div>
               </div>
               <x-slot name="footer" >

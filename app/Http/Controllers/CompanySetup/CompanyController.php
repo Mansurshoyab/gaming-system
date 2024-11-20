@@ -41,14 +41,15 @@ class CompanyController extends Controller
         }
     }
 
-    public function updateContact(CompanyRequest $request , $id) 
+    public function updateContact(CompanyRequest $request, $id)
     {
         try {
-         $data = $request->validated();
-         $company = Company::findOrFail($id);
-         $company->update($data);
-         return redirect()->route('company.index')->with('updated', 'Company contact updated successfully.');
-     
+
+            $data = $request->validated();
+            $company = Company::findOrFail($id);
+            // dd($company);
+            $company->update($data);
+            return redirect()->route('company.index')->with('updated', 'Company contact updated successfully.');
         } catch (\Exception $e) {
             return response($e->getMessage());
         }
