@@ -17,7 +17,7 @@
         </button>
       </li>
       <li class="nav-item" role="presentation" >
-        <button type="button" class="nav-link py-1" data-bs-toggle="modal" data-bs-target="#quickPopup" >
+        <button type="button" class="nav-link py-1" id="quickAdd" store-route="{{ route('genres.store') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
           <span>{{ __('Quick Add') }}</span>
         </button>
       </li>
@@ -32,7 +32,9 @@
             <tr>
               <td>{{ str_pad($loop->iteration, strlen(count($genres)), '0', STR_PAD_LEFT) . '.' }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <strong>{{ $genre->title }}</strong>
+                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('genres.update', $genre->id) }}" data-title="{{ $genre->title }}" data-description="{{ $genre->description }}" data-slug="{{ $genre->slug }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+                  <strong>{{ $genre->title }}</strong>
+                </a>
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ __('0') }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
@@ -40,9 +42,7 @@
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $genre->created_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <a href="{{ route('genres.edit', $genre->id) }}" class="btn btn-sm btn-info">
-                  <i class="fas fa-edit"> </i>
-                </a>
+                <x-edit-action :href="route('genres.edit', $genre->id)" />
               </td>
             </tr>
           @endforeach
@@ -56,27 +56,53 @@
     </div>
   </section>
 
-  <section class="modal fade" id="quickPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="quickPopupLabel" aria-hidden="true" >
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
-      <div class="modal-content" >
-        <div class="modal-header" >
-          <h1 class="modal-title fs-5" id="quickPopupLabel" >
-            <strong id="title" >{{ __('Quick Add') }}</strong>
-          </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
-        </div>
-      </div>
+  <x-quick-form :centered="true" :scrollable="true" >
+    <div class="col-6" >
+      <x-form-input :label="__('Title')" :type="__('text')" :name="__('title')" :count="true" :max="__(25)" :required="true" />
     </div>
-  </section>
+    <div class="col-6" >
+      <x-form-input :label="__('Slug')" :type="__('text')" :name="__('slug')" :check="true" :count="true" :slug="__('title')" :max="__(25)" :required="true" />
+    </div>
+    <div class="col-12" >
+      <x-form-textarea :label="__('Description')" :name="__('description')" :rows="__('4')" :count="true" :max="__(250)" />
+    </div>
+  </x-quick-form>
 
   @push('scripts')
+    <script>
+      $(document).ready(function () {
+        $("#quickAdd").click(function () {
+          var store = $(this).attr('store-route');
+          $("#quickForm #quickTitle").text("Quick Add");
+          $("#quickForm #quickButton").removeClass('btn-success').addClass('btn-primary');
+          $("#quickForm #quickIcon").removeClass('fa-check').addClass('fa-plus');
+          $("#quickForm #quickLabel").text("Create");
+          $("#quickForm #title").val('');
+          $("#quickForm #description").val('');
+          $("#quickForm #slug").val('');
+          $('#quickForm').attr('action', store);
+          $("#quickForm").find("input[name='_method']").remove();
+        });
+        $(".quick-edit").click(function () {
+          var update = $(this).attr('update-route');
+          var id = $(this).data('id');
+          var title = $(this).data('title');
+          var description = $(this).data('description');
+          var slug = $(this).data('slug');
+          $("#quickForm #quickTitle").text("Quick Edit");
+          $("#quickForm #title").val(title);
+          $("#quickForm #description").val(description);
+          $("#quickForm #slug").val(slug);
+          $("#quickForm #quickButton").removeClass('btn-primary').addClass('btn-success');
+          $("#quickForm #quickIcon").removeClass('fa-plus').addClass('fa-check');
+          $("#quickForm #quickLabel").text("Update");
+          $('#quickForm').attr('action', update);
+          if ($("#quickForm").find("input[name='_method']").length === 0) {
+            $("#quickForm").prepend('<input type="hidden" name="_method" value="put" />');
+          }
+        });
+      });
+    </script>
   @endpush
 
 </x-backend-layout>

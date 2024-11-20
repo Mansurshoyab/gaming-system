@@ -26,7 +26,7 @@ class RoleRequest extends FormRequest
             'title' => ['required', 'string', 'max:25'],
             'description' => ['nullable', 'string', 'max:250'],
             'slug' => ['required', 'string', 'max:25'],
-            'status' => ['required', 'in:' . implode(',', Status::fetch())],
+            'status' => ['nullable', 'in:' . implode(',', Status::fetch())],
         ];
 
         if ($this->isMethod('post')) {
