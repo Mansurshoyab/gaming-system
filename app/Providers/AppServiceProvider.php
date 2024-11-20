@@ -19,6 +19,7 @@ use App\View\Components\Elements\Select as FormSelect;
 use App\View\Components\Elements\Enum as FormEnum;
 use App\View\Components\Elements\Discard as FormDiscard;
 use App\View\Components\Elements\Button as FormButton;
+use App\View\Components\Action\Edit as EditAction;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -61,5 +62,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('form-enum', FormEnum::class);
         Blade::component('form-discard', FormDiscard::class);
         Blade::component('form-button', FormButton::class);
+
+        // Actions
+        Blade::component('edit-action', EditAction::class);
     }
 }

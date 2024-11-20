@@ -42,9 +42,7 @@
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $genre->created_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <a href="{{ route('genres.edit', $genre->id) }}" class="btn btn-sm btn-info">
-                  <i class="fas fa-edit"> </i>
-                </a>
+                <x-edit-action :href="route('genres.edit', $genre->id)" />
               </td>
             </tr>
           @endforeach
