@@ -23,8 +23,10 @@ return new class extends Migration {
             $table->string('favicon')->nullable();
             $table->string('screenshot')->nullable();
             $table->json('social_media')->nullable();
+            $table->unsignedInteger('downloads')->default(0);
+            $table->string('application')->nullable();
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
 
         Schema::create('branches', function (Blueprint $table) {
