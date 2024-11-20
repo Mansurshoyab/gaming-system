@@ -22,10 +22,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('genres', GenreController::class);
     Route::prefix('company')->controller(CompanyController::class)->name('company.')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::put('/update/{id}', 'indexUpdate')->name('index.update');
         Route::get('/image', 'image')->name('image');
         Route::get('/contact', 'contact')->name('contact');
         Route::put('/contact/update/{id}', 'updateContact')->name('contact.update');
-        
+
         Route::get('/social', 'social')->name('social');
     });
 });

@@ -22,6 +22,19 @@ class CompanyController extends Controller
         }
     }
 
+    public function indexUpdate(CompanyRequest $request, $id)
+    {
+        try {            
+            $data = $request->validated();
+            $company = Company::findOrFail($id);
+            $company->update($data);
+            return redirect()->route('company.index')->with('updated', 'Company Home Updated successfully.');
+        
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
+    }
+
     public function image()
     {
         try {
