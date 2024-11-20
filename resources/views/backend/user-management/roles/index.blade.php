@@ -43,6 +43,7 @@
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $role->created_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 <x-edit-action :href="route('roles.edit', $role->id)" />
+                <x-show-action :href="route('roles.show', $role->id)" />
               </td>
             </tr>
           @endforeach
