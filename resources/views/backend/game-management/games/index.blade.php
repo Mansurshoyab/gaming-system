@@ -1,7 +1,7 @@
-<x-backend-layout :page="__('Manage Genre')" >
+<x-backend-layout :page="__('Manage Games')" >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb :module="__('Genre Management')" :breadcrumbs="[['title' => 'Genres', 'route' => 'roles.index'], ['title' => 'List']]" />
+    <x-backend-breadcrumb :module="__('Game Management')" :breadcrumbs="[['title' => 'Games', 'route' => 'games.index'], ['title' => 'List']]" />
   @endpush
 
   <x-base-section>
@@ -17,7 +17,7 @@
         </button>
       </li>
       <li class="nav-item" role="presentation" >
-        <button type="button" class="nav-link py-1" id="quickAdd" store-route="{{ route('genres.store') }}" data-total="{{ $total }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+        <button type="button" class="nav-link py-1" id="quickAdd" store-route="{{ route('games.store') }}" data-total="{{ $total }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
           <span>{{ __('Quick Add') }}</span>
         </button>
       </li>
@@ -26,26 +26,26 @@
 
   <section class="tab-content" id="pills-tabContent" >
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0" >
-      <x-card-design :header="__('Manage Genre')" :tool="__('nav-item topbar-icon')" :dropdowns="[['label' => 'Add New', 'icon' => 'plus', 'route' => route('genres.create')]]" >
-        <x-data-table :id="__('genreTable')" :striped="true" :hover="true" :theme="__('black')" :headers="['SL', 'Title', 'Games', 'Status', 'Date Created', 'Action']" :datatable="true" >
-          @foreach ($genres as $key => $genre)
+      <x-card-design :header="__('Manage Games')" :tool="__('nav-item topbar-icon')" :dropdowns="[['label' => 'Add New', 'icon' => 'plus', 'route' => route('games.create')]]" >
+        <x-data-table :id="__('gameTable')" :striped="true" :hover="true" :theme="__('black')" :headers="['SL', 'Title', 'Genre', 'Status', 'Date Created', 'Action']" :datatable="true" >
+          @foreach ($games as $key => $game)
             <tr>
-              <td>{{ str_pad($loop->iteration, strlen(count($genres)), '0', STR_PAD_LEFT) . '.' }}</td>
+              <td>{{ str_pad($loop->iteration, strlen(count($games)), '0', STR_PAD_LEFT) . '.' }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('genres.update', $genre->id) }}" data-title="{{ $genre->title }}" data-description="{{ $genre->description }}" data-slug="{{ $genre->slug }}" data-updated="{{ $genre->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
-                  <strong>{{ $genre->title }}</strong>
+                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('games.update', $game->id) }}" data-name="{{ $game->name }}" data-description="{{ $game->description }}" data-slug="{{ $game->slug }}" data-updated="{{ $game->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+                  <strong>{{ $game->name }}</strong>
                 </a>
               </td>
-              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ __('0') }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $game->genre->title ?: __('Not Found') }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <span>{{ ucfirst($genre->status) }}</span>
+                <span>{{ ucfirst($game->status) }}</span>
               </td>
-              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $genre->created_at->diffForHumans() }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $game->created_at->diffForHumans() }}</td>
               <td class="d-flex justify-content-between align-items-center" style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <x-toggle-switch :name="__('status')" :href="route('genres.status', $genre->id)" :id="$genre->id" :enable="status('enable')" :disable="status('disable')" :value="$genre->status" />
+                <x-toggle-switch :name="__('status')" :href="route('games.status', $game->id)" :id="$game->id" :enable="status('enable')" :disable="status('disable')" :value="$game->status" />
                 <x-action-drawer>
-                  <x-edit-action :href="route('genres.edit', $genre->id)" />
-                  <x-show-action :href="route('genres.show', $genre->id)" />
+                  <x-edit-action :href="route('games.edit', $game->id)" />
+                  <x-show-action :href="route('games.show', $game->id)" />
                 </x-action-drawer>
               </td>
             </tr>
@@ -70,10 +70,13 @@
 
   <x-quick-form :center="true" :scroll="true" >
     <div class="col-6" >
-      <x-form-input :label="__('Title')" :type="__('text')" :name="__('title')" :count="true" :max="__(25)" :required="true" />
+      <x-form-input :label="__('Name')" :type="__('text')" :name="__('name')" :count="true" :max="__(25)" :required="true" />
     </div>
     <div class="col-6" >
       <x-form-input :label="__('Slug')" :type="__('text')" :name="__('slug')" :check="true" :count="true" :slug="__('title')" :max="__(25)" :required="true" />
+    </div>
+    <div class="col-12" >
+      <x-form-select :label="__('Genre')" :name="__('genre_id')" :options="$genres" :required="true" />
     </div>
     <div class="col-12" >
       <x-form-textarea :label="__('Description')" :name="__('description')" :rows="__('4')" :count="true" :max="__(250)" />
@@ -89,17 +92,17 @@
     <script>
       $(document).ready(function () {
         $("#quickAdd").click(function () {
-          $("#quickForm #title").val('');
+          $("#quickForm #name").val('');
           $("#quickForm #description").val('');
           $("#quickForm #slug").val('');
           $("#quickModal .modal-footer #quickFooter").text("Total Genres");
         });
 
         $(".quick-edit").click(function () {
-          var title = $(this).data('title');
+          var name = $(this).data('name');
           var description = $(this).data('description');
           var slug = $(this).data('slug');
-          $("#quickForm #title").val(title);
+          $("#quickForm #name").val(name);
           $("#quickForm #description").val(description);
           $("#quickForm #slug").val(slug);
         });

@@ -3,6 +3,7 @@
 namespace App\Models\GameManagement;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Genre extends Model
@@ -17,5 +18,9 @@ class Genre extends Model
             'status' => 'string',
             'deleted_at' => 'datetime',
         ];
+    }
+
+    public function games(): HasMany {
+        return $this->hasMany(Game::class, 'genre_id', 'id')->withTrashed();
     }
 }

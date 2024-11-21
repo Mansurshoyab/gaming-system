@@ -112,7 +112,7 @@ class MemberController extends Controller
             }
             $member = Member::find($id);
             if (!$member) {
-                return response()->json(['error' => 'member not found'], 404);
+                return response()->json(['error' => 'Member not found'], 404);
             }
             $updated = $member->update(['status' => $status]);
             if ($updated) {

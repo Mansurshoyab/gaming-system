@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanySetup\CompanyController;
+use App\Http\Controllers\GameManagement\GameController;
 use App\Http\Controllers\GameManagement\GenreController;
 use App\Http\Controllers\ProfileManagement\AdminController;
 use App\Http\Controllers\SystemConfiguration\SystemController;
@@ -14,6 +15,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     });
     Route::resource('genres', GenreController::class);
     Route::prefix('genres')->controller(GenreController::class)->name('genres.')->group(function () {
+        Route::post('/{id}/status', 'status')->name('status');
+    });
+    Route::resource('games', GameController::class);
+    Route::prefix('games')->controller(GameController::class)->name('games.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');
     });
     Route::resource('roles', RoleController::class);

@@ -18,7 +18,7 @@ class GenreController extends Controller
         try {
             $genres = Genre::orderBy('created_at' , 'DESC')->get();
             $total = Genre::withoutTrashed()->count();
-            return response()->view('backend.game-management.genre.index', get_defined_vars());
+            return response()->view('backend.game-management.genres.index', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());
         }
@@ -31,7 +31,7 @@ class GenreController extends Controller
     {
         try {
             $status = Status::fetch();
-            return response()->view('backend.game-management.genre.create', get_defined_vars());
+            return response()->view('backend.game-management.genres.create', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());
         }
@@ -66,7 +66,7 @@ class GenreController extends Controller
     {
         try {
             $status = Status::fetch();
-            return response()->view('backend.game-management.genre.edit', get_defined_vars());
+            return response()->view('backend.game-management.genres.edit', get_defined_vars());
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -106,7 +106,7 @@ class GenreController extends Controller
             }
             $genre = Genre::find($id);
             if (!$genre) {
-                return response()->json(['error' => 'genre not found'], 404);
+                return response()->json(['error' => 'Genre not found'], 404);
             }
             $updated = $genre->update(['status' => $status]);
             if ($updated) {
