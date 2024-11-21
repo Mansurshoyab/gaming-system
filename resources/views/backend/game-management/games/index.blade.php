@@ -32,13 +32,13 @@
             <tr>
               <td>{{ str_pad($loop->iteration, strlen(count($games)), '0', STR_PAD_LEFT) . '.' }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('games.update', $game->id) }}" data-name="{{ $game->name }}" data-description="{{ $game->description }}" data-slug="{{ $game->slug }}" data-updated="{{ $game->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('games.update', $game->id) }}" data-name="{{ $game->name }}" data-genre-id="{{ $game->genre_id }}" data-description="{{ $game->description }}" data-slug="{{ $game->slug }}" data-updated="{{ $game->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
                   <strong>{{ $game->name }}</strong>
                 </a>
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $game->genre->title ?: __('Not Found') }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <span>{{ ucfirst($game->status) }}</span>
+                <span class="badge bg-{{ $game->status === status('enable') ? 'success' : ( $game->status === status('disable') ? 'danger' : 'secondary' ) }}" >{{ ucfirst($game->status) }}</span>
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $game->created_at->diffForHumans() }}</td>
               <td class="d-flex justify-content-between align-items-center" style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
@@ -76,7 +76,12 @@
       <x-form-input :label="__('Slug')" :type="__('text')" :name="__('slug')" :check="true" :count="true" :slug="__('title')" :max="__(25)" :required="true" />
     </div>
     <div class="col-12" >
-      <x-form-select :label="__('Genre')" :name="__('genre_id')" :options="$genres" :required="true" />
+      <select name="genre_id" class="form-select" id="genreId" required >
+        <option value="" selected disabled >{{ __('Choose One') }}</option>
+        @foreach ($genres as $genre)
+          <option value="{{ $genre->id }}" >{{ $genre->title }}</option>
+        @endforeach
+      </select>
     </div>
     <div class="col-12" >
       <x-form-textarea :label="__('Description')" :name="__('description')" :rows="__('4')" :count="true" :max="__(250)" />
@@ -93,16 +98,19 @@
       $(document).ready(function () {
         $("#quickAdd").click(function () {
           $("#quickForm #name").val('');
+          $("#quickForm #genreId").val('');
           $("#quickForm #description").val('');
           $("#quickForm #slug").val('');
-          $("#quickModal .modal-footer #quickFooter").text("Total Genres");
+          $("#quickModal .modal-footer #quickFooter").text("Total Games");
         });
 
         $(".quick-edit").click(function () {
           var name = $(this).data('name');
+          var genre = $(this).data('genre-id');
           var description = $(this).data('description');
           var slug = $(this).data('slug');
           $("#quickForm #name").val(name);
+          $("#quickForm #genreId").val(genre);
           $("#quickForm #description").val(description);
           $("#quickForm #slug").val(slug);
         });

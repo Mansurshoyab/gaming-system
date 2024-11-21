@@ -11,17 +11,15 @@
     </label>
   @endif
   <div class="input-group">
-    <select name="{{ $name }}" class="form-select" id="{{ Str::camel($name) }}" aria-label="{{ Str::kebab($name) }}"
-        @if ($required !== false) required @endif
-        @if ($disable !== false) disabled @endif>
+    <select name="{{ $name }}" class="form-select" id="{{ Str::camel($name) }}" aria-label="{{ Str::kebab($name) }}" @required($required) @disabled($disable) >
       <option value="" selected disabled>{{ __('Choose One') }}</option>
-      @if (!empty($options))
+      {{-- @if (!empty($options)) --}}
         @foreach ($options as $item)
-          <option value="{{ $item->id }}" @if ($value !== null && $value == $item->id) selected @endif >
+          <option value="{{ $item->id }}" @selected($value === $item->id) >
             {{ $item->title ?? $item->name }}
           </option>
         @endforeach
-      @endif
+      {{-- @endif --}}
     </select>
   </div>
 </div>

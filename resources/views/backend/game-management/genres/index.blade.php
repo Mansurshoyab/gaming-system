@@ -38,7 +38,7 @@
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ __('0') }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <span>{{ ucfirst($genre->status) }}</span>
+                <span class="badge bg-{{ $genre->status === status('enable') ? 'success' : ( $genre->status === status('disable') ? 'danger' : 'secondary' ) }}" >{{ ucfirst($genre->status) }}</span>
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $genre->created_at->diffForHumans() }}</td>
               <td class="d-flex justify-content-between align-items-center" style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >

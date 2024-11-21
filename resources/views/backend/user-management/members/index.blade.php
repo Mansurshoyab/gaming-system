@@ -37,7 +37,7 @@
                 </a>
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <span>{{ ucfirst($member->status) }}</span>
+                <span class="badge bg-{{ $member->status === approval('approved') ? 'success' : ( $member->status === approval('suspended') ? 'danger' : 'secondary' ) }}" >{{ ucfirst($member->status) }}</span>
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $member->created_at->diffForHumans() }}</td>
               <td class="d-flex justify-content-between align-items-center" style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
