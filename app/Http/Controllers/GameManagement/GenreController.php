@@ -7,17 +7,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GameManagement\GenreRequest;
 use App\Models\GameManagement\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class GenreController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         try {
             $genres = Genre::orderBy('created_at' , 'DESC')->get();
-            $total = Genre::withoutTrashed()->count();
+            $total = Genre::withTrashed()->count();
             return response()->view('backend.game-management.genres.index', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());

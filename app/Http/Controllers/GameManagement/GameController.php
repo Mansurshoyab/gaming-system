@@ -7,13 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\GameManagement\Game;
 use App\Models\GameManagement\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class GameController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         try {
             $games = Game::orderBy('created_at', 'DESC')->get();

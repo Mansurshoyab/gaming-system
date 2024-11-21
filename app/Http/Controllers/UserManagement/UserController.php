@@ -6,15 +6,22 @@ use App\Enums\UserManagement\Approval;
 use App\Http\Controllers\Controller;
 use App\Models\UserManagement\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        try {
+            $users = User::orderBy('created_at', 'DESC')->get();
+            $total = User::withTrashed()->count();
+            return response()->view('backend.user-management.users.index', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**
