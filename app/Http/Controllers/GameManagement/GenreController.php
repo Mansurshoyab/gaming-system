@@ -17,6 +17,7 @@ class GenreController extends Controller
     {
         try {
             $genres = Genre::orderBy('created_at' , 'DESC')->get();
+            $total = Genre::withoutTrashed()->count();
             return response()->view('backend.game-management.genre.index', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());

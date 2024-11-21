@@ -3,17 +3,15 @@
 namespace App\Models\GameManagement;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Genre extends Model
 {
-    protected $fillable = [
-        'title',
-        'description',
-        'slug',
-        'status',
-    ];
+    use SoftDeletes;
 
-    protected function casts() :array 
+    protected $fillable = [ 'title', 'description', 'slug', 'status' ];
+
+    protected function casts() :array
     {
         return [
             'status' => 'string',

@@ -12,6 +12,7 @@ use App\View\Components\Designs\Section as BaseSection;
 use App\View\Components\Designs\Table as DataTable;
 use App\View\Components\Designs\Form as FormDesign;
 use App\View\Components\Designs\Card as CardDesign;
+use App\View\Components\Designs\Modal as ModalDesign;
 use App\View\Components\Designs\Quickform as QuickForm;
 use App\View\Components\Elements\Input as FormInput;
 use App\View\Components\Elements\Textarea as FormTextarea;
@@ -54,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('data-table', DataTable::class);
         Blade::component('form-design', FormDesign::class);
         Blade::component('card-design', CardDesign::class);
+        Blade::component('modal-design', ModalDesign::class);
         Blade::component('quick-form', QuickForm::class);
 
         // Form Elements

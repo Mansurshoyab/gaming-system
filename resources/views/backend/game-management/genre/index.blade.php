@@ -1,14 +1,14 @@
 <x-backend-layout :page="__('Manage Genre')" >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb :module="__('Genre Management')" :breadcrumbs="[['title' => 'Genre', 'route' => 'roles.index'], ['title' => 'List']]" />
+    <x-backend-breadcrumb :module="__('Genre Management')" :breadcrumbs="[['title' => 'Genres', 'route' => 'roles.index'], ['title' => 'List']]" />
   @endpush
 
   <x-base-section>
     <ul class="nav nav-pills mb-5" id="pills-tab" role="tablist" >
       <li class="nav-item" role="presentation" >
         <button class="nav-link py-1 active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" >
-            <span>{{ __('Home') }}</span>
+          <span>{{ __('Home') }}</span>
         </button>
       </li>
       <li class="nav-item" role="presentation" >
@@ -17,7 +17,7 @@
         </button>
       </li>
       <li class="nav-item" role="presentation" >
-        <button type="button" class="nav-link py-1" id="quickAdd" store-route="{{ route('genres.store') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+        <button type="button" class="nav-link py-1" id="quickAdd" store-route="{{ route('genres.store') }}" data-total="{{ $total }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
           <span>{{ __('Quick Add') }}</span>
         </button>
       </li>
@@ -32,7 +32,7 @@
             <tr>
               <td>{{ str_pad($loop->iteration, strlen(count($genres)), '0', STR_PAD_LEFT) . '.' }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('genres.update', $genre->id) }}" data-title="{{ $genre->title }}" data-description="{{ $genre->description }}" data-slug="{{ $genre->slug }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('genres.update', $genre->id) }}" data-title="{{ $genre->title }}" data-description="{{ $genre->description }}" data-slug="{{ $genre->slug }}" data-updated="{{ $genre->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
                   <strong>{{ $genre->title }}</strong>
                 </a>
               </td>
@@ -43,6 +43,7 @@
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $genre->created_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 <x-edit-action :href="route('genres.edit', $genre->id)" />
+                <x-show-action :href="route('genres.show', $genre->id)" />
               </td>
             </tr>
           @endforeach
@@ -56,7 +57,15 @@
     </div>
   </section>
 
-  <x-quick-form :centered="true" :scrollable="true" >
+  <x-modal-design :id="__('showModal')" :center="true" :scroll="true" >
+    <x-slot name="footer" >
+      <strong id="footerTitle" >{{ __('Last Updated') }}</strong>
+      <span>{{ __(':') }}</span>
+      <span id="footerData" >{{ __('Update Time') }}</span>
+    </x-slot>
+  </x-modal-design>
+
+  <x-quick-form :center="true" :scroll="true" >
     <div class="col-6" >
       <x-form-input :label="__('Title')" :type="__('text')" :name="__('title')" :count="true" :max="__(25)" :required="true" />
     </div>
@@ -66,40 +75,30 @@
     <div class="col-12" >
       <x-form-textarea :label="__('Description')" :name="__('description')" :rows="__('4')" :count="true" :max="__(250)" />
     </div>
+    <x-slot name="footer" >
+      <strong id="quickFooter" >{{ __('Footer Title') }}</strong>
+      <span>{{ __(':') }}</span>
+      <span id="quickData" >{{ __('Footer Data') }}</span>
+    </x-slot>
   </x-quick-form>
 
   @push('scripts')
     <script>
       $(document).ready(function () {
         $("#quickAdd").click(function () {
-          var store = $(this).attr('store-route');
-          $("#quickForm #quickTitle").text("Quick Add");
-          $("#quickForm #quickButton").removeClass('btn-success').addClass('btn-primary');
-          $("#quickForm #quickIcon").removeClass('fa-check').addClass('fa-plus');
-          $("#quickForm #quickLabel").text("Create");
           $("#quickForm #title").val('');
           $("#quickForm #description").val('');
           $("#quickForm #slug").val('');
-          $('#quickForm').attr('action', store);
-          $("#quickForm").find("input[name='_method']").remove();
+          $("#quickModal .modal-footer #quickFooter").text("Total Genres");
         });
+
         $(".quick-edit").click(function () {
-          var update = $(this).attr('update-route');
-          var id = $(this).data('id');
           var title = $(this).data('title');
           var description = $(this).data('description');
           var slug = $(this).data('slug');
-          $("#quickForm #quickTitle").text("Quick Edit");
           $("#quickForm #title").val(title);
           $("#quickForm #description").val(description);
           $("#quickForm #slug").val(slug);
-          $("#quickForm #quickButton").removeClass('btn-primary').addClass('btn-success');
-          $("#quickForm #quickIcon").removeClass('fa-plus').addClass('fa-check');
-          $("#quickForm #quickLabel").text("Update");
-          $('#quickForm').attr('action', update);
-          if ($("#quickForm").find("input[name='_method']").length === 0) {
-            $("#quickForm").prepend('<input type="hidden" name="_method" value="put" />');
-          }
         });
       });
     </script>

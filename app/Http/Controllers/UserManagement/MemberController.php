@@ -19,6 +19,7 @@ class MemberController extends Controller
     {
         try {
             $members = Member::orderBy('created_at', 'DESC')->get();
+            $total = Member::withoutTrashed()->count();
             return response()->view('backend.user-management.members.index', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());
@@ -41,14 +42,14 @@ class MemberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(MemberRequest $request) 
+    public function store(MemberRequest $request)
     {
         try {
             $data = $request->validated();
             $data['username'] = 'user' . time();
 
             Member::create($data);
-    
+
             return redirect()->route('members.index')->with('created', 'Member created successfully.');
         } catch (\Exception $e) {
             return response($e->getMessage());

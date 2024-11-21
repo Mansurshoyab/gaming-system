@@ -6,14 +6,15 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Quickform extends Component
+class Modal extends Component
 {
-    public $center, $scroll, $header, $footer, $theme, $button;
+    public $id, $center, $scroll, $header, $footer, $theme, $button;
     /**
      * Create a new component instance.
      */
-    public function __construct($center = false, $scroll = false, $header = 'Quick Form', $footer = null, $theme = 'primary', $button = 'Submit')
+    public function __construct($id = 'staticBackdrop', $center = false, $scroll = false, $header = 'Modal title', $footer = null, $theme = 'primary', $button = 'Understood')
     {
+        $this->id = $id;
         $this->center = $center;
         $this->scroll = $scroll;
         $this->header = $header;
@@ -27,6 +28,6 @@ class Quickform extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.designs.quickform');
+        return view('components.designs.modal');
     }
 }

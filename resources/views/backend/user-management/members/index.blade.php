@@ -1,7 +1,7 @@
-<x-backend-layout :page="__('Manage Roles') " >
+<x-backend-layout :page="__('Manage Members') " >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb :module="__('User Management')" :breadcrumbs="[['title' => 'Roles', 'route' => 'roles.index'], ['title' => 'List']]" />
+    <x-backend-breadcrumb :module="__('User Management')" :breadcrumbs="[['title' => 'Members', 'route' => 'members.index'], ['title' => 'List']]" />
   @endpush
 
   <x-base-section>
@@ -17,7 +17,7 @@
         </button>
       </li>
       <li class="nav-item" role="presentation" >
-        <button type="button" class="nav-link py-1" id="quickAdd" store-route="{{ route('members.store') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+        <button type="button" class="nav-link py-1" id="quickAdd" store-route="{{ route('members.store') }}" data-total="{{ $total }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
           <span>{{ __('Quick Add') }}</span>
         </button>
       </li>
@@ -32,7 +32,7 @@
             <tr>
               <td>{{ str_pad($loop->iteration, strlen(count($members)), '0', STR_PAD_LEFT) . '.' }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('members.update', $member->id) }}" data-firstname="{{ $member->firstname }}" data-lastname="{{ $member->lastname }}" data-email="{{ $member->email }}" data-phone="{{ $member->phone }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('members.update', $member->id) }}" data-firstname="{{ $member->firstname }}" data-lastname="{{ $member->lastname }}" data-email="{{ $member->email }}" data-phone="{{ $member->phone }}" data-updated="{{ $member->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
                   <strong>{{ fullname($member) }}</strong>
                 </a>
               </td>
@@ -42,6 +42,7 @@
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $member->created_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 <x-edit-action :href="route('members.edit', $member->id)" />
+                <x-show-action :href="route('members.show', $member->id)" />
               </td>
             </tr>
           @endforeach
@@ -55,7 +56,15 @@
     </div>
   </section>
 
-  <x-quick-form :centered="true" :scrollable="true" >
+  <x-modal-design :id="__('showModal')" :center="true" :scroll="true" >
+    <x-slot name="footer" >
+      <strong id="footerTitle" >{{ __('Last Updated') }}</strong>
+      <span>{{ __(':') }}</span>
+      <span id="footerData" >{{ __('Update Time') }}</span>
+    </x-slot>
+  </x-modal-design>
+
+  <x-quick-form :center="true" :scroll="true" >
     <div class="col-6" >
       <x-form-input :label="__('First Name')" :type="__('text')" :name="__('firstname')" :count="true" :max="__(50)" :required="true" />
     </div>
@@ -74,45 +83,37 @@
     <div class="col-6" >
       <x-form-input :label="__('Confirm Password')" :type="__('password')" :name="__('password_confirmation')" :required="true" />
     </div>
+    <x-slot name="footer" >
+      <strong id="quickFooter" >{{ __('Footer Title') }}</strong>
+      <span>{{ __(':') }}</span>
+      <span id="quickData" >{{ __('Footer Data') }}</span>
+    </x-slot>
   </x-quick-form>
 
   @push('scripts')
     <script>
       $(document).ready(function () {
         $("#quickAdd").click(function () {
-          var store = $(this).attr('store-route');
-          $("#quickForm #quickTitle").text("Quick Add");
-          $("#quickForm #quickButton").removeClass('btn-success').addClass('btn-primary');
-          $("#quickForm #quickIcon").removeClass('fa-check').addClass('fa-plus');
-          $("#quickForm #quickLabel").text("Create");
-          $("#quickForm #firstname").val('');
+          $("#quickForm #firsname").val('');
           $("#quickForm #lastname").val('');
           $("#quickForm #email").val('');
           $("#quickForm #phone").val('');
-          $('#quickForm').attr('action', store);
-          $("#quickForm").find("input[name='_method']").remove();
+          $("#quickForm #password").val('');
+          $("#quickForm #passwordConfirmation").val('');
+          $("#quickModal .modal-footer #quickFooter").text("Total Members");
           $("#quickForm #password").closest('.col-6').show();
           $("#quickForm #passwordConfirmation").closest('.col-6').show();
         });
+
         $(".quick-edit").click(function () {
-          var update = $(this).attr('update-route');
-          var id = $(this).data('id');
-          var firstname = $(this).data('firstname');
+          var firsname = $(this).data('firsname');
           var lastname = $(this).data('lastname');
           var email = $(this).data('email');
-          var phone = $(this).data('slug');
-          $("#quickForm #quickTitle").text("Quick Edit");
-          $("#quickForm #firstname").val(firstname);
-          $("#quickForm #email").val(email);
+          var phone = $(this).data('phone');
+          $("#quickForm #firsname").val(firsname);
           $("#quickForm #lastname").val(lastname);
+          $("#quickForm #email").val(email);
           $("#quickForm #phone").val(phone);
-          $("#quickForm #quickButton").removeClass('btn-primary').addClass('btn-success');
-          $("#quickForm #quickIcon").removeClass('fa-plus').addClass('fa-check');
-          $("#quickForm #quickLabel").text("Update");
-          $('#quickForm').attr('action', update);
-          if ($("#quickForm").find("input[name='_method']").length === 0) {
-            $("#quickForm").prepend('<input type="hidden" name="_method" value="put" />');
-          }
           $("#quickForm #password").closest('.col-6').hide();
           $("#quickForm #passwordConfirmation").closest('.col-6').hide();
         });
@@ -120,4 +121,4 @@
     </script>
   @endpush
 
-  </x-backend-layout>
+</x-backend-layout>

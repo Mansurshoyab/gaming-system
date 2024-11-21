@@ -1,7 +1,7 @@
 <x-backend-layout :page="__('Add New Genre')" >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb :module="__('Genre Management')" :breadcrumbs="[['title' => 'Genre', 'route' => 'genres.index'], ['title' => 'Add']]" />
+    <x-backend-breadcrumb :module="__('Genre Management')" :breadcrumbs="[['title' => 'Genres', 'route' => 'genres.index'], ['title' => 'Add']]" />
   @endpush
 
   <x-base-section :class="__('col-sm-10 col-md-8 col-lg-6 offset-sm-1 offset-md-2 offset-lg-3')" >
