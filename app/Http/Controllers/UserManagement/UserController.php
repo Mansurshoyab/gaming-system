@@ -71,9 +71,15 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $user): Response
     {
-        //
+        try {
+            $roles = Role::where('status', Status::ENABLE)->pluck('title', 'id');
+            $approval = Approval::fetch();
+            return response()->view('backend.user-management.users.edit', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**
