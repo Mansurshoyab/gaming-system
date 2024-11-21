@@ -12,6 +12,7 @@ use App\View\Components\Designs\Section as BaseSection;
 use App\View\Components\Designs\Table as DataTable;
 use App\View\Components\Designs\Form as FormDesign;
 use App\View\Components\Designs\Card as CardDesign;
+use App\View\Components\Designs\Modal as ModalDesign;
 use App\View\Components\Designs\Quickform as QuickForm;
 use App\View\Components\Elements\Input as FormInput;
 use App\View\Components\Elements\Textarea as FormTextarea;
@@ -19,6 +20,8 @@ use App\View\Components\Elements\Select as FormSelect;
 use App\View\Components\Elements\Enum as FormEnum;
 use App\View\Components\Elements\Discard as FormDiscard;
 use App\View\Components\Elements\Button as FormButton;
+use App\View\Components\Action\Drawer as ActionDrawer;
+use App\View\Components\Action\Toggle as ToggleSwitch;
 use App\View\Components\Action\Edit as EditAction;
 use App\View\Components\Action\Show as ShowAction;
 use Illuminate\Support\Facades\Blade;
@@ -54,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('data-table', DataTable::class);
         Blade::component('form-design', FormDesign::class);
         Blade::component('card-design', CardDesign::class);
+        Blade::component('modal-design', ModalDesign::class);
         Blade::component('quick-form', QuickForm::class);
 
         // Form Elements
@@ -65,6 +69,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('form-button', FormButton::class);
 
         // Actions
+        Blade::component('action-drawer', ActionDrawer::class);
+        Blade::component('toggle-switch', ToggleSwitch::class);
         Blade::component('edit-action', EditAction::class);
         Blade::component('show-action', ShowAction::class);
     }

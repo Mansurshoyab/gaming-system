@@ -34,3 +34,14 @@
     </div>
   @endif
 </div>
+
+@if ($tool)
+  @push('styles')
+    <style>
+      .btn-card {
+        background: #ececec !important;
+      }
+    </style>
+  @endpush
+@endif
+

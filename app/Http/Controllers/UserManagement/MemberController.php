@@ -4,11 +4,14 @@ namespace App\Http\Controllers\UserManagement;
 
 use App\Enums\GlobalUsage\Status;
 use App\Enums\UserManagement\Approval;
+use App\Events\MemberCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagement\MemberRequest;
 use App\Models\UserManagement\Member;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
 {
@@ -19,6 +22,7 @@ class MemberController extends Controller
     {
         try {
             $members = Member::orderBy('created_at', 'DESC')->get();
+            $total = Member::withTrashed()->count();
             return response()->view('backend.user-management.members.index', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());
@@ -41,17 +45,17 @@ class MemberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(MemberRequest $request) 
+    public function store(MemberRequest $request): RedirectResponse
     {
         try {
             $data = $request->validated();
-            $data['username'] = 'user' . time();
-
-            Member::create($data);
-    
+            $data['username'] = 'member' . time();
+            $data['password'] = Hash::make($data['password']);
+            $member = Member::create($data);
+            event(new MemberCreated($member));
             return redirect()->route('members.index')->with('created', 'Member created successfully.');
         } catch (\Exception $e) {
-            return response($e->getMessage());
+            return back()->with('error', 'An error occurred');
         }
     }
 
@@ -97,5 +101,30 @@ class MemberController extends Controller
     public function destroy(Member $member)
     {
         //
+    }
+
+    /**
+     * Change status of the specified resource from storage.
+     */
+    public function status(Request $request) {
+        try {
+            $id = $request->input('id');
+            $status = $request->input('status');
+            if (!in_array($status, [Approval::APPROVED, Approval::SUSPENDED])) {
+                return response()->json(['error' => 'Invalid status value'], 401);
+            }
+            $member = Member::find($id);
+            if (!$member) {
+                return response()->json(['error' => 'Member not found'], 404);
+            }
+            $updated = $member->update(['status' => $status]);
+            if ($updated) {
+                return response()->json(['success' => true, 'message' => 'Member status changed!'], 200);
+            } else {
+                return response()->json(['success' => false, 'message' => 'No record updated!'], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to change member status'], 500);
+        }
     }
 }

@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers\GameManagement;
 
+use App\Enums\GlobalUsage\Status;
 use App\Http\Controllers\Controller;
 use App\Models\GameManagement\Game;
+use App\Models\GameManagement\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class GameController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        try {
+            $games = Game::orderBy('created_at', 'DESC')->get();
+            $total = Game::withTrashed()->count();
+            $genres = Genre::where('status', Status::ENABLE)->pluck('title', 'id');
+            return response()->view('backend.game-management.games.index', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**
@@ -62,5 +72,30 @@ class GameController extends Controller
     public function destroy(Game $game)
     {
         //
+    }
+
+    /**
+     * Change status of the specified resource from storage.
+     */
+    public function status(Request $request) {
+        try {
+            $id = $request->input('id');
+            $status = $request->input('status');
+            if (!in_array($status, [Status::ENABLE, Status::DISABLE])) {
+                return response()->json(['error' => 'Invalid status value'], 401);
+            }
+            $game = Game::find($id);
+            if (!$game) {
+                return response()->json(['error' => 'Game not found'], 404);
+            }
+            $updated = $game->update(['status' => $status]);
+            if ($updated) {
+                return response()->json(['success' => true, 'message' => 'Game status changed!'], 200);
+            } else {
+                return response()->json(['success' => false, 'message' => 'No record updated!'], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to change game status'], 500);
+        }
     }
 }

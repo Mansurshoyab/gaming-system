@@ -19,6 +19,7 @@ class RoleController extends Controller
     {
         try {
             $roles = Role::orderBy('created_at', 'DESC')->get();
+            $total = Role::withTrashed()->count();
             return response()->view('backend.user-management.roles.index', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());
@@ -94,5 +95,30 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         //
+    }
+
+    /**
+     * Change status of the specified resource from storage.
+     */
+    public function status(Request $request) {
+        try {
+            $id = $request->input('id');
+            $status = $request->input('status');
+            if (!in_array($status, [Status::ENABLE, Status::DISABLE])) {
+                return response()->json(['error' => 'Invalid status value'], 401);
+            }
+            $role = Role::find($id);
+            if (!$role) {
+                return response()->json(['error' => 'Role not found'], 404);
+            }
+            $updated = $role->update(['status' => $status]);
+            if ($updated) {
+                return response()->json(['success' => true, 'message' => 'Role status changed!'], 200);
+            } else {
+                return response()->json(['success' => false, 'message' => 'No record updated!'], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to change role status'], 500);
+        }
     }
 }

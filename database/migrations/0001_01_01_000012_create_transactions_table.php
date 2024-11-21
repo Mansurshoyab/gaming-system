@@ -13,11 +13,11 @@ return new class extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('accounts', function (Blueprint $table) { 
+        Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('acc_name')->unique();
-            $table->string('acc_code')->unique();
-            $table->string('acc_no');
+            $table->string('acc_name', 25)->unique();
+            $table->string('acc_code', 6)->unique();
+            $table->string('acc_no', 19);
             $table->enum('status', Status::fetch())->default(Status::PENDING);
             $table->timestamps();
             $table->softDeletes();

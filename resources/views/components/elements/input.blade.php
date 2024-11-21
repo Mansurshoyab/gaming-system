@@ -18,8 +18,7 @@
     @endif
     <input type="{{ $type }}" name="{{ $name }}" class="form-control py-1" id="{{ Str::camel($name) }}"
       placeholder="{{ $label ? ucwords($label) : __('Type your text here ...') }}" @if ($value !== null) value="{{ $value }}" @endif
-      aria-describedby="{{ Str::kebab($name) }}-helper-text" @if ($required) required @endif
-      @if ($readonly && !$disable) readonly @endif @if ($disable && !$readonly) disabled @endif @if ($max) maxlength="{{ $max }}" @endif
+      aria-describedby="{{ Str::kebab($name) }}-helper-text" @required($required) @readonly($readonly) @disabled($disable) @if ($max) maxlength="{{ $max }}" @endif
     />
   </div>
   @if ($helper || $count)

@@ -82,7 +82,7 @@
       $(document).ready( function () {
         var lang = $('#language');
         $(lang).change( function () {
-            alert(lang.val());
+          alert(lang.val());
         });
       });
     </script>

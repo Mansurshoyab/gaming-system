@@ -7,17 +7,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\GameManagement\GenreRequest;
 use App\Models\GameManagement\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class GenreController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         try {
             $genres = Genre::orderBy('created_at' , 'DESC')->get();
-            return response()->view('backend.game-management.genre.index', get_defined_vars());
+            $total = Genre::withTrashed()->count();
+            return response()->view('backend.game-management.genres.index', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());
         }
@@ -30,7 +32,7 @@ class GenreController extends Controller
     {
         try {
             $status = Status::fetch();
-            return response()->view('backend.game-management.genre.create', get_defined_vars());
+            return response()->view('backend.game-management.genres.create', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());
         }
@@ -65,7 +67,7 @@ class GenreController extends Controller
     {
         try {
             $status = Status::fetch();
-            return response()->view('backend.game-management.genre.edit', get_defined_vars());
+            return response()->view('backend.game-management.genres.edit', get_defined_vars());
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -91,5 +93,30 @@ class GenreController extends Controller
     public function destroy(Genre $genre)
     {
         //
+    }
+
+    /**
+     * Change status of the specified resource from storage.
+     */
+    public function status(Request $request) {
+        try {
+            $id = $request->input('id');
+            $status = $request->input('status');
+            if (!in_array($status, [Status::ENABLE, Status::DISABLE])) {
+                return response()->json(['error' => 'Invalid status value'], 401);
+            }
+            $genre = Genre::find($id);
+            if (!$genre) {
+                return response()->json(['error' => 'Genre not found'], 404);
+            }
+            $updated = $genre->update(['status' => $status]);
+            if ($updated) {
+                return response()->json(['success' => true, 'message' => 'Genre status changed!'], 200);
+            } else {
+                return response()->json(['success' => false, 'message' => 'No record updated!'], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to change genre status'], 500);
+        }
     }
 }

@@ -18,7 +18,7 @@
       rows="{{ $rows }}"
       placeholder="{{ $placeholder ?? __('Type your text here ...') }}"
       aria-describedby="{{ Str::kebab($name) }}-helper-text"
-      @if ( $required !== false ) required @endif @if ( $readonly !== false && $disable === false ) readonly @endif @if ( $disable !== false && $readonly === false ) disabled @endif
+      @required($required) @readonly($readonly) @disabled($disable)
     >{{ $value }}</textarea>
   </div>
   @if ($helper !== null || $count !== false)

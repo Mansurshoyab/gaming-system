@@ -36,8 +36,8 @@ class GameSeeder extends Seeder
                 default => 10,
             };
             $game['genre_id'] = $genre;
-            $game['thumbnail'] = null;
             $game['slug'] = Str::slug($game['name']);
+            $game['thumbnail'] = $game['slug'] . '.png';
             $game['status'] = Status::ENABLE;
             Game::create($game);
         }
