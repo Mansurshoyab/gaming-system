@@ -11,11 +11,11 @@
     </label>
   @endif
   <div class="input-group" >
-    <select name="{{ $name }}" class="form-select" id="{{ Str::camel($name) }}" aria-label="{{ Str::kebab($name) }}" @if ( $required !== false ) required @endif @if ( $disable !== false ) disabled @endif >
+    <select name="{{ $name }}" class="form-select" id="{{ Str::camel($name) }}" aria-label="{{ Str::kebab($name) }}" @required($required) @disabled($disable) >
       <option value="" selected disabled >{{ __('Choose One') }}</option>
       @if (!empty($options))
         @foreach ($options as $item)
-          <option value="{{ $item }}" @if ( $value !== null && $value === $item ) selected @endif >{{ ucfirst($item) }}</option>
+          <option value="{{ $item }}" @selected($value === $item) >{{ ucfirst($item) }}</option>
         @endforeach
       @endif
     </select>

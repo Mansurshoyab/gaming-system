@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\UserManagement;
 
+use App\Enums\GlobalUsage\Status;
 use App\Enums\UserManagement\Approval;
 use App\Http\Controllers\Controller;
+use App\Models\UserManagement\Role;
 use App\Models\UserManagement\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -27,9 +29,15 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
-        //
+        try {
+            $roles = Role::where('status', Status::ENABLE)->get();
+            $approval = Approval::fetch();
+            return response()->view('backend.user-management.users.create', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**

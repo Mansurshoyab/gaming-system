@@ -8,15 +8,15 @@ use Illuminate\View\Component;
 
 class Discard extends Component
 {
-    public $route, $theme, $classes, $icon, $label;
+    public $route, $theme, $class, $icon, $label;
     /**
      * Create a new component instance.
      */
-    public function __construct($route = null, $theme = 'info', $classes = 'py-1', $icon = null, $label = 'Discard')
+    public function __construct($route = null, $theme = 'info', $class = 'py-1', $icon = null, $label = 'Discard')
     {
         $this->route = $route;
         $this->theme = __($theme);
-        $this->classes = __($classes);
+        $this->class = $class;
         $this->icon = __($icon);
         $this->label = __($label);
     }

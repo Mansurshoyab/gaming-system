@@ -1,6 +1,6 @@
-@props(['type' => 'button', 'theme' => 'primary', 'classes' => 'py-1', 'id' => null, 'disabled' => false, 'icon' => null, 'label' => 'Button'])
+@props(['type' => 'button', 'theme' => 'primary', 'class' => 'py-1', 'id' => null, 'disabled' => false, 'icon' => null, 'label' => 'Button'])
 
-<button type="{{ $type }}" class="btn btn-{{ $theme }} {{ $classes }}" @if ( $id !== null ) id="{{ $id }}" @endif @if ( $disabled !== false ) disabled @endif >
+<button type="{{ $type }}" class="btn btn-{{ $theme }}" @class([$class]) @if ( $id !== null ) id="{{ $id }}" @endif @disabled($disabled) >
   @if ( $icon !== null )
     <i class="fas fa-{{ $icon }}" ></i>
   @endif
