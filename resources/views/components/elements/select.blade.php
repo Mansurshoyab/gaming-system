@@ -4,22 +4,22 @@
   use Illuminate\Support\Str;
 @endphp
 
-<div class="form-group p-0">
+<div class="form-group p-0" >
   @if ($label !== null)
-    <label for="{{ Str::camel($name) }}" class="form-label mb-0">
+    <label for="{{ Str::camel($name) }}" class="form-label mb-0" >
       <strong>{{ $label }}</strong>
     </label>
   @endif
-  <div class="input-group">
+  <div class="input-group" >
     <select name="{{ $name }}" class="form-select" id="{{ Str::camel($name) }}" aria-label="{{ Str::kebab($name) }}" @required($required) @disabled($disable) >
       <option value="" selected disabled>{{ __('Choose One') }}</option>
-      {{-- @if (!empty($options)) --}}
-        @foreach ($options as $item)
-          <option value="{{ $item->id }}" @selected($value === $item->id) >
-            {{ $item->title ?? $item->name }}
+      @if (!empty($options))
+        @foreach ($options as $id => $title)
+          <option value="{{ $id }}" @selected($value === $id)>
+            {{ $title }}
           </option>
         @endforeach
-      {{-- @endif --}}
+      @endif
     </select>
   </div>
 </div>

@@ -19,7 +19,7 @@ class GameController extends Controller
         try {
             $games = Game::orderBy('created_at', 'DESC')->get();
             $total = Game::withTrashed()->count();
-            $genres = Genre::where('status', Status::ENABLE)->get();
+            $genres = Genre::where('status', Status::ENABLE)->pluck('title', 'id');
             return response()->view('backend.game-management.games.index', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());

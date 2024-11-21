@@ -20,6 +20,7 @@ class UserController extends Controller
         try {
             $users = User::orderBy('created_at', 'DESC')->get();
             $total = User::withTrashed()->count();
+            $roles = Role::where('status', Status::ENABLE)->pluck('title', 'id');
             return response()->view('backend.user-management.users.index', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());
@@ -32,7 +33,7 @@ class UserController extends Controller
     public function create(): Response
     {
         try {
-            $roles = Role::where('status', Status::ENABLE)->get();
+            $roles = Role::where('status', Status::ENABLE)->pluck('title', 'id');
             $approval = Approval::fetch();
             return response()->view('backend.user-management.users.create', get_defined_vars());
         } catch (\Exception $e) {

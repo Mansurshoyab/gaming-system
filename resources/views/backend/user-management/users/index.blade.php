@@ -32,7 +32,7 @@
             <tr>
               <td>{{ str_pad($loop->iteration, strlen(count($users)), '0', STR_PAD_LEFT) . '.' }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('users.update', $user->id) }}" data-firstname="{{ $user->firstname }}" data-lastname="{{ $user->lastname }}" data-email="{{ $user->email }}" data-phone="{{ $user->phone }}" data-updated="{{ $user->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('users.update', $user->id) }}" data-firstname="{{ $user->firstname }}" data-lastname="{{ $user->lastname }}" data-email="{{ $user->email }}" data-phone="{{ $user->phone }}" data-role-id="{{ $user->role_id }}" data-updated="{{ $user->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
                   <strong>{{ fullname($user) }}</strong>
                 </a>
               </td>
@@ -75,11 +75,14 @@
     <div class="col-6" >
       <x-form-input :label="__('Last Name')" :type="__('text')" :name="__('lastname')" :count="true" :max="__(50)" />
     </div>
-    <div class="col-6" >
+    <div class="col-12" >
       <x-form-input :label="__('Email Address')" :type="__('email')" :name="__('email')" :count="true" :max="__(100)" :required="true" />
     </div>
     <div class="col-6" >
       <x-form-input :label="__('Cell Phone')" :type="__('tel')" :name="__('phone')" :count="true" :max="__(19)" :required="true" />
+    </div>
+    <div class="col-6" >
+      <x-form-select :label="__('User Role')" :name="__('role_id')" :options="$roles" />
     </div>
     <div class="col-6" >
       <x-form-input :label="__('Password')" :type="__('password')" :name="__('password')" :required="true" />
@@ -102,6 +105,7 @@
           $("#quickForm #lastname").val('');
           $("#quickForm #email").val('');
           $("#quickForm #phone").val('');
+          $("#quickForm #roleId").val('');
           $("#quickForm #password").val('');
           $("#quickForm #passwordConfirmation").val('');
           $("#quickModal .modal-footer #quickFooter").text("Total Users");
@@ -114,10 +118,12 @@
           var lastname = $(this).data('lastname');
           var email = $(this).data('email');
           var phone = $(this).data('phone');
+          var role = $(this).data('role-id');
           $("#quickForm #firstname").val(firstname);
           $("#quickForm #lastname").val(lastname);
           $("#quickForm #email").val(email);
           $("#quickForm #phone").val(phone);
+          $("#quickForm #roleId").val(role);
           $("#quickForm #password").closest('.col-6').hide();
           $("#quickForm #passwordConfirmation").closest('.col-6').hide();
         });

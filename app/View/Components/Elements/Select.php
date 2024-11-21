@@ -16,7 +16,7 @@ class Select extends Component
     {
         $this->label = __($label);
         $this->name = __($name);
-        $this->options = is_array($options) ? $options : [];
+        $this->options = is_object($options) ? $options : [];
         $this->value = __($value);
         $this->required = __($required);
         $this->disable = __($disable);

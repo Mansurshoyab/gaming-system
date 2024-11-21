@@ -76,12 +76,7 @@
       <x-form-input :label="__('Slug')" :type="__('text')" :name="__('slug')" :check="true" :count="true" :slug="__('title')" :max="__(25)" :required="true" />
     </div>
     <div class="col-12" >
-      <select name="genre_id" class="form-select" id="genreId" required >
-        <option value="" selected disabled >{{ __('Choose One') }}</option>
-        @foreach ($genres as $genre)
-          <option value="{{ $genre->id }}" >{{ $genre->title }}</option>
-        @endforeach
-      </select>
+      <x-form-select :label="__('Genre')" :name="__('genre_id')" :options="$genres" />
     </div>
     <div class="col-12" >
       <x-form-textarea :label="__('Description')" :name="__('description')" :rows="__('4')" :count="true" :max="__(250)" />
