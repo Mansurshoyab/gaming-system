@@ -42,8 +42,10 @@
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $genre->created_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <x-edit-action :href="route('genres.edit', $genre->id)" />
-                <x-show-action :href="route('genres.show', $genre->id)" />
+                <x-action-drawer>
+                  <x-edit-action :href="route('genres.edit', $genre->id)" />
+                  <x-show-action :href="route('genres.show', $genre->id)" />
+                </x-action-drawer>
               </td>
             </tr>
           @endforeach

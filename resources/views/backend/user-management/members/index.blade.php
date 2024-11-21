@@ -41,8 +41,10 @@
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $member->created_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <x-edit-action :href="route('members.edit', $member->id)" />
-                <x-show-action :href="route('members.show', $member->id)" />
+                <x-action-drawer>
+                  <x-edit-action :href="route('members.edit', $member->id)" />
+                  <x-show-action :href="route('members.show', $member->id)" />
+                </x-action-drawer>
               </td>
             </tr>
           @endforeach
