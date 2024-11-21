@@ -23,7 +23,7 @@ class GenreRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'title' => ['required', 'string', 'max:25'],
+            'title' => ['required', 'string', 'max:25'], 
             'description' => ['nullable', 'string', 'max:250'],
             'slug' => ['required', 'string', 'max:25'],
             'status' => ['required', 'in:' . implode(',', Status::fetch())],

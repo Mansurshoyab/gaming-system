@@ -297,7 +297,7 @@
           <h4 class="text-section py-0 my-1" >{{ __('Company Setup') }}</h4>
         </li>
         <li class="nav-item" >
-          <a href="javascript:void(0);" class="nav-link py-1" >
+          <a href="{{ route('company.index') }}" class="nav-link py-1" >
             <i class="fas fa-university" ></i>
             <p>{{ __('Manage Company') }}</p>
           </a>
