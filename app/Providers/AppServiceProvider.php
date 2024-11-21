@@ -21,6 +21,7 @@ use App\View\Components\Elements\Enum as FormEnum;
 use App\View\Components\Elements\Discard as FormDiscard;
 use App\View\Components\Elements\Button as FormButton;
 use App\View\Components\Action\Drawer as ActionDrawer;
+use App\View\Components\Action\Toggle as ToggleSwitch;
 use App\View\Components\Action\Edit as EditAction;
 use App\View\Components\Action\Show as ShowAction;
 use Illuminate\Support\Facades\Blade;
@@ -69,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Actions
         Blade::component('action-drawer', ActionDrawer::class);
+        Blade::component('toggle-switch', ToggleSwitch::class);
         Blade::component('edit-action', EditAction::class);
         Blade::component('show-action', ShowAction::class);
     }

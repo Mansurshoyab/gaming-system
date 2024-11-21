@@ -40,7 +40,8 @@
                 <span>{{ ucfirst($member->status) }}</span>
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $member->created_at->diffForHumans() }}</td>
-              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+              <td class="d-flex justify-content-between align-items-center" style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                <x-toggle-switch :name="__('status')" :href="route('members.status', $member->id)" :id="$member->id" :enable="approval('approved')" :disable="approval('suspended')" :value="$member->status" />
                 <x-action-drawer>
                   <x-edit-action :href="route('members.edit', $member->id)" />
                   <x-show-action :href="route('members.show', $member->id)" />

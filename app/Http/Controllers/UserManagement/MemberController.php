@@ -99,4 +99,29 @@ class MemberController extends Controller
     {
         //
     }
+
+    /**
+     * Change status of the specified resource from storage.
+     */
+    public function status(Request $request) {
+        try {
+            $id = $request->input('id');
+            $status = $request->input('status');
+            if (!in_array($status, [Approval::APPROVED, Approval::SUSPENDED])) {
+                return response()->json(['error' => 'Invalid status value'], 401);
+            }
+            $member = Member::find($id);
+            if (!$member) {
+                return response()->json(['error' => 'member not found'], 404);
+            }
+            $updated = $member->update(['status' => $status]);
+            if ($updated) {
+                return response()->json(['success' => true, 'message' => 'Member status changed!'], 200);
+            } else {
+                return response()->json(['success' => false, 'message' => 'No record updated!'], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to change member status'], 500);
+        }
+    }
 }

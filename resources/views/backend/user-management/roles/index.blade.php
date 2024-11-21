@@ -41,7 +41,8 @@
                 <span>{{ ucfirst($role->status) }}</span>
               </td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $role->created_at->diffForHumans() }}</td>
-              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+              <td class="d-flex justify-content-between align-items-center" style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                <x-toggle-switch :name="__('status')" :href="route('roles.status', $role->id)" :id="$role->id" :enable="status('enable')" :disable="status('disable')" :value="$role->status" />
                 <x-action-drawer>
                   <x-edit-action :href="route('roles.edit', $role->id)" />
                   <x-show-action :href="route('roles.show', $role->id)" />

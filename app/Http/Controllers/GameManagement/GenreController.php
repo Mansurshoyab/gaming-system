@@ -93,4 +93,29 @@ class GenreController extends Controller
     {
         //
     }
+
+    /**
+     * Change status of the specified resource from storage.
+     */
+    public function status(Request $request) {
+        try {
+            $id = $request->input('id');
+            $status = $request->input('status');
+            if (!in_array($status, [Status::ENABLE, Status::DISABLE])) {
+                return response()->json(['error' => 'Invalid status value'], 401);
+            }
+            $genre = Genre::find($id);
+            if (!$genre) {
+                return response()->json(['error' => 'genre not found'], 404);
+            }
+            $updated = $genre->update(['status' => $status]);
+            if ($updated) {
+                return response()->json(['success' => true, 'message' => 'Genre status changed!'], 200);
+            } else {
+                return response()->json(['success' => false, 'message' => 'No record updated!'], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to change genre status'], 500);
+        }
+    }
 }
