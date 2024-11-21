@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\CompanySetup;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CompanySetup\CompanyRequest;
-use App\Models\CompanySetup\Company;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller; // Base Controller
+use App\Http\Requests\CompanySetup\CompanyRequest; // Custom Request for validation
+use App\Models\CompanySetup\Company; // Company model
+use Illuminate\Http\Request; // Default Request class
+use Illuminate\Support\Facades\Storage; // For file storage operations
+
 
 class CompanyController extends Controller
 {
@@ -24,12 +26,11 @@ class CompanyController extends Controller
 
     public function indexUpdate(CompanyRequest $request, $id)
     {
-        try {            
+        try {
             $data = $request->validated();
             $company = Company::findOrFail($id);
             $company->update($data);
             return redirect()->route('company.index')->with('updated', 'Company Home Updated successfully.');
-        
         } catch (\Exception $e) {
             return response($e->getMessage());
         }
@@ -44,6 +45,54 @@ class CompanyController extends Controller
             return response($e->getMessage());
         }
     }
+
+    public function imageUpdate(CompanyRequest $request, $id)
+    {
+        // dd($request->all());
+        try {
+            // Find the company
+            $company = Company::findOrFail($id);
+
+            if ($request->hasFile('logo')) {
+                $fileName = 'logo' . time() . '.' . $request->file('logo')->getClientOriginalExtension();
+                $request->file('logo')->storeAs('public/company', $fileName);
+                $company = Company::first();
+                if ($company && $company->logo) {
+                    Storage::delete('public/company/' . $company->logo);
+                }
+                $company->update([
+                    'logo' => $fileName,
+                ]);
+                return back()->with('updated', 'Logo update successfull!');
+            } else {
+                throw new \Exception('No screenshot uploaded.');
+            }
+            // if ($request->hasFile('logo')) {
+            //     $logoName = $request->file('logo')->getClientOriginalName();
+            //     $request->file('logo')->storeAs('company', $logoName, 'public');
+            //     $company->logo = $logoName;
+            // }
+            
+            if ($request->hasFile('favicon')) {
+                $faviconName = $request->file('favicon')->getClientOriginalName();
+                $request->file('favicon')->storeAs('company', $faviconName, 'public');
+                $company->favicon = $faviconName;
+            }
+            
+            
+
+            // Save the updated data
+            $company->save();
+
+            return redirect()->route('company.index')->with('updated', 'Company images updated successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors('Error: ' . $e->getMessage());
+        }
+    }
+
+
+
+
     public function contact()
     {
         try {

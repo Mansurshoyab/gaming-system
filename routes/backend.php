@@ -24,6 +24,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::put('/update/{id}', 'indexUpdate')->name('index.update');
         Route::get('/image', 'image')->name('image');
+        Route::put('/image/update/{id}', 'imageUpdate')->name('image.update');
         Route::get('/contact', 'contact')->name('contact');
         Route::put('/contact/update/{id}', 'updateContact')->name('contact.update');
 

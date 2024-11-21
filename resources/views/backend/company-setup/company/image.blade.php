@@ -32,37 +32,45 @@
     <x-base-section>
       <x-card-design>
         <x-base-section :class="__('col-sm-10 col-md-8 col-lg-6 offset-sm-1 offset-md-2 offset-lg-3')" >
-            <x-form-design :spoof="__('put')">
-                <x-card-design :header="__('Update company')">
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <label>{{ __('Logo') }}</label>
-                            <div>
-                                @if($company->logo)
-                                    <img src="{{ asset($company->logo) }}" alt="{{ __('Logo') }}" style="max-height: 100px;" />
-                                @else
-                                    <span>{{ __('No logo uploaded') }}</span>
-                                @endif
-                            </div>
-                            <input type="file" name="logo" accept="image/*" />
+          <form action="{{ route('company.image.update', $company->id) }}" method="POST" enctype="multipart/form-data">
+            @method('PUT') {{-- Spoofing PUT method --}}
+            @csrf {{-- CSRF Token --}}
+            <x-card-design :header="__('Update Company')">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label for="logo">{{ __('Logo') }}</label>
+                        <div>
+                          {{ $company->logo }}
+                          <img src="{{ storage_path('public/company/' . $company->logo) }}" alt="">
+                          {{-- <img src="{{ asset('images/company/' . config('company.logo') ) }}" alt=""> --}}
+                          {{-- @if($company->logo)
+                          <img src="{{ Storage::url('company/'.$company->logo) }}" alt="{{ __('Logo') }}" style="max-height: 100px;" />
+                          @else
+                              <span>{{ __('No logo uploaded') }}</span>
+                          @endif --}}
                         </div>
-                        <div class="col-12">
-                            <label>{{ __('Favicon') }}</label>
-                            <div>
-                                @if($company->favicon)
-                                    <img src="{{ asset($company->favicon) }}" alt="{{ __('Favicon') }}" style="max-height: 50px;" />
-                                @else
-                                    <span>{{ __('No favicon uploaded') }}</span>
-                                @endif
-                            </div>
-                            <input type="file" name="favicon" accept="image/*" />
-                        </div>
+                        <input type="file" name="logo" id="logo" accept="image/*" />
                     </div>
-                    <x-slot name="footer">
-                        <x-form-button :type="__('submit')" :icon="__('check')" :label="__('Update')" :theme="__('success')" />
-                    </x-slot>
-                </x-card-design>
-            </x-form-design>
+                    <div class="col-12">
+                        <label for="favicon">{{ __('Favicon') }}</label>
+                        <div>
+                            @if($company->favicon)
+                                <img src="{{ Storage::url('company/'.$company->favicon) }}" alt="{{ __('Favicon') }}" style="max-height: 50px;" />
+                            @else
+                                <span>{{ __('No favicon uploaded') }}</span>
+                            @endif
+                        </div>
+                        <input type="file" name="favicon" id="favicon" accept="image/*" />
+                    </div>
+                </div>
+                <x-slot name="footer">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i> {{ __('Update') }}
+                    </button>
+                </x-slot>
+            </x-card-design>
+        </form>
+        
             
           </x-base-section>
       </x-card-design>
