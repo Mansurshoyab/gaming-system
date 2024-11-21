@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\UserManagement;
 
+use App\Enums\UserManagement\Approval;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -27,19 +28,21 @@ class UserRequest extends FormRequest
             'username' => ['nullable', 'string', 'max:15'],
             'email' => ['required', 'email', 'max:100'],
             'phone' => ['required', 'string', 'max:19'],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'role_id' => ['nullable', 'exists:roles,id'],
+            'status' => ['nullable', 'in:' . implode(',', Approval::fetch())],
         ];
 
         if ($this->isMethod('post')) {
             $rules['email'][] = 'unique:users,email';
             $rules['phone'][] = 'unique:users,phone';
-            $rules['password'] = array_merge(['required'], $rules['password']);
+            $rules['password'] = ['required', 'string', 'min:8', 'confirmed'];
         }
 
         if ($this->isMethod('put') || $this->isMethod('patch')) {
             $userId = $this->route('user')->id ?? null;
             $rules['email'][] = 'unique:users,email,' . $userId;
             $rules['phone'][] = 'unique:users,phone,' . $userId;
+            $rules['password'] = ['nullable', 'string', 'min:8'];
         }
 
         return $rules;
@@ -70,6 +73,8 @@ class UserRequest extends FormRequest
             'password.string' => 'The password must be a valid string.',
             'password.min' => 'The password must be at least 8 characters.',
             'password.confirmed' => 'The password confirmation does not match.',
+            'role_id.exists' => 'The selected role is invalid.',
+            'status.in' => 'The status is not valid.',
         ];
     }
 }

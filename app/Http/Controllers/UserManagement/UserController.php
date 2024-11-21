@@ -12,6 +12,7 @@ use App\Models\UserManagement\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -52,6 +53,7 @@ class UserController extends Controller
         try {
             $data = $request->validated();
             $data['username'] = 'user' . time();
+            $data['password'] = Hash::make($data['password']);
             $user = User::create($data);
             event(new UserCreated($user));
             return redirect()->route('users.index')->with('created', 'User created successfully.');

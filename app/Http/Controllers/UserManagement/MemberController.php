@@ -11,6 +11,7 @@ use App\Models\UserManagement\Member;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
 {
@@ -49,6 +50,7 @@ class MemberController extends Controller
         try {
             $data = $request->validated();
             $data['username'] = 'member' . time();
+            $data['password'] = Hash::make($data['password']);
             $member = Member::create($data);
             event(new MemberCreated($member));
             return redirect()->route('members.index')->with('created', 'Member created successfully.');
