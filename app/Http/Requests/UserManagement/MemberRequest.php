@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\UserManagement;
 
+use App\Enums\UserManagement\Approval;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MemberRequest extends FormRequest
@@ -19,7 +20,7 @@ class MemberRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array 
+    public function rules(): array
     {
         $rules = [
             'firstname' => ['required', 'string', 'max:50'],
@@ -27,19 +28,20 @@ class MemberRequest extends FormRequest
             'username' => ['nullable', 'string', 'max:15'],
             'email' => ['required', 'email', 'max:100'],
             'phone' => ['required', 'string', 'max:19'],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'status' => ['nullable', 'in:' . implode(',', Approval::fetch())],
         ];
 
         if ($this->isMethod('post')) {
             $rules['email'][] = 'unique:members,email';
             $rules['phone'][] = 'unique:members,phone';
-            $rules['password'] = array_merge(['required'], $rules['password']);
+            $rules['password'] = ['required', 'string', 'min:8', 'confirmed'];
         }
 
         if ($this->isMethod('put') || $this->isMethod('patch')) {
             $memberId = $this->route('member')->id ?? null;
             $rules['email'][] = 'unique:members,email,' . $memberId;
             $rules['phone'][] = 'unique:members,phone,' . $memberId;
+            $rules['password'] = ['nullable', 'string', 'min:8'];
         }
 
         return $rules;
@@ -70,6 +72,7 @@ class MemberRequest extends FormRequest
             'password.string' => 'The password must be a valid string.',
             'password.min' => 'The password must be at least 8 characters.',
             'password.confirmed' => 'The password confirmation does not match.',
+            'status.in' => 'The status is not valid.',
         ];
     }
 }

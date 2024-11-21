@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\MemberCreated;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserManagement\MemberRequest;
 use App\Models\UserManagement\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Login successful',
-                'member' => $member,
+                'verified' => $member->verified,
                 'token' => $token,
             ], 200);
         } catch (ValidationException $e) {
@@ -68,19 +69,13 @@ class AuthController extends Controller
         }
     }
 
-    public function register(Request $request)
+    public function register(MemberRequest $request)
     {
         try {
-            $validated = $request->validate([
-                'firstname' => 'required|string|max:50',
-                'lastname' => 'nullable|string|max:50',
-                'email' => 'required|string|email|unique:members|max:100',
-                'phone' => 'required|string|unique:members|max:19',
-                'password' => 'required|string|min:8|confirmed',
-            ]);
-            $validated['username'] = 'member' . time();
-            $validated['password'] = Hash::make($validated['password']);
-            $member = Member::create($validated);
+            $data = $request->validated();
+            $data['username'] = 'member' . time();
+            $data['password'] = Hash::make($data['password']);
+            $member = Member::create($data);
             event(new MemberCreated($member));
             $token = $member->createToken($member->username . ' token')->plainTextToken;
             return response()->json([
