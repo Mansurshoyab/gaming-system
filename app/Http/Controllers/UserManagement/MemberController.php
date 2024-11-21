@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UserManagement;
 
 use App\Enums\GlobalUsage\Status;
 use App\Enums\UserManagement\Approval;
+use App\Events\MemberCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagement\MemberRequest;
 use App\Models\UserManagement\Member;
@@ -48,7 +49,9 @@ class MemberController extends Controller
             $data = $request->validated();
             $data['username'] = 'user' . time();
 
-            Member::create($data);
+            $member = Member::create($data);
+
+            event(new MemberCreated($member));
 
             return redirect()->route('members.index')->with('created', 'Member created successfully.');
         } catch (\Exception $e) {

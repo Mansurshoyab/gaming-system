@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\UserManagement\Approval;
 use App\Enums\UserManagement\Source;
+use App\Events\MemberCreated;
 use App\Models\UserManagement\Member;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -36,7 +37,9 @@ class MemberSeeder extends Seeder
             $member['status'] = Approval::APPROVED;
             $member['verified'] = true;
             $member['source'] = Source::INSTALL;
-            Member::create($member);
+            $newMember = Member::create($member);
+
+            event(new MemberCreated($newMember));
         }
     }
 }

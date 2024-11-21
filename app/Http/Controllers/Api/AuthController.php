@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\MemberCreated;
 use App\Http\Controllers\Controller;
 use App\Models\UserManagement\Member;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class AuthController extends Controller
         try {
             $request->validate([
                 'identifier' => 'required',
-                'password' => 'required', 
+                'password' => 'required',
             ]);
             $identifier = $request->input('identifier');
             $password = $request->input('password');
@@ -80,6 +81,7 @@ class AuthController extends Controller
             $validated['username'] = 'user' . time();
             $validated['password'] = Hash::make($validated['password']);
             $member = Member::create($validated);
+            event(new MemberCreated($member));
             $token = $member->createToken($member->username . ' token')->plainTextToken;
             return response()->json([
                 'success' => true,

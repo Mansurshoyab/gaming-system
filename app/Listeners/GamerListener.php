@@ -7,7 +7,7 @@ use App\Models\ProfileManagement\Location;
 use App\Models\ProfileManagement\Profile;
 use App\Models\ProfileManagement\Wallet;
 
-class MemberListener
+class GamerListener
 {
     /**
      * Handle the event.

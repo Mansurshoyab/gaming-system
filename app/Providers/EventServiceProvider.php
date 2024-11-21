@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\MemberCreated;
 use App\Events\UserCreated;
 use App\Listeners\AdminListener;
+use App\Listeners\GamerListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -16,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         UserCreated::class => [
             AdminListener::class,
+        ],
+        MemberCreated::class => [
+            GamerListener::class,
         ],
     ];
 }
