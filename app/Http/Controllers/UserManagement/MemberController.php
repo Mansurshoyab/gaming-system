@@ -8,6 +8,7 @@ use App\Events\MemberCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagement\MemberRequest;
 use App\Models\UserManagement\Member;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -43,19 +44,16 @@ class MemberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(MemberRequest $request)
+    public function store(MemberRequest $request): RedirectResponse
     {
         try {
             $data = $request->validated();
-            $data['username'] = 'user' . time();
-
+            $data['username'] = 'member' . time();
             $member = Member::create($data);
-
             event(new MemberCreated($member));
-
             return redirect()->route('members.index')->with('created', 'Member created successfully.');
         } catch (\Exception $e) {
-            return response($e->getMessage());
+            return back()->with('error', 'An error occurred');
         }
     }
 

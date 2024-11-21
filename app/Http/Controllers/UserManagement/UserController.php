@@ -4,9 +4,12 @@ namespace App\Http\Controllers\UserManagement;
 
 use App\Enums\GlobalUsage\Status;
 use App\Enums\UserManagement\Approval;
+use App\Events\UserCreated;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserManagement\UserRequest;
 use App\Models\UserManagement\Role;
 use App\Models\UserManagement\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -44,9 +47,17 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request): RedirectResponse
     {
-        //
+        try {
+            $data = $request->validated();
+            $data['username'] = 'user' . time();
+            $user = User::create($data);
+            event(new UserCreated($user));
+            return redirect()->route('users.index')->with('created', 'User created successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred');
+        }
     }
 
     /**

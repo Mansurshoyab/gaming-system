@@ -15,13 +15,10 @@
             <x-form-input :label="__('Last Name')" :type="__('text')" :name="__('lastname')" :count="true" :max="__(50)" />
           </div>
           <div class="col-6" >
-            <x-form-input :label="__('Cell Phone')" :type="__('tel')" :name="__('phone')" :count="true" :max="__(19)" :required="true" />
+            <x-form-input :label="__('Email Address')" :type="__('email')" :name="__('email')" :count="true" :max="__(100)" :required="true" />
           </div>
           <div class="col-6" >
-            <x-form-enum :label="__('Status')" :name="__('status')" :options="$approval" />
-          </div>
-          <div class="col-12" >
-            <x-form-input :label="__('Email Address')" :type="__('email')" :name="__('email')" :count="true" :max="__(100)" :required="true" />
+            <x-form-input :label="__('Cell Phone')" :type="__('tel')" :name="__('phone')" :count="true" :max="__(19)" :required="true" />
           </div>
           <div class="col-6" >
             <x-form-input :label="__('Password')" :type="__('password')" :name="__('password')" :required="true" />
@@ -31,6 +28,9 @@
           </div>
           <div class="col-6" >
             <x-form-select :label="__('User Role')" :name="__('role_id')" :options="$roles" />
+          </div>
+          <div class="col-6" >
+            <x-form-enum :label="__('Status')" :name="__('status')" :options="$approval" />
           </div>
         </div>
         <x-slot name="footer" >

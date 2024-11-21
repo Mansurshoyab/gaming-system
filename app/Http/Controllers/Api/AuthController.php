@@ -78,7 +78,7 @@ class AuthController extends Controller
                 'phone' => 'required|string|unique:members|max:19',
                 'password' => 'required|string|min:8|confirmed',
             ]);
-            $validated['username'] = 'user' . time();
+            $validated['username'] = 'member' . time();
             $validated['password'] = Hash::make($validated['password']);
             $member = Member::create($validated);
             event(new MemberCreated($member));
