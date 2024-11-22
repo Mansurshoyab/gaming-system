@@ -16,8 +16,8 @@ class AdminListener
      */
     public function handle(UserCreated $event)
     {
-        $firstName = $event->user->first_name;
-        $lastName = $event->user->last_name;
+        $firstName = $event->user->firstname;
+        $lastName = $event->user->lastname;
         $biography = "{$firstName} {$lastName} is an enthusiastic individual with a passion for continuous learning and growth. With a strong commitment to excellence, they aim to bring creativity and dedication to everything they pursue. Whether collaborating on projects or exploring new opportunities, {$firstName} strives to make a positive impact and build meaningful connections along the way.";
 
         Profile::create([

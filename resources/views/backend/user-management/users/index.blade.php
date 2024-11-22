@@ -34,7 +34,7 @@
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('users.update', $user->id) }}" data-firstname="{{ $user->firstname }}" data-lastname="{{ $user->lastname }}" data-email="{{ $user->email }}" data-phone="{{ $user->phone }}" data-role-id="{{ $user->role_id }}" data-updated="{{ $user->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
                   <strong>{{ fullname($user) }}</strong>
-                  <span>{{ $user->profile->biography }}</span>
+                  <span>{{ $user->profile->biography ?? 'No biography available' }}</span>
                 </a>
               </td>
               <td>{{ $user->role->title }}</td>
@@ -168,7 +168,7 @@
           const url = $(this).attr("show-route");
           axios.get(url).then(function (response) {
             if (response.data) {
-              const biography = response.data && response.data.profile ? response.data.profile.biography : "No biography available";
+              const biography = response.data.profile.biography || "No biography available";
               $("#showModal #biography").html(biography);
             }
           }).catch(function (error) {

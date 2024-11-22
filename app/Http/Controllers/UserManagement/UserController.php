@@ -70,6 +70,7 @@ class UserController extends Controller
     public function show(User $user): JsonResponse
     {
         try {
+            $user->load('profile');
             return response()->json($user);
         } catch (\Exception $e) {
             return back()->json(['error', 'Failed to display user', $e->getMessage()], 401);
