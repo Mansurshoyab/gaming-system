@@ -46,6 +46,7 @@
                 <x-action-drawer>
                   <x-edit-action :href="route('users.edit', $user->id)" />
                   <x-show-action :href="route('users.show', $user->id)" />
+                  <x-delete-action :href="route('users.destroy', $user->id)" :class="__('unique-id-') . $user->id" :id="$user->id" :title="__('Trash')" />
                 </x-action-drawer>
               </td>
             </tr>

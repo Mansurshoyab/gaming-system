@@ -24,6 +24,7 @@ use App\View\Components\Action\Drawer as ActionDrawer;
 use App\View\Components\Action\Toggle as ToggleSwitch;
 use App\View\Components\Action\Edit as EditAction;
 use App\View\Components\Action\Show as ShowAction;
+use App\View\Components\Action\Delete as DeleteAction;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -73,5 +74,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('toggle-switch', ToggleSwitch::class);
         Blade::component('edit-action', EditAction::class);
         Blade::component('show-action', ShowAction::class);
+        Blade::component('delete-action', DeleteAction::class);
     }
 }
