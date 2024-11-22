@@ -20,6 +20,7 @@ class RoleController extends Controller
     {
         try {
             $roles = Role::orderBy('created_at', 'DESC')->get();
+            $trashes = Role::onlyTrashed('deleted_at', 'DESC')->get();
             $total = Role::withTrashed()->count();
             return response()->view('backend.user-management.roles.index', get_defined_vars());
         } catch (\Exception $e) {
