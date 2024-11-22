@@ -45,7 +45,7 @@
                 <x-toggle-switch :name="__('status')" :href="route('genres.status', $genre->id)" :id="$genre->id" :enable="status('enable')" :disable="status('disable')" :value="$genre->status" />
                 <x-action-drawer>
                   <x-edit-action :href="route('genres.edit', $genre->id)" />
-                  <x-show-action :href="route('genres.show', $genre->id)" />
+                  <x-show-action :href="route('genres.show', $genre->id)" :header="$genre->title" :item="$genre" />
                   <x-delete-action :href="route('genres.destroy', $genre->id)" :class="__('unique-id-') . $genre->id" :id="$genre->id" :title="__('Trash')" />
                 </x-action-drawer>
               </td>
@@ -62,6 +62,7 @@
   </section>
 
   <x-modal-design :id="__('showModal')" :center="true" :scroll="true" >
+    <p id="description" style="text-align: justify !important;" ></p>
     <x-slot name="footer" >
       <strong id="footerTitle" >{{ __('Last Updated') }}</strong>
       <span>{{ __(':') }}</span>
@@ -103,6 +104,20 @@
           $("#quickForm #title").val(title);
           $("#quickForm #description").val(description);
           $("#quickForm #slug").val(slug);
+        });
+
+        $(".show-action").click(function (e) {
+          e.preventDefault();
+          const url = $(this).attr("show-route");
+          axios.get(url).then(function (response) {
+            if (response.data) {
+              const description = response.data.description || "No description available";
+              $("#showModal #description").html(description);
+            }
+          }).catch(function (error) {
+            console.error("Error fetching data:", error);
+            $("#showModal #description").html("<p class='text-danger'>Error loading content.</p>");
+          });
         });
       });
     </script>

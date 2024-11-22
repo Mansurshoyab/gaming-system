@@ -56,9 +56,13 @@ class GenreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Genre $genre)
+    public function show(Genre $genre): JsonResponse
     {
-        //
+        try {
+            return response()->json($genre);
+        } catch (\Exception $e) {
+            return back()->json(['error', 'Failed to display genre', $e->getMessage()], 401);
+        }
     }
 
     /**

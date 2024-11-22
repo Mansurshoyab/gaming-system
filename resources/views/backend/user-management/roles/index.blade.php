@@ -123,20 +123,17 @@
         });
 
         $(".show-action").click(function (e) {
-            e.preventDefault();
-            const url = $(this).attr("show-route");
-            axios
-            .get(url)
-            .then(function (response) {
-                if (response.data) {
-                const description = response.data.description || "No description available";
-                $("#showModal #description").html(description);
-                }
-            })
-            .catch(function (error) {
-                console.error("Error fetching data:", error);
-                $("#showModal #description").html("<p class='text-danger'>Error loading content.</p>");
-            });
+          e.preventDefault();
+          const url = $(this).attr("show-route");
+          axios.get(url).then(function (response) {
+            if (response.data) {
+              const description = response.data.description || "No description available";
+              $("#showModal #description").html(description);
+            }
+          }).catch(function (error) {
+            console.error("Error fetching data:", error);
+            $("#showModal #description").html("<p class='text-danger'>Error loading content.</p>");
+          });
         });
       });
     </script>
