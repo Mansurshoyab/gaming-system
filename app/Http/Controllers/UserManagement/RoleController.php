@@ -59,9 +59,13 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Role $role)
+    public function show(Role $role): JsonResponse
     {
-        //
+        try {
+            return response()->json($role);
+        } catch (\Exception $e) {
+            return back()->json(['error', 'Failed to display role', $e->getMessage()], 401);
+        }
     }
 
     /**

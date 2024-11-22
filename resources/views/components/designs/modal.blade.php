@@ -11,7 +11,7 @@
           <i class="fas fa-times" ></i>
         </button>
       </div>
-      <div class="modal-body" >
+      <div class="modal-body px-4" >
         <div class="row" >
           {{ $slot }}
         </div>
@@ -20,9 +20,11 @@
         @if ($footer)
           <p>{{ $footer }}</p>
         @endif
-        <button type="button" class="btn btn-{{ $theme }}" >
-          <strong id="modalButton" >{{ $button }}</strong>
-        </button>
+        <div id="actionElement" >
+          <button type="button" class="btn btn-sm btn-{{ $theme }}">
+            <strong>{{ $button }}</strong>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -32,7 +34,15 @@
   <script>
     $(document).ready(function () {
       $(".show-action").click(function () {
+        const dataId = $(this).data('id');
+        const href = window.location.href + '/' + dataId + '/edit';
         $("#showModal .modal-footer").addClass('d-flex justify-content-between align-items-center');
+        $("#actionElement").html(`
+          <a href="${href}" class="btn btn-sm btn-success px-5" >
+            <i class="fas fa-edit" ></i>
+            <strong class="ms-1" >Edit</strong>
+          </a>
+        `);
       });
     });
   </script>

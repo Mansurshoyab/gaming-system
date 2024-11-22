@@ -8,13 +8,15 @@ use Illuminate\View\Component;
 
 class Show extends Component
 {
-    public string $href;
+    public $href, $header, $item;
     /**
      * Create a new component instance.
      */
-    public function __construct(string $href = null)
+    public function __construct($href = null, $header = 'Modal Title', $item = null)
     {
         $this->href = $href;
+        $this->header = $header;
+        $this->item = $item;
     }
 
     /**
