@@ -6,6 +6,7 @@ use App\Enums\GlobalUsage\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GameManagement\GenreRequest;
 use App\Models\GameManagement\Genre;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -91,9 +92,18 @@ class GenreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Genre $genre)
+    public function destroy(Genre $genre): JsonResponse
     {
-        //
+        try {
+            $deleted = $genre->delete();
+            if ($deleted) {
+                return response()->json(['success' => true, 'message' => 'Genre moved to trash!'], 200);
+            } else {
+                return response()->json(['success' => true, 'message' => 'No genre has deleted.'], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'An error occurred!'], 500);
+        }
     }
 
     /**

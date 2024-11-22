@@ -46,6 +46,7 @@
                 <x-action-drawer>
                   <x-edit-action :href="route('genres.edit', $genre->id)" />
                   <x-show-action :href="route('genres.show', $genre->id)" />
+                  <x-delete-action :href="route('genres.destroy', $genre->id)" :class="__('unique-id-') . $genre->id" :id="$genre->id" :title="__('Trash')" />
                 </x-action-drawer>
               </td>
             </tr>
