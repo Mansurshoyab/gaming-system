@@ -6,6 +6,7 @@ use App\Enums\GlobalUsage\Status;
 use App\Http\Controllers\Controller;
 use App\Models\GameManagement\Game;
 use App\Models\GameManagement\Genre;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -69,9 +70,18 @@ class GameController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Game $game)
+    public function destroy(Game $game): JsonResponse
     {
-        //
+        try {
+            $deleted = $game->delete();
+            if ($deleted) {
+                return response()->json(['success' => true, 'message' => 'Game moved to trash!'], 200);
+            } else {
+                return response()->json(['success' => true, 'message' => 'No game has deleted.'], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'An error occurred!'], 500);
+        }
     }
 
     /**

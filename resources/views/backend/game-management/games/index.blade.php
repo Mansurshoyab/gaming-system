@@ -46,6 +46,7 @@
                 <x-action-drawer>
                   <x-edit-action :href="route('games.edit', $game->id)" />
                   <x-show-action :href="route('games.show', $game->id)" />
+                  <x-delete-action :href="route('games.destroy', $game->id)" :class="__('unique-id-') . $game->id" :id="$game->id" :title="__('Trash')" />
                 </x-action-drawer>
               </td>
             </tr>
