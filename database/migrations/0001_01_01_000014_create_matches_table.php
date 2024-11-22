@@ -9,8 +9,9 @@ return new class extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void {
-        Schema::create('matches', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('contests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('member_id')->unsigned();
             $table->foreignId('game_id')->unsigned();
@@ -35,7 +36,7 @@ return new class extends Migration {
             $table->foreignId('member_id')->unsigned();
             $table->foreignId('match_id')->unsigned();
             $table->foreignId('round_id')->unsigned();
-            $table->decimal('amount', 10, 2)->default(0); 
+            $table->decimal('amount', 10, 2)->default(0);
             $table->decimal('payout', 10, 2)->default(0);
             $table->enum('status', Outcome::fetch())->default(Outcome::HELD);
             $table->timestamps();
@@ -61,8 +62,9 @@ return new class extends Migration {
     /**
      * Reverse the migrations.
      */
-    public function down(): void {
-        Schema::dropIfExists('matches');
+    public function down(): void
+    {
+        Schema::dropIfExists('contests');
         Schema::dropIfExists('rounds');
         Schema::dropIfExists('bets');
         Schema::dropIfExists('records');
