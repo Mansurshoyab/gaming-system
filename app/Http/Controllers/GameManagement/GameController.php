@@ -19,6 +19,7 @@ class GameController extends Controller
     {
         try {
             $games = Game::orderBy('created_at', 'DESC')->get();
+            $trashes = Game::onlyTrashed('deleted_at', 'DESC')->get();
             $total = Game::withTrashed()->count();
             $genres = Genre::where('status', Status::ENABLE)->pluck('title', 'id');
             return response()->view('backend.game-management.games.index', get_defined_vars());

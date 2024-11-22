@@ -61,7 +61,7 @@
                 <tr>
                   <td>{{ str_pad($loop->iteration, strlen(count($trashes)), '0', STR_PAD_LEFT) . '.' }}</td>
                   <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                    <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('genres.update', $trash->id) }}" data-title="{{ $trash->title }}" data-description="{{ $trash->description }}" data-slug="{{ $trash->slug }}" data-updated="{{ $trash->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+                    <a href="javascript:void(0);" class="text-dark" >
                       <strong>{{ $trash->title }}</strong>
                     </a>
                   </td>
