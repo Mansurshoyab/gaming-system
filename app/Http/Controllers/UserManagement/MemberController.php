@@ -23,6 +23,7 @@ class MemberController extends Controller
     {
         try {
             $members = Member::orderBy('created_at', 'DESC')->get();
+            $trashes = Member::onlyTrashed('deleted_at', 'DESC')->get();
             $total = Member::withTrashed()->count();
             return response()->view('backend.user-management.members.index', get_defined_vars());
         } catch (\Exception $e) {

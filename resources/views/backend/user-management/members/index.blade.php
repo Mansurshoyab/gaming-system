@@ -54,8 +54,23 @@
       </x-card-design>
     </div>
     <div class="tab-pane fade" id="pills-trash" role="tabpanel" aria-labelledby="pills-trash-tab" tabindex="0" >
-      <x-card-design :header="__('Total Trashed')" :tool="__('nav-item topbar-icon')" :dropdowns="[['label' => 'Add New', 'icon' => 'plus', 'route' => route('members.create')]]" >
-        <p>{{ __('Inner page content goes here.') }}</p>
+      <x-card-design :header="__('Trashed Members')" :tool="__('nav-item topbar-icon')" :dropdowns="[['label' => 'Add New', 'icon' => 'plus', 'route' => route('members.create')]]" >
+        <x-data-table :id="__('trashTable')" :striped="true" :hover="true" :theme="__('black')" :headers="['SL', 'Name of Member', 'Date Deleted', 'Action']" :datatable="true" >
+          @foreach ($trashes as $key => $trash)
+            <tr>
+              <td>{{ str_pad($loop->iteration, strlen(count($trashes)), '0', STR_PAD_LEFT) . '.' }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                <a href="javascript:void(0);" class="text-dark" >
+                  <strong>{{ fullname($trash) }}</strong>
+                </a>
+              </td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->created_at->diffForHumans() }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                <x-delete-action :href="route('members.destroy', $trash->id)" :class="__('unique-id-') . $trash->id" :id="$trash->id" :title="__('Remove')" />
+              </td>
+            </tr>
+          @endforeach
+        </x-data-table>
       </x-card-design>
     </div>
   </section>
