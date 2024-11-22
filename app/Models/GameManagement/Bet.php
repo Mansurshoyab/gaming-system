@@ -3,9 +3,13 @@
 namespace App\Models\GameManagement;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bet extends Model
 {
+
+    use SoftDeletes;
+
     protected $fillable = [
         'member_id',
         'match_id',
