@@ -66,7 +66,12 @@ class MemberController extends Controller
      */
     public function show(Member $member)
     {
-        //
+        try {
+            $member->load('profile');
+            return response()->json($member);
+        } catch (\Exception $e) {
+            return back()->json(['error', 'Failed to display member', $e->getMessage()], 401);
+        }
     }
 
     /**
