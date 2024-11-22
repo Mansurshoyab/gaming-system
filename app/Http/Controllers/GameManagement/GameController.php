@@ -46,9 +46,13 @@ class GameController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Game $game)
+    public function show(Game $game): JsonResponse
     {
-        //
+        try {
+            return response()->json($game);
+        } catch (\Exception $e) {
+            return back()->json(['error', 'Failed to display game', $e->getMessage()], 401);
+        }
     }
 
     /**
