@@ -36,7 +36,7 @@
                   <strong>{{ $genre->title }}</strong>
                 </a>
               </td>
-              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ __('0') }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $genre->games->count() ?: __('0') }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 <span class="badge bg-{{ $genre->status === status('enable') ? 'success' : ( $genre->status === status('disable') ? 'danger' : 'secondary' ) }}" >{{ ucfirst($genre->status) }}</span>
               </td>
@@ -55,8 +55,24 @@
       </x-card-design>
     </div>
     <div class="tab-pane fade" id="pills-trash" role="tabpanel" aria-labelledby="pills-trash-tab" tabindex="0" >
-      <x-card-design>
-        <p>{{ __('Inner page content goes here.') }}</p>
+      <x-card-design :header="__('Trashed Genre')" :tool="__('nav-item topbar-icon')" :dropdowns="[['label' => 'Add New', 'icon' => 'plus', 'route' => route('genres.create')]]" >
+        <x-data-table :id="__('trashTable')" :striped="true" :hover="true" :theme="__('black')" :headers="['SL', 'Title', 'Games', 'Date Deleted', 'Action']" :datatable="true" >
+              @foreach ($trashes as $key => $trash)
+                <tr>
+                  <td>{{ str_pad($loop->iteration, strlen(count($trashes)), '0', STR_PAD_LEFT) . '.' }}</td>
+                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                    <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('genres.update', $trash->id) }}" data-title="{{ $trash->title }}" data-description="{{ $trash->description }}" data-slug="{{ $trash->slug }}" data-updated="{{ $trash->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+                      <strong>{{ $trash->title }}</strong>
+                    </a>
+                  </td>
+                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->games->count() ?: __('0') }}</td>
+                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->created_at->diffForHumans() }}</td>
+                  <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                    <x-delete-action :href="route('genres.destroy', $trash->id)" :class="__('unique-id-') . $trash->id" :id="$trash->id" :title="__('Remove')" />
+                  </td>
+                </tr>
+              @endforeach
+        </x-data-table>
       </x-card-design>
     </div>
   </section>
