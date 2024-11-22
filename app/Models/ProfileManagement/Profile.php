@@ -18,7 +18,7 @@ class Profile extends Model
         'marital',
     ];
 
-    protected function casts() :array 
+    protected function casts() :array
     {
         return [
             'gender' => 'string',

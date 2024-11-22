@@ -34,6 +34,7 @@
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('users.update', $user->id) }}" data-firstname="{{ $user->firstname }}" data-lastname="{{ $user->lastname }}" data-email="{{ $user->email }}" data-phone="{{ $user->phone }}" data-role-id="{{ $user->role_id }}" data-updated="{{ $user->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
                   <strong>{{ fullname($user) }}</strong>
+                  <span>{{ $user->profile->biography }}</span>
                 </a>
               </td>
               <td>{{ $user->role->title }}</td>
@@ -45,7 +46,7 @@
                 <x-toggle-switch :name="__('status')" :href="route('users.status', $user->id)" :id="$user->id" :enable="approval('approved')" :disable="approval('suspended')" :value="$user->status" />
                 <x-action-drawer>
                   <x-edit-action :href="route('users.edit', $user->id)" />
-                  <x-show-action :href="route('users.show', $user->id)" />
+                  <x-show-action :href="route('users.show', $user->id)" :header="fullname($user)" :item="$user" />
                   <x-delete-action :href="route('users.destroy', $user->id)" :class="__('unique-id-') . $user->id" :id="$user->id" :title="__('Trash')" />
                 </x-action-drawer>
               </td>
@@ -78,6 +79,7 @@
   </section>
 
   <x-modal-design :id="__('showModal')" :center="true" :scroll="true" >
+    <p id="biography" style="text-align: justify !important;" ></p>
     <x-slot name="footer" >
       <strong id="footerTitle" >{{ __('Last Updated') }}</strong>
       <span>{{ __(':') }}</span>
@@ -159,6 +161,20 @@
         $('#quickModal').on('hidden.bs.modal', function () {
           $("#quickForm #password").prop('disabled', false);
           $("#quickForm #passwordConfirmation").prop('disabled', false);
+        });
+
+        $(".show-action").click(function (e) {
+          e.preventDefault();
+          const url = $(this).attr("show-route");
+          axios.get(url).then(function (response) {
+            if (response.data) {
+              const biography = response.data && response.data.profile ? response.data.profile.biography : "No biography available";
+              $("#showModal #biography").html(biography);
+            }
+          }).catch(function (error) {
+            console.error("Error fetching data:", error);
+            $("#showModal #biography").html("<p class='text-danger'>Error loading content.</p>");
+          });
         });
       });
     </script>

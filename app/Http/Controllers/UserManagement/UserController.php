@@ -67,9 +67,13 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(User $user): JsonResponse
     {
-        //
+        try {
+            return response()->json($user);
+        } catch (\Exception $e) {
+            return back()->json(['error', 'Failed to display user', $e->getMessage()], 401);
+        }
     }
 
     /**
