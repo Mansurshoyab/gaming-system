@@ -45,6 +45,7 @@
                 <x-action-drawer>
                   <x-edit-action :href="route('members.edit', $member->id)" />
                   <x-show-action :href="route('members.show', $member->id)" />
+                  <x-delete-action :href="route('members.destroy', $member->id)" :class="__('unique-id-') . $member->id" :id="$member->id" :title="__('Trash')" />
                 </x-action-drawer>
               </td>
             </tr>
@@ -103,7 +104,7 @@
           $("#quickForm #phone").val('');
           $("#quickForm #password").val('');
           $("#quickForm #passwordConfirmation").val('');
-          $("#quickModal .modal-footer #quickFooter").text("Total Users");
+          $("#quickModal .modal-footer #quickFooter").text("Total Members");
           $("#quickForm #password").closest('.col-6').show();
           $("#quickForm #passwordConfirmation").closest('.col-6').show();
           $("#quickForm #password").attr('required', 'required');

@@ -8,6 +8,7 @@ use App\Events\MemberCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagement\MemberRequest;
 use App\Models\UserManagement\Member;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -99,9 +100,18 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Member $member)
+    public function destroy(Member $member): JsonResponse
     {
-        //
+        try {
+            $deleted = $member->delete();
+            if ($deleted) {
+                return response()->json(['success' => true, 'message' => 'Member moved to trash!'], 200);
+            } else {
+                return response()->json(['success' => true, 'message' => 'No member has deleted.'], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'An error occurred!'], 500);
+        }
     }
 
     /**
