@@ -84,14 +84,15 @@ class MemberController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(MemberRequest $request, Member $member)
+    public function update(MemberRequest $request, Member $member): RedirectResponse
     {
         try {
             $data = $request->validated();
+            $data['updated_at'] = now();
             $member->update($data);
             return redirect()->route('members.index')->with('updated', 'Member updated successfully.');
         } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
+            return back()->with('error', 'An error occurred');
         }
     }
 
@@ -117,7 +118,7 @@ class MemberController extends Controller
             if (!$member) {
                 return response()->json(['error' => 'Member not found'], 404);
             }
-            $updated = $member->update(['status' => $status]);
+            $updated = $member->update(['status' => $status, 'updated_at' => now()]);
             if ($updated) {
                 return response()->json(['success' => true, 'message' => 'Member status changed!'], 200);
             } else {

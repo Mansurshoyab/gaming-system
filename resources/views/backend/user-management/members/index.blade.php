@@ -103,9 +103,11 @@
           $("#quickForm #phone").val('');
           $("#quickForm #password").val('');
           $("#quickForm #passwordConfirmation").val('');
-          $("#quickModal .modal-footer #quickFooter").text("Total Members");
+          $("#quickModal .modal-footer #quickFooter").text("Total Users");
           $("#quickForm #password").closest('.col-6').show();
           $("#quickForm #passwordConfirmation").closest('.col-6').show();
+          $("#quickForm #password").attr('required', 'required');
+          $("#quickForm #passwordConfirmation").attr('required', 'required');
         });
 
         $(".quick-edit").click(function () {
@@ -119,6 +121,20 @@
           $("#quickForm #phone").val(phone);
           $("#quickForm #password").closest('.col-6').hide();
           $("#quickForm #passwordConfirmation").closest('.col-6').hide();
+          $("#quickForm #password").removeAttr('required');
+          $("#quickForm #passwordConfirmation").removeAttr('required');
+        });
+
+        $("#quickForm").submit(function (event) {
+          if (!$("#quickForm #password").is(':visible')) {
+            $("#quickForm #password").prop('disabled', true);
+            $("#quickForm #passwordConfirmation").prop('disabled', true);
+          }
+        });
+
+        $('#quickModal').on('hidden.bs.modal', function () {
+          $("#quickForm #password").prop('disabled', false);
+          $("#quickForm #passwordConfirmation").prop('disabled', false);
         });
       });
     </script>

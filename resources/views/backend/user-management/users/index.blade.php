@@ -85,10 +85,10 @@
       <x-form-select :label="__('User Role')" :name="__('role_id')" :options="$roles" />
     </div>
     <div class="col-6" >
-      <x-form-input :label="__('Password')" :type="__('password')" :name="__('password')" :required="true" />
+      <x-form-input :label="__('Password')" :type="__('password')" :name="__('password')" />
     </div>
     <div class="col-6" >
-      <x-form-input :label="__('Confirm Password')" :type="__('password')" :name="__('password_confirmation')" :required="true" />
+      <x-form-input :label="__('Confirm Password')" :type="__('password')" :name="__('password_confirmation')" />
     </div>
     <x-slot name="footer" >
       <strong id="quickFooter" >{{ __('Footer Title') }}</strong>
@@ -111,6 +111,8 @@
           $("#quickModal .modal-footer #quickFooter").text("Total Users");
           $("#quickForm #password").closest('.col-6').show();
           $("#quickForm #passwordConfirmation").closest('.col-6').show();
+          $("#quickForm #password").attr('required', 'required');
+          $("#quickForm #passwordConfirmation").attr('required', 'required');
         });
 
         $(".quick-edit").click(function () {
@@ -126,6 +128,20 @@
           $("#quickForm #roleId").val(role);
           $("#quickForm #password").closest('.col-6').hide();
           $("#quickForm #passwordConfirmation").closest('.col-6').hide();
+          $("#quickForm #password").removeAttr('required');
+          $("#quickForm #passwordConfirmation").removeAttr('required');
+        });
+
+        $("#quickForm").submit(function (event) {
+          if (!$("#quickForm #password").is(':visible')) {
+            $("#quickForm #password").prop('disabled', true);
+            $("#quickForm #passwordConfirmation").prop('disabled', true);
+          }
+        });
+
+        $('#quickModal').on('hidden.bs.modal', function () {
+          $("#quickForm #password").prop('disabled', false);
+          $("#quickForm #passwordConfirmation").prop('disabled', false);
         });
       });
     </script>

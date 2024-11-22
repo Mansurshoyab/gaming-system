@@ -87,9 +87,16 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user): RedirectResponse
     {
-        //
+        try {
+            $data = $request->validated();
+            $data['updated_at'] = now();
+            $user->update($data);
+            return redirect()->route('users.index')->with('updated', 'User updated successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred');
+        }
     }
 
     /**
@@ -114,7 +121,7 @@ class UserController extends Controller
             if (!$user) {
                 return response()->json(['error' => 'User not found'], 404);
             }
-            $updated = $user->update(['status' => $status]);
+            $updated = $user->update(['status' => $status, 'updated_at' => now()]);
             if ($updated) {
                 return response()->json(['success' => true, 'message' => 'User status changed!'], 200);
             } else {

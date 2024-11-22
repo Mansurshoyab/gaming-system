@@ -82,6 +82,7 @@ class RoleController extends Controller
     {
         try {
             $data = $request->validated();
+            $data['updated_at'] = now();
             $role->update($data);
             return redirect()->route('roles.index')->with('updated', 'Role updated successfully.');
         } catch (\Exception $e) {
@@ -111,7 +112,7 @@ class RoleController extends Controller
             if (!$role) {
                 return response()->json(['error' => 'Role not found'], 404);
             }
-            $updated = $role->update(['status' => $status]);
+            $updated = $role->update(['status' => $status, 'updated_at' => now()]);
             if ($updated) {
                 return response()->json(['success' => true, 'message' => 'Role status changed!'], 200);
             } else {

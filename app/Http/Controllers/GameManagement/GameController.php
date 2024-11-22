@@ -88,7 +88,7 @@ class GameController extends Controller
             if (!$game) {
                 return response()->json(['error' => 'Game not found'], 404);
             }
-            $updated = $game->update(['status' => $status]);
+            $updated = $game->update(['status' => $status, 'updated_at' => now()]);
             if ($updated) {
                 return response()->json(['success' => true, 'message' => 'Game status changed!'], 200);
             } else {

@@ -80,6 +80,7 @@ class GenreController extends Controller
     {
         try {
             $data = $request->validated();
+            $data['updated_at'] = now();
             $genre->update($data);
             return redirect()->route('genre.index')->with('updated', 'Genre updated successfully.');
         } catch (\Exception $e) {
@@ -109,7 +110,7 @@ class GenreController extends Controller
             if (!$genre) {
                 return response()->json(['error' => 'Genre not found'], 404);
             }
-            $updated = $genre->update(['status' => $status]);
+            $updated = $genre->update(['status' => $status, 'updated_at' => now()]);
             if ($updated) {
                 return response()->json(['success' => true, 'message' => 'Genre status changed!'], 200);
             } else {
