@@ -24,6 +24,7 @@ class UserController extends Controller
     {
         try {
             $users = User::orderBy('created_at', 'DESC')->get();
+            $trashes = User::onlyTrashed('deleted_at', 'DESC')->get();
             $total = User::withTrashed()->count();
             $roles = Role::where('status', Status::ENABLE)->pluck('title', 'id');
             return response()->view('backend.user-management.users.index', get_defined_vars());
