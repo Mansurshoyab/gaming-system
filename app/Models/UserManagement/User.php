@@ -4,9 +4,12 @@ namespace App\Models\UserManagement;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\ProfileManagement\Activity;
+use App\Models\ProfileManagement\Location;
 use App\Models\ProfileManagement\Profile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -59,11 +62,29 @@ class User extends Authenticatable
     }
 
     /**
-     * Define an inverse one-to-one relationship with the Profile model.
+     * Define an one-to-one relationship with the Profile model.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function profile(): HasOne {
         return $this->hasOne(Profile::class, 'user_id', 'id')->withTrashed();
+    }
+
+    /**
+     * Define an one-to-many relationship with the Activity model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function activities(): HasMany {
+        return $this->hasMany(Activity::class, 'user_id', 'id')->withTrashed();
+    }
+
+    /**
+     * Define an one-to-one relationship with the Location model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function location(): HasOne {
+        return $this->hasOne(Location::class, 'user_id', 'id')->withTrashed();
     }
 }
