@@ -46,6 +46,7 @@
                 <x-action-drawer>
                   <x-edit-action :href="route('roles.edit', $role->id)" />
                   <x-show-action :href="route('roles.show', $role->id)" />
+                  <x-delete-action :href="route('roles.destroy', $role->id)" :class="__('unique-id-') . $role->id" :id="$role->id" :title="__('Trash')" />
                 </x-action-drawer>
               </td>
             </tr>

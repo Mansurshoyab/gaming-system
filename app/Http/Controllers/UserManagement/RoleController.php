@@ -6,6 +6,7 @@ use App\Enums\GlobalUsage\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagement\RoleRequest;
 use App\Models\UserManagement\Role;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -93,9 +94,18 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy(Role $role): JsonResponse
     {
-        //
+        try {
+            $deleted = $role->delete();
+            if ($deleted) {
+                return response()->json(['success' => true, 'message' => 'Role moved to trash!'], 200);
+            } else {
+                return response()->json(['success' => true, 'message' => 'No role has deleted.'], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'An error occurred!'], 500);
+        }
     }
 
     /**
