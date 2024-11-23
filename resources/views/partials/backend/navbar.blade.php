@@ -46,6 +46,31 @@
           </ul>
         </li>
         <li class="nav-item topbar-icon dropdown hidden-caret" >
+          <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="webDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            <i class="fas fa-globe"></i>
+          </a>
+          <ul class="dropdown-menu animated fadeIn" aria-labelledby="webDropdown" >
+            <li>
+              <a class="dropdown-item py-2" href="{{ route('admin.dashboard') }}" >
+                <i class="fas fa-home" style="width: 1.5rem !important;" ></i>
+                <span>{{ __('Analytic Dashboard') }}</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item py-2" href="javascript:void(0);" >
+                <i class="fas fa-gamepad" style="width: 1.5rem !important;" ></i>
+                <span>{{ __('Game Dashboard') }}</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item py-2" href="javascript:void(0);" >
+                <i class="fas fa-broom" style="width: 1.5rem !important;" ></i>
+                <span>{{ __('Cache Clear') }}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item topbar-icon dropdown hidden-caret" >
           <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="messageDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
             <i class="fas fa-envelope"></i>
           </a>
