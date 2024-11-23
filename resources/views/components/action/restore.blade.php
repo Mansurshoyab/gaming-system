@@ -1,6 +1,6 @@
 @props(['href' => null, 'item' => null])
 
-<button class="btn btn-sm btn-secondary btn-icon btn-round restore-data p-3" restore-route="{{ $href }}" restore-id="{{ $item }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Restore" >
+<button class="btn btn-sm btn-secondary btn-icon btn-round restore-data p-3 me-1" restore-route="{{ $href }}" restore-id="{{ $item }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Restore" >
   <i class="fas fa-undo-alt" ></i>
 </button>
 

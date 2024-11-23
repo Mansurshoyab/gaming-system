@@ -46,7 +46,8 @@
                 <x-action-drawer>
                   <x-edit-action :href="route('roles.edit', $role->id)" />
                   <x-show-action :href="route('roles.show', $role->id)" :header="$role->title" :item="$role" />
-                  <x-delete-action :href="route('roles.destroy', $role->id)" :class="__('unique-id-') . $role->id" :id="$role->id" :title="__('Trash')" />
+                  <x-delete-action :href="route('roles.destroy', $role->id)" class="mx-1" :id="$role->id" :title="__('Trash')" />
+                  <x-delete-action :href="route('roles.remove', $role->id)" :theme="__('danger')" :icon="__('times')" :id="$role->id" :title="__('Remove')" />
                 </x-action-drawer>
               </td>
             </tr>
@@ -69,7 +70,7 @@
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->deleted_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 <x-restore-action :href="route('roles.restore', $trash->id)" :item="$trash->id" />
-                <x-delete-action :href="route('roles.destroy', $trash->id)" :class="__('unique-id-') . $trash->id" :id="$trash->id" :title="__('Remove')" @disabled(true) />
+                <x-delete-action :href="route('roles.remove', $trash->id)" :theme="__('danger')" :icon="__('times')" :id="$trash->id" :title="__('Remove')" />
               </td>
             </tr>
           @endforeach

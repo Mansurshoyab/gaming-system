@@ -146,7 +146,7 @@ class RoleController extends Controller
      */
     public function restore($id): JsonResponse {
         try {
-            $role = Role::withTrashed()->find($id);
+            $role = Role::onlyTrashed()->find($id);
             if ($role) {
                 $role->restore();
                 return response()->json(['message' => 'Role restored successfully'], 200);
@@ -155,6 +155,26 @@ class RoleController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to restore role', $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Permanently delete soft deleted resource.
+     *
+     * @param  int  $id
+     * @return JsonResponse
+     */
+    public function remove($id): JsonResponse {
+        try {
+            $role = Role::withTrashed()->find($id);
+            if ($role) {
+                $role->forceDelete();
+                return response()->json(['message' => 'Role permanently deleted'], 200);
+            } else {
+                return response()->json(['message' => 'Role not found or already permanently deleted'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to permanently delete role', $e->getMessage()], 500);
         }
     }
 }

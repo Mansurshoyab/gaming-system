@@ -1,6 +1,6 @@
 @props(['href' => null, 'header' => 'Modal Title', 'item' => null])
 
-<button type="button" class="btn btn-sm btn-success btn-icon btn-round show-action p-3 mx-1" show-route="{{ $href }}" data-id="{{ $item->id }}" data-header="{{ $header }}" data-updated-at="{{ $item->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-placement="bottom" title="Show" data-bs-target="#showModal" >
+<button type="button" class="btn btn-sm btn-success btn-icon btn-round show-action p-3 ms-1" show-route="{{ $href }}" data-id="{{ $item->id }}" data-header="{{ $header }}" data-updated-at="{{ $item->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-placement="bottom" title="Show" data-bs-target="#showModal" >
   <i class="fas fa-eye" ></i>
 </button>
 
