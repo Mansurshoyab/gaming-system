@@ -68,6 +68,7 @@
               <td>{{ $trash->role->title }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->deleted_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                <x-restore-action :href="route('users.restore', $trash->id)" :item="$trash->id" />
                 <x-delete-action :href="route('users.destroy', $trash->id)" :class="__('unique-id-') . $trash->id" :id="$trash->id" :title="__('Remove')" @disabled(true) />
               </td>
             </tr>

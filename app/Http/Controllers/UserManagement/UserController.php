@@ -147,4 +147,24 @@ class UserController extends Controller
             return response()->json(['success' => false, 'message' => 'Failed to change user status'], 500);
         }
     }
+
+    /**
+     * Restore a trashed resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore($id): JsonResponse {
+        try {
+            $user = User::withTrashed()->find($id);
+            if ($user) {
+                $user->restore();
+                return response()->json(['message' => 'User restored successfully'], 200);
+            } else {
+                return response()->json(['message' => 'User not found or already restored'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to restore user', $e->getMessage()], 500);
+        }
+    }
 }
