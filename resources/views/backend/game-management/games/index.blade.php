@@ -46,7 +46,8 @@
                 <x-action-drawer>
                   <x-edit-action :href="route('games.edit', $game->id)" />
                   <x-show-action :href="route('games.show', $game->id)" :header="$game->title" :item="$game" />
-                  <x-delete-action :href="route('games.destroy', $game->id)" :class="__('unique-id-') . $game->id" :id="$game->id" :title="__('Trash')" />
+                  <x-delete-action :href="route('games.destroy', $game->id)" class="mx-1" :id="$game->id" :title="__('Trash')" />
+                  <x-delete-action :href="route('games.remove', $game->id)" :theme="__('danger')" :icon="__('times')" :id="$game->id" :title="__('Remove')" />
                 </x-action-drawer>
               </td>
             </tr>
@@ -69,7 +70,7 @@
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->created_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 <x-restore-action :href="route('games.restore', $trash->id)" :item="$trash->id" />
-                <x-delete-action :href="route('games.destroy', $trash->id)" :class="__('unique-id-') . $trash->id" :id="$trash->id" :title="__('Remove')" />
+                <x-delete-action :href="route('games.remove', $trash->id)" :theme="__('danger')" :icon="__('times')" :id="$trash->id" :title="__('Remove')" />
               </td>
             </tr>
           @endforeach
