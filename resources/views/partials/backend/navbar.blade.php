@@ -63,7 +63,7 @@
               </a>
             </li>
             <li>
-              <a class="dropdown-item py-2" href="javascript:void(0);" >
+              <a class="dropdown-item py-2" href="{{ route('clear-cache') }}" >
                 <i class="fas fa-broom" style="width: 1.5rem !important;" ></i>
                 <span>{{ __('Cache Clear') }}</span>
               </a>
