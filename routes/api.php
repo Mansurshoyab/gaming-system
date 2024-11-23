@@ -12,18 +12,23 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
+    // Logout Route
+    Route::post('/logout', [AuthController::class, 'logout']);
 
+    // Pfoile Routes
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::post('/profile', [ProfileController::class, 'update']);
 
-    Route::get('games', [GameController::class, 'index']);
+    // Games Routes
+    Route::get('/games', [GameController::class, 'index']);
+    Route::post('/match', [GameController::class, 'store']);
+    Route::post('/match/update', [GameController::class, 'update']);
+    Route::post('/round', [GameController::class, 'round']);
 
-    Route::post('/logout', [AuthController::class, 'logout']);
+    // Route::post('/match', [MatchController::class, 'store']);
+    // Route::post('/match/update', [MatchController::class, 'update']);
+    // Route::post('round', [MatchController::class, 'matchRound']);
 
-    Route::post('/match', [MatchController::class, 'store']);
-    Route::post('/match/update', [MatchController::class, 'update']);
-
-    Route::post('round', [MatchController::class, 'matchRound']);
     Route::post('bet', [MatchController::class, 'bet']);
     Route::post('bet/update', [MatchController::class, 'betUpdate']);
 });
