@@ -68,6 +68,7 @@
                   <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->games->count() ?: __('0') }}</td>
                   <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->created_at->diffForHumans() }}</td>
                   <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
+                    <x-restore-action :href="route('genres.restore', $trash->id)" :item="$trash->id" />
                     <x-delete-action :href="route('genres.destroy', $trash->id)" :class="__('unique-id-') . $trash->id" :id="$trash->id" :title="__('Remove')" />
                   </td>
                 </tr>

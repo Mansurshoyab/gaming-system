@@ -17,6 +17,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('genres', GenreController::class);
     Route::prefix('genres')->controller(GenreController::class)->name('genres.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');
+        Route::post('/{id}/restore', 'restore')->name('restore');
     });
     Route::resource('games', GameController::class);
     Route::prefix('games')->controller(GameController::class)->name('games.')->group(function () {
