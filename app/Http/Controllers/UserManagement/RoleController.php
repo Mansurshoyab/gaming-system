@@ -137,4 +137,24 @@ class RoleController extends Controller
             return response()->json(['success' => false, 'message' => 'Failed to change role status'], 500);
         }
     }
+
+    /**
+     * Restore a trashed resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore($id): JsonResponse {
+        try {
+            $role = Role::withTrashed()->find($id);
+            if ($role) {
+                $role->restore();
+                return response()->json(['message' => 'Role restored successfully'], 200);
+            } else {
+                return response()->json(['message' => 'Role not found or already restored'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to restore role', $e->getMessage()], 500);
+        }
+    }
 }
