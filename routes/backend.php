@@ -32,12 +32,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::post('/{id}/restore', 'restore')->name('restore');
         Route::delete('/{id}/remove', 'remove')->name('remove');
     });
-    Route::resource('members', MemberController::class);
     Route::prefix('members')->controller(MemberController::class)->name('members.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');
         Route::post('/{id}/restore', 'restore')->name('restore');
         Route::delete('/{id}/remove', 'remove')->name('remove');
+        Route::get('/today', 'today')->name('today');
     });
+    Route::resource('members', MemberController::class);
     Route::resource('roles', RoleController::class);
     Route::prefix('roles')->controller(RoleController::class)->name('roles.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');

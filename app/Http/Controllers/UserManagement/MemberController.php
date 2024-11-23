@@ -8,6 +8,7 @@ use App\Events\MemberCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagement\MemberRequest;
 use App\Models\UserManagement\Member;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -182,6 +183,18 @@ class MemberController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to permanently delete member', $e->getMessage()], 500);
+        }
+    }
+
+    public function today(): Response
+    {
+        try {
+            $members = Member::whereDate('created_at', today())->get();
+            $trashes = Member::onlyTrashed()->where('created_at', today())->get();
+            $total = Member::withTrashed()->count();
+            return response()->view('backend.user-management.members.today', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
         }
     }
 }

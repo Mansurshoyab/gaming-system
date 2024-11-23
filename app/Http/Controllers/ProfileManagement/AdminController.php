@@ -78,7 +78,7 @@ class AdminController extends Controller
             [ 'icon' => 'coins', 'theme' => 'info', 'label' => 'Today Withdraw', 'href' => null, 'data' => 0 ],
             [ 'icon' => 'coins', 'theme' => 'info', 'label' => 'Total Withdraw', 'href' => null, 'data' => 0 ],
             [ 'icon' => 'ticket-alt', 'theme' => 'warning', 'label' => 'Support Tickets', 'href' => null, 'data' => 0 ],
-            [ 'icon' => 'users', 'theme' => 'primary', 'label' => 'Today Members', 'href' => null, 'data' => 0 ],
+            [ 'icon' => 'users', 'theme' => 'primary', 'label' => 'Today Members', 'href' => route('members.today'), 'data' => Member::withTrashed()->whereDate('created_at', today())->count() ],
             [ 'icon' => 'users', 'theme' => 'primary', 'label' => 'Total Members', 'href' => route('members.index'), 'data' => Member::withTrashed()->count() ],
             [ 'icon' => 'users-cog', 'theme' => 'danger', 'label' => 'Admin Users', 'href' => route('users.index'), 'data' => User::withTrashed()->count() ],
             // [ 'icon' => '', 'theme' => '', 'label' => '', 'href' => null, 'data' => 0 ],
