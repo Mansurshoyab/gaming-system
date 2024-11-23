@@ -46,7 +46,8 @@
                 <x-action-drawer>
                   <x-edit-action :href="route('genres.edit', $genre->id)" />
                   <x-show-action :href="route('genres.show', $genre->id)" :header="$genre->title" :item="$genre" />
-                  <x-delete-action :href="route('genres.destroy', $genre->id)" :class="__('unique-id-') . $genre->id" :id="$genre->id" :title="__('Trash')" />
+                  <x-delete-action :href="route('genres.destroy', $genre->id)" class="mx-1" :id="$genre->id" :title="__('Trash')" />
+                  <x-delete-action :href="route('genres.remove', $genre->id)" :theme="__('danger')" :icon="__('times')" :id="$genre->id" :title="__('Remove')" />
                 </x-action-drawer>
               </td>
             </tr>
@@ -69,7 +70,7 @@
                   <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->created_at->diffForHumans() }}</td>
                   <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                     <x-restore-action :href="route('genres.restore', $trash->id)" :item="$trash->id" />
-                    <x-delete-action :href="route('genres.destroy', $trash->id)" :class="__('unique-id-') . $trash->id" :id="$trash->id" :title="__('Remove')" />
+                    <x-delete-action :href="route('genres.remove', $trash->id)" :theme="__('danger')" :icon="__('times')" :id="$trash->id" :title="__('Remove')" />
                   </td>
                 </tr>
               @endforeach

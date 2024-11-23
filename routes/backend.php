@@ -18,6 +18,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::prefix('genres')->controller(GenreController::class)->name('genres.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');
         Route::post('/{id}/restore', 'restore')->name('restore');
+        Route::delete('/{id}/remove', 'remove')->name('remove');
     });
     Route::resource('games', GameController::class);
     Route::prefix('games')->controller(GameController::class)->name('games.')->group(function () {

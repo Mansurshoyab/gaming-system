@@ -144,7 +144,7 @@ class GenreController extends Controller
      */
     public function restore($id): JsonResponse {
         try {
-            $genre = Genre::withTrashed()->find($id);
+            $genre = Genre::onlyTrashed()->find($id);
             if ($genre) {
                 $genre->restore();
                 return response()->json(['message' => 'Genre restored successfully'], 200);
@@ -153,6 +153,26 @@ class GenreController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to restore genre', $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Permanently delete soft deleted resource.
+     *
+     * @param  int  $id
+     * @return JsonResponse
+     */
+    public function remove($id): JsonResponse {
+        try {
+            $genre = Genre::withTrashed()->find($id);
+            if ($genre) {
+                $genre->forceDelete();
+                return response()->json(['message' => 'Genre permanently deleted'], 200);
+            } else {
+                return response()->json(['message' => 'Genre not found or already removed'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to permanently delete genre', $e->getMessage()], 500);
         }
     }
 }
