@@ -28,6 +28,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');
         Route::post('/{id}/restore', 'restore')->name('restore');
+        Route::delete('/{id}/remove', 'remove')->name('remove');
     });
     Route::resource('members', MemberController::class);
     Route::prefix('members')->controller(MemberController::class)->name('members.')->group(function () {

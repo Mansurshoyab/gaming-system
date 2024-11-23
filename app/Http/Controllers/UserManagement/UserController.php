@@ -156,7 +156,7 @@ class UserController extends Controller
      */
     public function restore($id): JsonResponse {
         try {
-            $user = User::withTrashed()->find($id);
+            $user = User::onlyTrashed()->find($id);
             if ($user) {
                 $user->restore();
                 return response()->json(['message' => 'User restored successfully'], 200);
@@ -165,6 +165,26 @@ class UserController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to restore user', $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Permanently delete soft deleted resource.
+     *
+     * @param  int  $id
+     * @return JsonResponse
+     */
+    public function remove($id): JsonResponse {
+        try {
+            $user = User::withTrashed()->find($id);
+            if ($user) {
+                $user->forceDelete();
+                return response()->json(['message' => 'User permanently deleted'], 200);
+            } else {
+                return response()->json(['message' => 'User not found or already removed'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to permanently delete user', $e->getMessage()], 500);
         }
     }
 }

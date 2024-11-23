@@ -171,7 +171,7 @@ class RoleController extends Controller
                 $role->forceDelete();
                 return response()->json(['message' => 'Role permanently deleted'], 200);
             } else {
-                return response()->json(['message' => 'Role not found or already permanently deleted'], 404);
+                return response()->json(['message' => 'Role not found or already removed'], 404);
             }
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to permanently delete role', $e->getMessage()], 500);
