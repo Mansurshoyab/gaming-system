@@ -144,4 +144,24 @@ class MemberController extends Controller
             return response()->json(['success' => false, 'message' => 'Failed to change member status'], 500);
         }
     }
+
+    /**
+     * Restore a trashed resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore($id): JsonResponse {
+        try {
+            $member = Member::withTrashed()->find($id);
+            if ($member) {
+                $member->restore();
+                return response()->json(['message' => 'Member restored successfully'], 200);
+            } else {
+                return response()->json(['message' => 'Member not found or already restored'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to restore member', $e->getMessage()], 500);
+        }
+    }
 }
