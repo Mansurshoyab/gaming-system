@@ -34,6 +34,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::prefix('members')->controller(MemberController::class)->name('members.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');
         Route::post('/{id}/restore', 'restore')->name('restore');
+        Route::delete('/{id}/remove', 'remove')->name('remove');
     });
     Route::resource('roles', RoleController::class);
     Route::prefix('roles')->controller(RoleController::class)->name('roles.')->group(function () {

@@ -153,7 +153,7 @@ class MemberController extends Controller
      */
     public function restore($id): JsonResponse {
         try {
-            $member = Member::withTrashed()->find($id);
+            $member = Member::onlyTrashed()->find($id);
             if ($member) {
                 $member->restore();
                 return response()->json(['message' => 'Member restored successfully'], 200);
@@ -162,6 +162,26 @@ class MemberController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to restore member', $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Permanently delete soft deleted resource.
+     *
+     * @param  int  $id
+     * @return JsonResponse
+     */
+    public function remove($id): JsonResponse {
+        try {
+            $member = Member::withTrashed()->find($id);
+            if ($member) {
+                $member->forceDelete();
+                return response()->json(['message' => 'Member permanently deleted'], 200);
+            } else {
+                return response()->json(['message' => 'Member not found or already removed'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to permanently delete member', $e->getMessage()], 500);
         }
     }
 }
