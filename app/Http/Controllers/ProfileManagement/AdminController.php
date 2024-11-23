@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\ProfileManagement;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserManagement\Member;
+use App\Models\UserManagement\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -14,6 +16,7 @@ class AdminController extends Controller
     public function index(): Response
     {
         try {
+            $widgets = $this->defaultWidgets();
             return response()->view('backend.dashboard', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());
@@ -66,5 +69,19 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function defaultWidgets() {
+        return [
+            [ 'icon' => 'coins', 'theme' => 'success', 'label' => 'Today Deposit', 'href' => null, 'data' => 0 ],
+            [ 'icon' => 'coins', 'theme' => 'success', 'label' => 'Total Deposit', 'href' => null, 'data' => 0 ],
+            [ 'icon' => 'coins', 'theme' => 'info', 'label' => 'Today Withdraw', 'href' => null, 'data' => 0 ],
+            [ 'icon' => 'coins', 'theme' => 'info', 'label' => 'Total Withdraw', 'href' => null, 'data' => 0 ],
+            [ 'icon' => 'ticket-alt', 'theme' => 'warning', 'label' => 'Support Tickets', 'href' => null, 'data' => 0 ],
+            [ 'icon' => 'users', 'theme' => 'primary', 'label' => 'Today Members', 'href' => null, 'data' => 0 ],
+            [ 'icon' => 'users', 'theme' => 'primary', 'label' => 'Total Members', 'href' => route('members.index'), 'data' => Member::withTrashed()->count() ],
+            [ 'icon' => 'users-cog', 'theme' => 'danger', 'label' => 'Admin Users', 'href' => route('users.index'), 'data' => User::withTrashed()->count() ],
+            // [ 'icon' => '', 'theme' => '', 'label' => '', 'href' => null, 'data' => 0 ],
+        ];
     }
 }
