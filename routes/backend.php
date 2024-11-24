@@ -37,6 +37,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/today', 'today')->name('today');
     });
     Route::resource('deposits', DepositController::class);
+    Route::prefix('withdraws')->controller(WithdrawController::class)->name('withdraws.')->group(function () {
+        Route::get('/today', 'today')->name('today');
+    });
     Route::resource('withdraws', WithdrawController::class);
     Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');
