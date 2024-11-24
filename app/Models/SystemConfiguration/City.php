@@ -25,6 +25,6 @@ class City extends Model
     }
 
     public function province(): BelongsTo {
-        return $this->belongsTo(Province::class, 'province', 'id')->withTrashed();
+        return $this->belongsTo(Province::class, 'province_id', 'id')->withTrashed();
     }
 }
