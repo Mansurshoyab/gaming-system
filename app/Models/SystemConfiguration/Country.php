@@ -3,6 +3,7 @@
 namespace App\Models\SystemConfiguration;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Country extends Model
@@ -17,5 +18,13 @@ class Country extends Model
             'status' => 'string',
             'deleted_at' => 'datetime',
         ];
+    }
+
+    public function provinces(): HasMany {
+        return $this->hasMany(Province::class, 'country_id', 'id')->withTrashed();
+    }
+
+    public function cities(): HasMany {
+        return $this->hasMany(City::class, 'country_id', 'id')->withTrashed();
     }
 }
