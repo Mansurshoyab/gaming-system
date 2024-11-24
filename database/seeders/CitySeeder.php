@@ -36,6 +36,8 @@ class CitySeeder extends Seeder
                     'province_id'     => $data[2],
                     'name'         => $data[1],
                     'status'       => Status::ENABLE,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ];
 
                 if (count($dataBatch) >= $batchSize) {

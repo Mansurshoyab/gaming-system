@@ -5,6 +5,7 @@ use App\Http\Controllers\FinanceManagement\AccountController;
 use App\Http\Controllers\GameManagement\GameController;
 use App\Http\Controllers\GameManagement\GenreController;
 use App\Http\Controllers\ProfileManagement\AdminController;
+use App\Http\Controllers\SystemConfiguration\CountryController;
 use App\Http\Controllers\SystemConfiguration\SystemController;
 use App\Http\Controllers\UserManagement\MemberController;
 use App\Http\Controllers\UserManagement\RoleController;
@@ -59,4 +60,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::prefix('system')->controller(SystemController::class)->name('system.')->group(function () {
         Route::get('/settings', 'general')->name('settings');
     });
+    Route::resource('countries', CountryController::class);
 });

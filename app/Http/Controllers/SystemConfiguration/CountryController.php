@@ -13,7 +13,14 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $countries = Country::orderBy('created_at', 'DESC')->get();
+            $trashes = Country::onlyTrashed()->orderBy('deleted_at', 'DESC')->get();
+            $total = Country::withTrashed()->count();
+            return response()->view('backend.system-configuration.countries.index', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**

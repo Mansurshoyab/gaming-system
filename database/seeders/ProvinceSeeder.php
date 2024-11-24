@@ -34,6 +34,8 @@ class ProvinceSeeder extends Seeder
                     'country_id' => $data[2],
                     'name'       => $data[1],
                     'status'     => Status::ENABLE,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ];
 
                 if (count($provincesData) === $batchSize) {
