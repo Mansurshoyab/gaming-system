@@ -32,6 +32,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     });
     Route::resource('games', GameController::class);
     Route::resource('accounts', AccountController::class);
+    Route::prefix('deposits')->controller(DepositController::class)->name('deposits.')->group(function () {
+        Route::get('/today', 'today')->name('today');
+    });
     Route::resource('deposits', DepositController::class);
     Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');

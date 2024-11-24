@@ -1,7 +1,7 @@
-<x-backend-layout :page="__('Total Deposits')" >
+<x-backend-layout :page="__('Today Deposits')" >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb :module="__('Finance Management')" :breadcrumbs="[['title' => 'Deposits', 'route' => route('deposits.index')], ['title' => 'Total']]" />
+    <x-backend-breadcrumb :module="__('Finance Management')" :breadcrumbs="[['title' => 'Deposits', 'route' => route('deposits.index')], ['title' => 'Today']]" />
   @endpush
 
   <x-base-section>

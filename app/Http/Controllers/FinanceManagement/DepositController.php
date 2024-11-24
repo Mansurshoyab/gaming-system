@@ -68,4 +68,12 @@ class DepositController extends Controller
     {
         //
     }
+
+    public function today(): Response {
+        try {
+            return response()->view('backend.finance-management.deposits.today', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
+    }
 }
