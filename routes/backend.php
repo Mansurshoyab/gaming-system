@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompanySetup\CompanyController;
 use App\Http\Controllers\FinanceManagement\AccountController;
+use App\Http\Controllers\FinanceManagement\DepositController;
 use App\Http\Controllers\GameManagement\GameController;
 use App\Http\Controllers\GameManagement\GenreController;
 use App\Http\Controllers\ProfileManagement\AdminController;
@@ -31,6 +32,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     });
     Route::resource('games', GameController::class);
     Route::resource('accounts', AccountController::class);
+    Route::resource('deposits', DepositController::class);
     Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');
         Route::post('/{id}/restore', 'restore')->name('restore');
