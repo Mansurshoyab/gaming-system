@@ -5,15 +5,20 @@ namespace App\Http\Controllers\FinanceManagement;
 use App\Http\Controllers\Controller;
 use App\Models\FinanceManagement\Withdraw;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class WithdrawController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        try {
+            return response()->view('backend.finance-management.withdraws.index', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**

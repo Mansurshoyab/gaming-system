@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompanySetup\CompanyController;
 use App\Http\Controllers\FinanceManagement\AccountController;
 use App\Http\Controllers\FinanceManagement\DepositController;
+use App\Http\Controllers\FinanceManagement\WithdrawController;
 use App\Http\Controllers\GameManagement\GameController;
 use App\Http\Controllers\GameManagement\GenreController;
 use App\Http\Controllers\ProfileManagement\AdminController;
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/today', 'today')->name('today');
     });
     Route::resource('deposits', DepositController::class);
+    Route::resource('withdraws', WithdrawController::class);
     Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
         Route::post('/{id}/status', 'status')->name('status');
         Route::post('/{id}/restore', 'restore')->name('restore');
