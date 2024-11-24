@@ -143,7 +143,7 @@
           <div class="collapse" id="payment" >
             <ul class="nav nav-collapse py-0" >
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('accounts.index') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ __('Manage Methods') }}</span>
                 </a>
