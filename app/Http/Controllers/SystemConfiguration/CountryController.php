@@ -5,13 +5,14 @@ namespace App\Http\Controllers\SystemConfiguration;
 use App\Http\Controllers\Controller;
 use App\Models\SystemConfiguration\Country;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
         try {
             $countries = Country::orderBy('created_at', 'DESC')->get();

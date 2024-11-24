@@ -1,7 +1,7 @@
 <x-backend-layout :page="__('Manage Countries')" >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb :module="__('System and Configuration')" :breadcrumbs="[['title' => 'Countries', 'route' => route('countries.index')], ['title' => 'List']]" />
+    <x-backend-breadcrumb :module="__('System and Configuration')" :breadcrumbs="[['title' => 'Provinces', 'route' => route('provinces.index')], ['title' => 'List']]" />
   @endpush
 
   <x-base-section>
@@ -17,7 +17,7 @@
         </button>
       </li>
       <li class="nav-item" role="presentation" >
-        <button type="button" class="nav-link py-1" id="quickAdd" store-route="{{ route('countries.store') }}" data-total="{{ $total }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+        <button type="button" class="nav-link py-1" id="quickAdd" store-route="{{ route('provinces.store') }}" data-total="{{ $total }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
           <span>{{ __('Quick Add') }}</span>
         </button>
       </li>
@@ -26,21 +26,21 @@
 
   <section class="tab-content" id="pills-tabContent" >
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0" >
-      <x-card-design :header="__('Manage Countries')" :tool="__('nav-item topbar-icon')" :dropdowns="[['label' => 'Add New', 'icon' => 'plus', 'route' => route('countries.create')]]" >
-        <x-data-table :id="__('countryTable')" :striped="true" :hover="true" :theme="__('black')" :headers="['SL', 'Name of Country', 'Code', 'Status', 'Date Created', 'Action']" :datatable="true" >
-          @foreach ($countries as $key => $country)
+      <x-card-design :header="__('Manage Provinces')" :tool="__('nav-item topbar-icon')" :dropdowns="[['label' => 'Add New', 'icon' => 'plus', 'route' => route('provinces.create')]]" >
+        <x-data-table :id="__('provinceTable')" :striped="true" :hover="true" :theme="__('black')" :headers="['SL', 'Name of Province', 'Country', 'Status', 'Created', 'Action']" :datatable="true" >
+          @foreach ($provinces as $key => $province)
             <tr>
-              <td>{{ str_pad($loop->iteration, strlen(count($countries)), '0', STR_PAD_LEFT) . '.' }}</td>
+              <td>{{ str_pad($loop->iteration, strlen(count($provinces)), '0', STR_PAD_LEFT) . '.' }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('countries.update', $country->id) }}" data-name="{{ $country->name }}" data-updated="{{ $country->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
-                  <strong>{{ $country->name }}</strong>
+                <a href="javascript:void(0);" class="text-dark quick-edit" update-route="{{ route('provinces.update', $province->id) }}" data-name="{{ $province->name }}" data-updated="{{ $province->updated_at->format('d M Y h:i A') }}" data-bs-toggle="modal" data-bs-target="#quickModal" >
+                  <strong>{{ Str::limit($province->name, 30, '...') }}</strong>
                 </a>
               </td>
-              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $country->iso3 }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $province->country->iso3 }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
-                <span class="badge bg-{{ $country->status === status('enable') ? 'success' : ( $country->status === status('disable') ? 'danger' : 'secondary' ) }}" >{{ ucfirst($country->status) }}</span>
+                <span class="badge bg-{{ $province->status === status('enable') ? 'success' : ( $province->status === status('disable') ? 'danger' : 'secondary' ) }}" >{{ ucfirst($province->status) }}</span>
               </td>
-              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $country->created_at->diffForHumans() }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $province->created_at->diffForHumans() }}</td>
               <td class="d-flex justify-content-between align-items-center" style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 {{-- <x-toggle-switch :name="__('status')" :href="route('roles.status', $role->id)" :id="$role->id" :enable="status('enable')" :disable="status('disable')" :value="$role->status" />
                 <x-action-drawer>
@@ -56,17 +56,17 @@
       </x-card-design>
     </div>
     <div class="tab-pane fade" id="pills-trash" role="tabpanel" aria-labelledby="pills-trash-tab" tabindex="0" >
-      <x-card-design :header="__('Trashed Countries')" :tool="__('nav-item topbar-icon')" :dropdowns="[['label' => 'Add New', 'icon' => 'plus', 'route' => route('countries.create')]]" >
-        <x-data-table :id="__('trashTable')" :striped="true" :hover="true" :theme="__('black')" :headers="['SL', 'Title', 'Code', 'Date Deleted', 'Action']" :datatable="true" >
+      <x-card-design :header="__('Trashed Provinces')" :tool="__('nav-item topbar-icon')" :dropdowns="[['label' => 'Add New', 'icon' => 'plus', 'route' => route('provinces.create')]]" >
+        <x-data-table :id="__('trashTable')" :striped="true" :hover="true" :theme="__('black')" :headers="['SL', 'Name of Province', 'Country', 'Deleted', 'Action']" :datatable="true" >
           @foreach ($trashes as $key => $trash)
             <tr>
               <td>{{ str_pad($loop->iteration, strlen(count($trashes)), '0', STR_PAD_LEFT) . '.' }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 <a href="javascript:void(0);" class="text-dark" >
-                  <strong>{{ $trash->name }}</strong>
+                  <strong>{{ Str::limit($trash->name, 30, '...') }}</strong>
                 </a>
               </td>
-              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->iso3 }}</td>
+              <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->country->iso3 }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >{{ $trash->deleted_at->diffForHumans() }}</td>
               <td style="padding-top: 0.75rem !important; padding-bottom: 0.75rem !important;" >
                 {{-- <x-restore-action :href="route('roles.restore', $trash->id)" :item="$trash->id" />
