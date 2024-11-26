@@ -37,7 +37,7 @@ class ProfileController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Profile Display',
-            'data' => $data
+            'data' => $data 
         ]);
     }
 
