@@ -83,9 +83,38 @@ class PayoutController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        try {
+            $data = $request->validate([
+                'account_id' => ['required'],
+                'account_no' => ['required'],
+                'status' => ['required', 'in:' . implode(',', Status::fetch())]
+            ]);
+            $data['member_id'] = Auth::user()->id;
+            $payout = Payout::where('member_id', Auth::user()->id)->where('id', $request->id)->first();
+            if ($payout) {
+                $payout->update([
+                    'account_id' => $request->account_id,
+                    'account_no' => $request->account_no,
+                    'status' => $request->status ?? Status::PENDING,
+                ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Payout method updated'
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Payout method not found'
+                ], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred.',
+            ], 500);
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProfileManagement\Wallet;
 use App\Models\UserManagement\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ class ProfileController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Profile Display',
-            'data' => $data 
+            'data' => $data
         ]);
     }
 
@@ -81,5 +82,55 @@ class ProfileController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function wallet()
+    {
+        try {
+
+            $wallet = Wallet::where('member_id', Auth::user()->id)->first();
+            return response()->json([
+                'success' => true,
+                'message' => "wallet Data",
+                'balance' => $wallet->amount,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred.',
+            ], 500);
+        }
+    }
+
+    public function balance(Request $request)
+    {
+        try {
+
+            $data = $request->validate([
+                'amount' => ['nullable']
+            ]);
+
+            $wallet = Wallet::where('member_id', Auth::user()->id)->first();
+            if ($request->amount) {
+                $wallet->update([
+                    'amount' => $wallet->amount + $request->amount,
+                ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => "Wallet Balance Updated",
+                    'balance' => number_format($wallet->amount, 2),
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Wallet Not Updated",
+                ], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred.',
+            ], 500);
+        }
     }
 }

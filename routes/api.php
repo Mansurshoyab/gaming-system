@@ -45,6 +45,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('payout', [PayoutController::class, 'store']);
     Route::get('payouts', [PayoutController::class, 'index']);
+    Route::post('payout/update', [PayoutController::class, 'update']);
+
+
+    Route::get('wallet', [ProfileController::class, 'wallet']);
+    Route::post('balance', [ProfileController::class, 'balance']);
 });
 
 Route::middleware('guest')->group(function () {
