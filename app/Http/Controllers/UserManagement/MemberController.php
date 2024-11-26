@@ -8,6 +8,7 @@ use App\Events\MemberCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserManagement\MemberRequest;
 use App\Models\UserManagement\Member;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -142,6 +143,58 @@ class MemberController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Failed to change member status'], 500);
+        }
+    }
+
+    /**
+     * Restore a trashed resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore($id): JsonResponse {
+        try {
+            $member = Member::onlyTrashed()->find($id);
+            if ($member) {
+                $member->restore();
+                return response()->json(['message' => 'Member restored successfully'], 200);
+            } else {
+                return response()->json(['message' => 'Member not found or already restored'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to restore member', $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Permanently delete soft deleted resource.
+     *
+     * @param  int  $id
+     * @return JsonResponse
+     */
+    public function remove($id): JsonResponse {
+        try {
+            $member = Member::withTrashed()->find($id);
+            if ($member) {
+                $member->forceDelete();
+                return response()->json(['message' => 'Member permanently deleted'], 200);
+            } else {
+                return response()->json(['message' => 'Member not found or already removed'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to permanently delete member', $e->getMessage()], 500);
+        }
+    }
+
+    public function today(): Response
+    {
+        try {
+            $members = Member::whereDate('created_at', today())->get();
+            $trashes = Member::onlyTrashed()->where('created_at', today())->get();
+            $total = Member::withTrashed()->count();
+            return response()->view('backend.user-management.members.today', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
         }
     }
 }

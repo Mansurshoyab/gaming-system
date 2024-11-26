@@ -143,7 +143,7 @@
           <div class="collapse" id="payment" >
             <ul class="nav nav-collapse py-0" >
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('accounts.index') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ __('Manage Methods') }}</span>
                 </a>
@@ -166,14 +166,14 @@
           <div class="collapse" id="deposit" >
             <ul class="nav nav-collapse py-0" >
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('deposits.today') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ __('Today Desposits') }}</span>
                   <span class="badge badge-secondary" >1</span>
                 </a>
               </li>
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('deposits.index') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ __('Total Deposits') }}</span>
                   <span class="badge badge-secondary" >1</span>
@@ -191,14 +191,14 @@
           <div class="collapse" id="withdraw">
             <ul class="nav nav-collapse py-0">
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('withdraws.today') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ __('Today Withdraws') }}</span>
                   <span class="badge badge-secondary" >1</span>
                 </a>
               </li>
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('withdraws.index') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ __('Total Withdraws') }}</span>
                   <span class="badge badge-secondary" >1</span>
@@ -245,7 +245,7 @@
           <div class="collapse" id="member" >
             <ul class="nav nav-collapse py-0" >
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('members.today') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ __('Today Members') }}</span>
                   <span class="badge badge-secondary" >1</span>
@@ -363,13 +363,13 @@
           <div class="collapse" id="location" >
             <ul class="nav nav-collapse py-0" >
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('countries.index') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ __('Manage Countries') }}</span>
                 </a>
               </li>
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('provinces.index') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ __('Manage Provinces') }}</span>
                 </a>

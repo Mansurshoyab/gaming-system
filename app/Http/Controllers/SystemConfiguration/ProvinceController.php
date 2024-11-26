@@ -5,15 +5,23 @@ namespace App\Http\Controllers\SystemConfiguration;
 use App\Http\Controllers\Controller;
 use App\Models\SystemConfiguration\Province;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProvinceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        try {
+            $provinces = Province::orderBy('created_at', 'DESC')->get();
+            $trashes = Province::onlyTrashed()->orderBy('deleted_at', 'DESC')->get();
+            $total = Province::withTrashed()->count();
+            return response()->view('backend.system-configuration.provinces.index', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**

@@ -8,16 +8,18 @@ use Illuminate\View\Component;
 
 class Delete extends Component
 {
-    public $class, $href, $id, $title;
+    public $theme, $class, $href, $id, $title, $icon;
     /**
      * Create a new component instance.
      */
-    public function __construct($class = null, $href = null, $id = null, $title = 'Delete')
+    public function __construct($theme = 'warning', $class = null, $href = null, $id = null, $title = 'Delete', $icon = 'trash-alt')
     {
+        $this->theme = $theme;
         $this->class = $class;
         $this->href = $href;
         $this->id = $id;
         $this->title = $title;
+        $this->icon = $icon;
     }
 
     /**

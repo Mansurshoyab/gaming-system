@@ -1,7 +1,7 @@
-<x-backend-layout :page="__('Dashboard')" >
+<x-backend-layout :page="__('Admin Dashboard')" >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb :module="__('Admin Dashboard')" :breadcrumbs="[['title' => 'Dashboard']]" />
+    <x-backend-breadcrumb :module="__('Dashboard')" :breadcrumbs="[['title' => 'Dashboard', 'route' => route('admin.dashboard')], ['title' => 'Analytic']]" />
   @endpush
 
   <x-base-section>
@@ -32,11 +32,33 @@
     </div>
   </x-base-section>
 
-  <x-base-section>
-    <x-card-design>
-      <p>{{ __('Inner page content goes here.') }}</p>
-    </x-card-design>
-  </x-base-section>
+  <hr class="mb-5" >
+
+  <section class="row" >
+    @foreach ($widgets as $item)
+      <div class="col-6 col-sm-6 col-md-3" >
+        <a href="{{ $item['href'] ?: 'javascript:void(0);' }}" >
+          <div class="card card-stats card-round" >
+            <div class="card-body" >
+              <div class="row align-items-center" >
+                <div class="col-icon" >
+                  <div class="icon-big text-center icon-{{ $item['theme'] ?: 'primary' }} bubble-shadow-small" >
+                    <i class="fas fa-{{ $item['icon'] ?: 'stream' }}"></i>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0" >
+                  <div class="numbers" >
+                    <p class="card-category" >{{ ucwords($item['label']) ?: 'Widget Title' }}</p>
+                    <h4 class="card-title" >{{ $item['data'] ?: 0 }}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    @endforeach
+  </section>
 
   @push('scripts')
   @endpush

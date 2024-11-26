@@ -13,7 +13,14 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $accounts = Account::orderBy('created_at', 'DESC')->get();
+            $trashes = Account::onlyTrashed()->orderBy('deleted_at', 'DESC')->get();
+            $total = Account::withTrashed()->count();
+            return response()->view('backend.finance-management.accounts.index', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**

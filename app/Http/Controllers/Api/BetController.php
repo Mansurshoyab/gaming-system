@@ -2,46 +2,47 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\GlobalUsage\Status;
+use App\Enums\GameManagement\Outcome;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\GameResource;
-use App\Models\GameManagement\Contest;
-use App\Models\GameManagement\Game;
+use App\Models\GameManagement\Bet;
 use App\Models\GameManagement\Round;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class GameController extends Controller
+class BetController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         try {
-            $game = Game::where('status', Status::ENABLE)->get();
-            if ($game) {
+            $data = $request->validate([
+                'match_id' => [ 'required', 'numeric', 'exists:contests,id' ]
+            ]);
+            $data['member_id'] = Auth::guard('gamer')->user()->id;
+            $data['start'] = now();
+            $data['end'] = now();
+            $round = Round::create($data);
+            if ($round) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Game displayed successfully!',
-                    'games' => GameResource::collection($game),
+                    'round'  => $round->id,
+                    'message' => 'Round completed successfully!'
                 ], 200);
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to display games!!!',
+                    'message' => 'Failed to complete round!!!'
                 ], 403);
             }
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred.',
+                'message' => 'An error occurred.'
             ], 500);
         }
-
-
-
     }
 
     /**
@@ -51,27 +52,29 @@ class GameController extends Controller
     {
         try {
             $data = $request->validate([
-                'game_id' => [ 'required', 'numeric', 'exists:games,id' ]
+                'match_id' => [ 'required', 'numeric', 'exists:contests,id' ],
+                'round_id' => [ 'required', 'numeric', 'exists:rounds,id' ]
             ]);
-            $data['member_id'] = Auth::guard('games')->user()->id;
-            $data['start'] = now();
-            $match = Contest::create($data);
-            if ($match) {
+            $data['member_id'] = Auth::guard('gamer')->user()->id;
+            $data['payout'] = 0;
+            $data['status'] = Outcome::HELD;
+            $bet = Bet::create($data);
+            if ($bet) {
                 return response()->json([
                     'success' => true,
-                    'match' => $match->id,
-                    'message' => 'Match started successfully!'
+                    'bet' => $bet->id,
+                    'message' => 'Bet placed successfully!'
                 ], 200);
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to start match!!!'
+                    'message' => 'Failed to placed bet!!!'
                 ], 403);
             }
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occured.'
+                'message' => 'An error occurred.'
             ], 500);
         }
     }
@@ -91,27 +94,30 @@ class GameController extends Controller
     {
         try {
             $data = $request->validate([
-                'id' => [ 'required', 'numeric', 'exists:contests,id' ]
+                'id' => [ 'required', 'numeric', 'exists:bets,id' ],
+                'payout' => [ 'required', 'numeric' ],
+                'status' => [ 'required', 'in:' . implode(',', Outcome::fetch())  ],
             ]);
             if (!$data) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'No match found!!!'
+                    'message' => 'No bet found!!!'
                 ], 404);
             }
-            $match = Contest::where('id', $request->id)->first();
-            if ($match) {
-                $match->update([
-                    'end' => now()
+            $bet = Bet::where('id', $request->id)->first();
+            if ($bet) {
+                $bet->update([
+                    'payout' => $request->payout ?? 0,
+                    'status' => $request->status ?? Outcome::HELD,
                 ]);
                 return response()->json([
                     'success' => true,
-                    'message' => 'Match ended successfully!'
+                    'message' => 'Bet updated successfully!'
                 ], 200);
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to end match!!!'
+                    'message' => 'Failed to update bet!!!'
                 ], 403);
             }
         } catch (\Exception $e) {

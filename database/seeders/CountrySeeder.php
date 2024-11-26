@@ -36,6 +36,8 @@ class CountrySeeder extends Seeder
                     'iso2'       => $data[3],
                     'phone_code' => $data[5],
                     'status'     => Status::ENABLE,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ];
 
                 if (count($countriesData) === $batchSize) {

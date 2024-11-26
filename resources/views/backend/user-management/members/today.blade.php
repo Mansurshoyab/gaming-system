@@ -1,7 +1,7 @@
-<x-backend-layout :page="__('Total Members') " >
+<x-backend-layout :page="__('Today Members') " >
 
   @push('breadcrumb')
-    <x-backend-breadcrumb :module="__('User Management')" :breadcrumbs="[['title' => 'Members', 'route' => 'members.index'], ['title' => 'List']]" />
+    <x-backend-breadcrumb :module="__('User Management')" :breadcrumbs="[['title' => 'Members', 'route' => 'members.index'], ['title' => 'Today']]" />
   @endpush
 
   <x-base-section>

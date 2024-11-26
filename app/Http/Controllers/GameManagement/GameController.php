@@ -113,4 +113,44 @@ class GameController extends Controller
             return response()->json(['success' => false, 'message' => 'Failed to change game status'], 500);
         }
     }
+
+    /**
+     * Restore a trashed resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore($id): JsonResponse {
+        try {
+            $game = Game::onlyTrashed()->find($id);
+            if ($game) {
+                $game->restore();
+                return response()->json(['message' => 'Game restored successfully'], 200);
+            } else {
+                return response()->json(['message' => 'Game not found or already restored'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to restore game', $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Permanently delete soft deleted resource.
+     *
+     * @param  int  $id
+     * @return JsonResponse
+     */
+    public function remove($id): JsonResponse {
+        try {
+            $game = Game::withTrashed()->find($id);
+            if ($game) {
+                $game->forceDelete();
+                return response()->json(['message' => 'Game permanently deleted'], 200);
+            } else {
+                return response()->json(['message' => 'Game not found or already removed'], 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to permanently delete game', $e->getMessage()], 500);
+        }
+    }
 }

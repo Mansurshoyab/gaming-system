@@ -5,15 +5,23 @@ namespace App\Http\Controllers\SystemConfiguration;
 use App\Http\Controllers\Controller;
 use App\Models\SystemConfiguration\Country;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        //
+        try {
+            $countries = Country::orderBy('created_at', 'DESC')->get();
+            $trashes = Country::onlyTrashed()->orderBy('deleted_at', 'DESC')->get();
+            $total = Country::withTrashed()->count();
+            return response()->view('backend.system-configuration.countries.index', get_defined_vars());
+        } catch (\Exception $e) {
+            return response($e->getMessage());
+        }
     }
 
     /**

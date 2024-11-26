@@ -1,7 +1,7 @@
-@props(['class' => null, 'href' => null, 'id' => null, 'title' => 'Delete'])
+@props(['theme' => 'warning', 'class' => null, 'href' => null, 'id' => null, 'title' => 'Delete', 'icon' => 'trash-alt'])
 
-<button class="btn btn-sm btn-warning btn-icon btn-round text-white delete-data p-3" @class([$class]) delete-route="{{ $href }}" delete-id="{{ $id }}" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ $title }}" >
-  <i class="fas fa-trash-alt" ></i>
+<button class="btn btn-sm btn-{{ $theme }} btn-icon btn-round text-white delete-data p-3 {{ $class }}" delete-route="{{ $href }}" delete-id="{{ $id }}" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="{{ $title }}" >
+  <i class="fas fa-{{ $icon }}" ></i>
 </button>
 
 @push('scripts')
