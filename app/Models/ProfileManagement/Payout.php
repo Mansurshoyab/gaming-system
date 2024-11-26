@@ -2,7 +2,10 @@
 
 namespace App\Models\ProfileManagement;
 
+use App\Models\FinanceManagement\Account;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Payout extends Model
 {
@@ -19,5 +22,9 @@ class Payout extends Model
             'status' => 'string',
             'deleted_at' => 'datetime',
         ];
+    }
+
+    public function account(): BelongsTo {
+        return $this->belongsTo(Account::class, 'account_id' , 'id')->withTrashed();
     }
 }

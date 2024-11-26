@@ -37,4 +37,5 @@ class Account extends Model
     public function transactions(): HasMany {
         return $this->hasMany(Transaction::class, 'account_id', 'id')->withTrashed();
     }
+
 }

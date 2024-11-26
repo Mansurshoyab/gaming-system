@@ -39,7 +39,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('member_id')->nullable();
             $table->foreignId('account_id')->nullable();
-            $table->string('trx_id')->unique();
+            $table->string('trx_id')->unique()->nullable();
             $table->decimal('amount', 10, 2);
             $table->enum('status', Payment::fetch())->default(Payment::REQUESTED);
             $table->string('note', 250)->nullable();
