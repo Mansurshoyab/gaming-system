@@ -25,14 +25,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [ 'firstname', 'lastname', 'username', 'email', 'phone', 'otp_code', 'password', 'role_id', 'status' ];
+    protected $fillable = ['firstname', 'lastname', 'username', 'email', 'phone', 'otp_code', 'password', 'role_id', 'status'];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = [ 'otp_code', 'password', 'verified', 'source', 'remember_token' ];
+    protected $hidden = ['otp_code', 'password', 'verified', 'source', 'remember_token'];
 
     /**
      * Get the attributes that should be cast.
@@ -57,7 +57,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function role(): BelongsTo {
+    public function role(): BelongsTo
+    {
         return $this->belongsTo(Role::class, 'role_id', 'id')->withTrashed();
     }
 
@@ -66,7 +67,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function profile(): HasOne {
+    public function profile(): HasOne
+    {
         return $this->hasOne(Profile::class, 'user_id', 'id')->withTrashed();
     }
 
@@ -75,7 +77,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function activities(): HasMany {
+    public function activities(): HasMany
+    {
         return $this->hasMany(Activity::class, 'user_id', 'id')->withTrashed();
     }
 
@@ -84,7 +87,8 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function location(): HasOne {
+    public function location(): HasOne
+    {
         return $this->hasOne(Location::class, 'user_id', 'id')->withTrashed();
     }
 }

@@ -55,11 +55,17 @@ class CompanyController extends Controller
 
             if ($request->hasFile('logo')) {
                 $fileName = 'logo' . time() . '.' . $request->file('logo')->getClientOriginalExtension();
-                $request->file('logo')->storeAs('public/company', $fileName);
+                $request->file('logo')->storeAs('company', $fileName);
+                // dd($fileName);
+                // $image = $request->file('logo');
+                // $logo = $image->store('company');
+                // $logo = 'company/logo_' . time() . $request->file('logo')->getClientOriginalExtension(); // Create a new path for the resized image
+                // $image->save(Storage::path($image));
                 $company = Company::first();
-                if ($company && $company->logo) {
-                    Storage::delete('public/company/' . $company->logo);
-                }
+                // if ($company && $company->logo) {
+                //     Storage::delete('public/company/' . $company->logo);
+
+                // }
                 $company->update([
                     'logo' => $fileName,
                 ]);
@@ -72,14 +78,14 @@ class CompanyController extends Controller
             //     $request->file('logo')->storeAs('company', $logoName, 'public');
             //     $company->logo = $logoName;
             // }
-            
+
             if ($request->hasFile('favicon')) {
                 $faviconName = $request->file('favicon')->getClientOriginalName();
                 $request->file('favicon')->storeAs('company', $faviconName, 'public');
                 $company->favicon = $faviconName;
             }
-            
-            
+
+
 
             // Save the updated data
             $company->save();

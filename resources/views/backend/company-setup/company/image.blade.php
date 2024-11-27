@@ -41,7 +41,8 @@
                         <label for="logo">{{ __('Logo') }}</label>
                         <div>
                           {{ $company->logo }}
-                          <img src="{{ storage_path('public/company/' . $company->logo) }}" alt="">
+                          <img src="{{ storage_path('app/private/public/company/' . $company->logo) }}" alt="">
+                          <img src="{{ Storage::url('company/' . $company->logo) }}" alt="" />
                           {{-- <img src="{{ asset('images/company/' . config('company.logo') ) }}" alt=""> --}}
                           {{-- @if($company->logo)
                           <img src="{{ Storage::url('company/'.$company->logo) }}" alt="{{ __('Logo') }}" style="max-height: 100px;" />

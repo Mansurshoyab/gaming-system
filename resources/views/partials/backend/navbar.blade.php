@@ -254,7 +254,7 @@
                 </li>
                 <li>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="javascript:void(0);">My Profile</a>
+                  <a class="dropdown-item" href="{{ route('admin.show', auth()->user()->username) }}">My Profile</a>
                   <a class="dropdown-item" href="javascript:void(0);">My Balance</a>
                   <a class="dropdown-item" href="javascript:void(0);">Inbox</a>
                   <div class="dropdown-divider"></div>

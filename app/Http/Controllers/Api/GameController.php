@@ -51,7 +51,7 @@ class GameController extends Controller
     {
         try {
             $data = $request->validate([
-                'game_id' => [ 'required', 'numeric', 'exists:games,id' ]
+                'game_id' => [ 'required', 'numeric' ]
             ]);
             $data['member_id'] = Auth::guard('games')->user()->id;
             $data['start'] = now();
