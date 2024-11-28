@@ -18,9 +18,9 @@ class DatabaseSeeder extends Seeder
             MemberSeeder::class,
             AvatarSeeder::class,
             AccountSeeder::class,
-            // CountrySeeder::class,
-            // ProvinceSeeder::class,
-            // CitySeeder::class,
+            CountrySeeder::class,
+            ProvinceSeeder::class,
+            CitySeeder::class,
             GenreSeeder::class,
             GameSeeder::class,
         ]);

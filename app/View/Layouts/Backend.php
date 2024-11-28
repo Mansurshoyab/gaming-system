@@ -2,6 +2,7 @@
 
 namespace App\View\Layouts;
 
+use App\Models\CompanySetup\Company;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -14,11 +15,17 @@ class Backend extends Component
     public string $page;
 
     /**
+     * Company Data
+     */
+    public object $company;
+
+    /**
      * Create a new component instance.
      */
     public function __construct(string $page = 'Sample Page')
     {
         $this->page = __($page);
+        $this->company = Company::first();
     }
 
     /**

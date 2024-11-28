@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>{{ $page . ' | ' . config('company.name') . '-' . config('company.tagline') }}</title>
-    <link rel="icon" href="{{ asset('images/company/' . config('company.favicon') ) }}" type="image/x-icon" />
+    <link rel="icon" href="{{ Storage::url('company/' . $company->favicon) ?? asset('images/company/' . config('company.favicon')) }}" type="image/x-icon" />
 
     <!-- Fonts and icons -->
     <script src="{{ asset('backend/js/plugin/webfont/webfont.min.js') }}"></script>
