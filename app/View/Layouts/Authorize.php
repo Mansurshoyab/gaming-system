@@ -2,6 +2,7 @@
 
 namespace App\View\Layouts;
 
+use App\Models\CompanySetup\Company;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -14,6 +15,11 @@ class Authorize extends Component
     public string $page;
 
     /**
+     * Company Data
+     */
+    public object $company;
+
+    /**
      * Footer navigation menu
      */
     public array $menu;
@@ -24,6 +30,7 @@ class Authorize extends Component
     public function __construct(string $page = 'Sample Page', array $menu = []) {
         $this->page = __($page);
         $this->menu = $this->navigation();
+        $this->company = Company::first();
     }
 
     /**

@@ -28,7 +28,7 @@
           </li>
         </ul>
       </x-base-section>
-  
+
     <x-base-section>
       <x-card-design>
         <x-base-section :class="__('col-sm-10 col-md-8 col-lg-6 offset-sm-1 offset-md-2 offset-lg-3')" >
@@ -40,9 +40,7 @@
                     <div class="col-12">
                         <label for="logo">{{ __('Logo') }}</label>
                         <div>
-                          {{ $company->logo }}
-                          <img src="{{ storage_path('app/private/public/company/' . $company->logo) }}" alt="">
-                          <img src="{{ Storage::url('company/' . $company->logo) }}" alt="" />
+                          <img src="{{ Storage::url('company/' . $company->logo) }}" class="w-100" alt="" />
                           {{-- <img src="{{ asset('images/company/' . config('company.logo') ) }}" alt=""> --}}
                           {{-- @if($company->logo)
                           <img src="{{ Storage::url('company/'.$company->logo) }}" alt="{{ __('Logo') }}" style="max-height: 100px;" />
@@ -71,13 +69,13 @@
                 </x-slot>
             </x-card-design>
         </form>
-        
-            
+
+
           </x-base-section>
       </x-card-design>
     </x-base-section>
-  
+
     @push('scripts')
     @endpush
-  
+
   </x-backend-layout>

@@ -2,6 +2,7 @@
 
 namespace App\View\Partials\Backend;
 
+use App\Models\CompanySetup\Company;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -9,11 +10,16 @@ use Illuminate\View\Component;
 class Sidebar extends Component
 {
     /**
+     * Company Data
+     */
+    public object $company;
+
+    /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        //
+        $this->company = Company::first();
     }
 
     /**
