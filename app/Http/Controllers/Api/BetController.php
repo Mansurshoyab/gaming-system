@@ -19,9 +19,9 @@ class BetController extends Controller
     {
         try {
             $data = $request->validate([
-                'match_id' => [ 'required', 'numeric', 'exists:contests,id' ]
+                'match_id' => [ 'required', 'numeric' ]
             ]);
-            $data['member_id'] = Auth::guard('gamer')->user()->id;
+            $data['member_id'] = Auth::user()->id;
             $data['start'] = now();
             $data['end'] = now();
             $round = Round::create($data);
@@ -52,8 +52,10 @@ class BetController extends Controller
     {
         try {
             $data = $request->validate([
+                'member_id' => ['nullable'],
                 'match_id' => [ 'required'],
-                'round_id' => [ 'required']
+                'round_id' => [ 'required'],
+                'amount' => ['required'],
             ]);
             $data['member_id'] = Auth::user()->id;
             $data['payout'] = 0;
@@ -94,7 +96,7 @@ class BetController extends Controller
     {
         try {
             $data = $request->validate([
-                'id' => [ 'required', 'numeric', 'exists:bets,id' ],
+                'id' => [ 'required', 'numeric' ],
                 'payout' => [ 'required', 'numeric' ],
                 'status' => [ 'required', 'in:' . implode(',', Outcome::fetch())  ],
             ]);
