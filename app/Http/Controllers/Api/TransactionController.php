@@ -29,6 +29,7 @@ class TransactionController extends Controller
     {
         try {
             $data = $request->validate([
+                'member_id' => 'required',
                 'account_id' => 'required',
                 'trx_id' => 'required',
                 'amount' => 'required',
@@ -40,7 +41,6 @@ class TransactionController extends Controller
                     'message' => 'Minimum Deposit 100 BDT',
                 ], 203);
             }
-            $data['member_id'] = Auth::user()->id;
             $data['status'] = Payment::REQUESTED;
 
             $deposit = Deposit::create($data);
@@ -69,6 +69,7 @@ class TransactionController extends Controller
     {
         try {
             $data = $request->validate([
+                'member_id' => 'required',
                 'account_id' => 'required',
                 'trx_id' => 'nullable',
                 'amount' => 'required',
@@ -80,7 +81,6 @@ class TransactionController extends Controller
                     'message' => 'Minimum Withdraw 500 BDT',
                 ], 203);
             }
-            $data['member_id'] = Auth::user()->id;
             $data['status'] = Payment::REQUESTED;
 
             $withdraw = Withdraw::create($data);

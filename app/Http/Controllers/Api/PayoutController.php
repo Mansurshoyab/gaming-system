@@ -56,6 +56,7 @@ class PayoutController extends Controller
             if ($payout) {
                 return response()->json([
                     'success' => true,
+                    'method' => $payout->id,
                     'message' => 'Payout Method Created',
                 ], 200);
             } else {
@@ -89,17 +90,17 @@ class PayoutController extends Controller
     {
         try {
             $data = $request->validate([
-                'account_id' => ['required'],
-                'account_no' => ['required'],
+                'member_id' => ['required', 'numeric'],
+                'account_id' => ['required', 'numeric'],
+                'account_no' => ['required', 'numeric'],
                 'status' => ['required', 'in:' . implode(',', Status::fetch())]
             ]);
-            $data['member_id'] = Auth::user()->id;
-            $payout = Payout::where('member_id', Auth::user()->id)->where('id', $request->id)->first();
+            $payout = Payout::where('member_id', $data['member_id'])->where('id', $request->id)->first();
             if ($payout) {
                 $payout->update([
-                    'account_id' => $request->account_id,
-                    'account_no' => $request->account_no,
-                    'status' => $request->status ?? Status::PENDING,
+                    'account_id' => $data['account_id'],
+                    'account_no' => $data['account_no'],
+                    'status' => $data['status'] ?? Status::PENDING,
                 ]);
                 return response()->json([
                     'success' => true,

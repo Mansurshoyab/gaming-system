@@ -20,9 +20,9 @@ class BetController extends Controller
     {
         try {
             $data = $request->validate([
+                'member_id' => [ 'required', 'numeric'],
                 'match_id' => [ 'required', 'numeric']
             ]);
-            $data['member_id'] = Auth::user()->id;
             $data['start'] = now();
             $data['end'] = now();
             $round = Round::create($data);
@@ -53,16 +53,17 @@ class BetController extends Controller
     {
         try {
             $data = $request->validate([
-                'member' => ['required', 'numeric'],
+                'member_id' => ['required', 'numeric'],
                 'match_id' => [ 'required','numeric'],
                 'round_id' => [ 'required','numeric'],
                 'amount' => ['required','numeric'],
             ]);
-            // $data['member_id'] = Auth::user()->id;
             $data['payout'] = 0;
             $data['status'] = Outcome::HELD;
             $bet = Bet::create($data);
+            $wallet = Wallet::where('member_id', $data['member_id'])->first();
             if ($bet) {
+                $wallet->decrement('amount', $data['amount']);
                 return response()->json([
                     'success' => true,
                     'bet' => $bet->id,
@@ -98,8 +99,7 @@ class BetController extends Controller
     {
         try {
             $data = $request->validate([
-                'id' => [ 'required', 'numeric' ],
-                'member' => ['required', 'numeric'],
+                'member_id' => ['required', 'numeric'],
                 'payout' => [ 'required', 'numeric' ],
                 'status' => [ 'required', 'in:' . implode(',', Outcome::fetch())  ],
             ]);
@@ -110,11 +110,11 @@ class BetController extends Controller
                 ], 404);
             }
             $bet = Bet::where('id', $request->id)->first();
-            $wallet = Wallet::where('member_id', $data['member'])->first();
+            $wallet = Wallet::where('member_id', $data['member_id'])->first();
             if ($bet) {
                 $bet->update([
-                    'payout' => $request->payout ?? 0,
-                    'status' => $request->status ?? Outcome::HELD,
+                    'payout' => $data['payout'] ?? 0,
+                    'status' => $data['status'] ?? Outcome::HELD,
                 ]);
                 if ($data['status'] === Outcome::WIN) {
                     $wallet->increment('amount', $data['payout']);

@@ -7,7 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>{{ $page . ' | ' . config('company.name') . '-' . config('company.tagline') }}</title>
     <link rel="icon" href="{{ Storage::url('company/' . $company->favicon) ?? asset('images/company/' . config('company.favicon')) }}" type="image/x-icon" />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
       .frosted-glass {
         background-color: rgba(255, 255, 255, 0.1);
