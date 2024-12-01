@@ -39,9 +39,6 @@ class GameController extends Controller
                 'message' => 'An error occurred.',
             ], 500);
         }
-
-
-
     }
 
     /**
@@ -51,9 +48,9 @@ class GameController extends Controller
     {
         try {
             $data = $request->validate([
-                'game_id' => [ 'required']
+                'game_id' => ['required']
             ]);
-            $data['member_id'] = Auth::guard('games')->user()->id;
+            $data['member_id'] = Auth::user()->id;
             $data['start'] = now();
             $match = Contest::create($data);
             if ($match) {
@@ -91,7 +88,7 @@ class GameController extends Controller
     {
         try {
             $data = $request->validate([
-                'id' => [ 'required', 'numeric', 'exists:contests,id' ]
+                'id' => ['required', 'numeric', 'exists:contests,id']
             ]);
             if (!$data) {
                 return response()->json([

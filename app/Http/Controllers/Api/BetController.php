@@ -52,10 +52,10 @@ class BetController extends Controller
     {
         try {
             $data = $request->validate([
-                'match_id' => [ 'required', 'numeric', 'exists:contests,id' ],
-                'round_id' => [ 'required', 'numeric', 'exists:rounds,id' ]
+                'match_id' => [ 'required'],
+                'round_id' => [ 'required']
             ]);
-            $data['member_id'] = Auth::guard('gamer')->user()->id;
+            $data['member_id'] = Auth::user()->id;
             $data['payout'] = 0;
             $data['status'] = Outcome::HELD;
             $bet = Bet::create($data);
