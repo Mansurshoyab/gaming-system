@@ -20,8 +20,8 @@ class BetController extends Controller
     {
         try {
             $data = $request->validate([
-                'member_id' => [ 'required', 'numeric'],
-                'match_id' => [ 'required', 'numeric']
+                'member_id' => ['required', 'numeric'],
+                'match_id' => ['required', 'numeric']
             ]);
             $data['start'] = now();
             $data['end'] = now();
@@ -54,9 +54,9 @@ class BetController extends Controller
         try {
             $data = $request->validate([
                 'member_id' => ['required', 'numeric'],
-                'match_id' => [ 'required','numeric'],
-                'round_id' => [ 'required','numeric'],
-                'amount' => ['required','numeric'],
+                'match_id' => ['required', 'numeric'],
+                'round_id' => ['required', 'numeric'],
+                'amount' => ['required', 'numeric'],
             ]);
             $data['payout'] = 0;
             $data['status'] = Outcome::HELD;
@@ -100,8 +100,8 @@ class BetController extends Controller
         try {
             $data = $request->validate([
                 'member_id' => ['required', 'numeric'],
-                'payout' => [ 'required', 'numeric' ],
-                'status' => [ 'required', 'in:' . implode(',', Outcome::fetch())  ],
+                'payout' => ['required', 'numeric'],
+                'status' => ['required', 'in:' . implode(',', Outcome::fetch())],
             ]);
             if (!$data) {
                 return response()->json([
@@ -118,8 +118,6 @@ class BetController extends Controller
                 ]);
                 if ($data['status'] === Outcome::WIN) {
                     $wallet->increment('amount', $data['payout']);
-                } elseif ($data['status'] === Outcome::LOSS) {
-                    $wallet->decrement('amount', $data['payout']);
                 }
 
                 return response()->json([
