@@ -45,7 +45,8 @@ class MatchController extends Controller
         } catch (\Exception $e) {
             $data = [
                 'success' => false,
-                'message' => 'An error occured.'
+                'message' => 'An error occured.',
+                'error' => $e->getMessage()
             ];
             return response()->json(['data' => $data], 500);
         }
@@ -84,7 +85,8 @@ class MatchController extends Controller
         } catch (\Exception $e) {
             $data = [
                 'success' => false,
-                'message' => 'An error occured.'
+                'message' => 'An error occured.',
+                'error' => $e->getMessage()
             ];
             return response()->json(['data' => $data], 500);
         }
@@ -112,7 +114,8 @@ class MatchController extends Controller
         } catch (\Exception $e) {
             $data = [
                 'success' => false,
-                'message' => 'An error occured.'
+                'message' => 'An error occured.',
+                'error' => $e->getMessage()
             ];
             return response()->json(['data' => $data], 500);
         }
@@ -141,7 +144,8 @@ class MatchController extends Controller
         } catch (\Exception $e) {
             $data = [
                 'success' => false,
-                'message' => 'An error occured.'
+                'message' => 'An error occured.',
+                'error' => $e->getMessage()
             ];
             return response()->json(['data' => $data], 500);
         }
@@ -170,7 +174,8 @@ class MatchController extends Controller
         } catch (\Exception $e) {
             $betData = [
                 'success' => false,
-                'message' => 'An error occured.'
+                'message' => 'An error occured.',
+                'error' => $e->getMessage()
             ];
             return response()->json(['data' => $betData], 500);
         }

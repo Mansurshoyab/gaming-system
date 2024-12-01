@@ -29,6 +29,7 @@ class PayoutController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
@@ -68,6 +69,7 @@ class PayoutController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
@@ -113,6 +115,7 @@ class PayoutController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }

@@ -37,6 +37,7 @@ class GameController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
@@ -68,7 +69,8 @@ class GameController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occured.'
+                'message' => 'An error occured.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
@@ -114,7 +116,8 @@ class GameController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred.'
+                'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }

@@ -98,6 +98,7 @@ class ProfileController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }

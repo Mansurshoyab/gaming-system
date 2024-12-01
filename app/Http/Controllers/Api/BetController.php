@@ -6,6 +6,7 @@ use App\Enums\GameManagement\Outcome;
 use App\Http\Controllers\Controller;
 use App\Models\GameManagement\Bet;
 use App\Models\GameManagement\Round;
+use App\Models\ProfileManagement\Wallet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,7 +77,8 @@ class BetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred.'
+                'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
@@ -97,6 +99,7 @@ class BetController extends Controller
         try {
             $data = $request->validate([
                 'id' => [ 'required', 'numeric' ],
+                'member' => ['required', 'numeric'],
                 'payout' => [ 'required', 'numeric' ],
                 'status' => [ 'required', 'in:' . implode(',', Outcome::fetch())  ],
             ]);
@@ -107,11 +110,18 @@ class BetController extends Controller
                 ], 404);
             }
             $bet = Bet::where('id', $request->id)->first();
+            $wallet = Wallet::where('member_id', $data['member'])->first();
             if ($bet) {
                 $bet->update([
                     'payout' => $request->payout ?? 0,
                     'status' => $request->status ?? Outcome::HELD,
                 ]);
+                if ($data['status'] === Outcome::WIN) {
+                    $wallet->increment('amount', $data['payout']);
+                } elseif ($data['status'] === Outcome::LOSS) {
+                    $wallet->decrement('amount', $data['payout']);
+                }
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Bet updated successfully!'
@@ -125,7 +135,8 @@ class BetController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred.'
+                'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }

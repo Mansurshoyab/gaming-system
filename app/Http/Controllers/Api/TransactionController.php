@@ -60,6 +60,7 @@ class TransactionController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
@@ -99,6 +100,7 @@ class TransactionController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
@@ -128,6 +130,7 @@ class TransactionController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred.',
+                'error' => $e->getMessage()
             ], 500);
         }
     }
