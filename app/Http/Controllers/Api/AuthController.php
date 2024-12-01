@@ -32,6 +32,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Login successful',
+                'member' => $member->id,
                 'verified' => $member->verified,
                 'token' => $token,
             ], 200);
@@ -50,18 +51,19 @@ class AuthController extends Controller
         }
     }
 
-    public function dataCheck(Request $request){
+    public function dataCheck(Request $request)
+    {
 
         $email = $request->email;
 
-        $member = Member::where('email' , $email)->first();
+        $member = Member::where('email', $email)->first();
 
         if ($member) {
             return response()->json([
                 'success' => false,
                 'message' => 'Email Already Exist',
             ]);
-        }else{
+        } else {
             return response()->json([
                 'success' => true,
                 'message' => 'Email Is not exist',

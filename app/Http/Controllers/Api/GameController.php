@@ -49,15 +49,17 @@ class GameController extends Controller
     {
         try {
             $data = $request->validate([
-                'game_id' => ['required']
+                'member' => ['required', 'numeric'],
+                'game_id' => ['required', 'numeric']
             ]);
-            $data['member_id'] = Auth::user()->id;
             $data['start'] = now();
+            $data['member_id']= $request->member;
             $match = Contest::create($data);
             if ($match) {
                 return response()->json([
                     'success' => true,
                     'match' => $match->id,
+                    'round' => Round::count(),
                     'message' => 'Match started successfully!'
                 ], 200);
             } else {
