@@ -36,7 +36,7 @@
                 </a>
               </li>
               <li class="nav-item" >
-                <a href="javascript:void(0);" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
+                <a href="{{ route('admin.game') }}" class="nav-link" style="padding-top: 0.375rem !important; padding-bottom: 0.375rem !important;" >
                   <i class="far fa-circle" ></i>
                   <span class="ms-2" >{{ ('Game Dashboard') }}</span>
                 </a>
