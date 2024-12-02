@@ -41,10 +41,10 @@ Route::middleware('auth:sanctum')->group(function () {
     //Transaction
     Route::post('deposit', [TransactionController::class, 'deposit']);
     Route::post('withdraw', [TransactionController::class, 'withdraw']);
-    Route::get('payment', [TransactionController::class, 'payment']);
+    Route::get('payments', [TransactionController::class, 'payment']);
 
-    Route::post('payout', [PayoutController::class, 'store']);
     Route::get('payouts', [PayoutController::class, 'index']);
+    Route::post('payout', [PayoutController::class, 'store']);
     Route::post('payout/update', [PayoutController::class, 'update']);
 
 

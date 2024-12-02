@@ -42,11 +42,11 @@ class PayoutController extends Controller
         try {
 
             $data = $request->validate([
+                'member_id' => 'required',
                 'account_id' => 'required',
                 'account_no' => 'required',
             ]);
 
-            $data['member_id'] = Auth::user()->id;
             $data['status'] = Status::ENABLE;
 
             // $method = Payout::where('member_id', Auth->user()->id)->get();
