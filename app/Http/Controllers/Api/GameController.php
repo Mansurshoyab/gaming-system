@@ -49,11 +49,10 @@ class GameController extends Controller
     {
         try {
             $data = $request->validate([
-                'member' => ['required', 'numeric'],
+                'member_id' => ['required', 'numeric'],
                 'game_id' => ['required', 'numeric']
             ]);
             $data['start'] = now();
-            $data['member_id']= $data['member'];
             $match = Contest::create($data);
             if ($match) {
                 return response()->json([

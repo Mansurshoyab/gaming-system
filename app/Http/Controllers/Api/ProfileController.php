@@ -84,11 +84,13 @@ class ProfileController extends Controller
         //
     }
 
-    public function wallet()
+    public function wallet(Request $request)
     {
         try {
-
-            $wallet = Wallet::where('member_id', Auth::user()->id)->first();
+            $data = $request->validate([
+                'member_id' => ['required']
+            ]);
+            $wallet = Wallet::where('member_id', $data['member_id'])->first();
             return response()->json([
                 'success' => true,
                 'message' => "wallet Data",
@@ -108,10 +110,11 @@ class ProfileController extends Controller
         try {
 
             $data = $request->validate([
+                'member_id' => ['required'],
                 'amount' => ['nullable']
             ]);
 
-            $wallet = Wallet::where('member_id', Auth::user()->id)->first();
+            $wallet = Wallet::where('member_id', $data['member_id'])->first();
             if ($request->amount) {
                 $wallet->update([
                     'amount' => $wallet->amount + $request->amount,
