@@ -75,7 +75,7 @@ class AuthController extends Controller
     {
         try {
             $data = $request->validated();
-            $data['username'] = 'member' . time();
+            $data['username'] = 'gamer' . time();
             $data['password'] = Hash::make($data['password']);
             $member = Member::create($data);
             event(new MemberCreated($member));
@@ -84,7 +84,7 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => 'Registration Successfull',
                 'token' => $token,
-                'data' => $member,
+                'member' => $member->id,
             ], 200);
         } catch (ValidationException $e) {
             return response()->json([
