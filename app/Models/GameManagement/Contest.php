@@ -3,6 +3,7 @@
 namespace App\Models\GameManagement;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Contest extends Model
@@ -15,4 +16,10 @@ class Contest extends Model
         'start',
         'end',
     ];
+
+
+    public function bets(): HasMany
+    {
+        return $this->hasMany(Bet::class, 'match_id', 'id')->withTrashed();
+    }
 }

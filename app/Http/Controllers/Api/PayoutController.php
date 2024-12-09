@@ -90,6 +90,7 @@ class PayoutController extends Controller
     {
         try {
             $data = $request->validate([
+                // 'id' => ['required', 'numeric'],
                 'member_id' => ['required', 'numeric'],
                 'account_id' => ['required', 'numeric'],
                 'account_no' => ['required', 'numeric'],
