@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\ProfileManagement;
 
+use App\Enums\FinanceManagement\Purpose;
 use App\Enums\GlobalUsage\Status;
 use App\Http\Controllers\Controller;
+use App\Models\FinanceManagement\Transaction;
 use App\Models\GameManagement\Bet;
 use App\Models\GameManagement\Game;
 use App\Models\GameManagement\Genre;
@@ -96,7 +98,7 @@ class AdminController extends Controller
     {
         return [
             ['icon' => 'coins', 'theme' => 'success', 'label' => 'Today Deposit', 'href' => null, 'data' => 0],
-            ['icon' => 'coins', 'theme' => 'success', 'label' => 'Total Deposit', 'href' => null, 'data' => 0],
+            ['icon' => 'coins', 'theme' => 'success', 'label' => 'Total Deposit', 'href' => route('deposits.index'), 'data' => Transaction::where('type', Purpose::DEPOSIT)->sum('credit') . '/-'],
             ['icon' => 'coins', 'theme' => 'info', 'label' => 'Today Withdraw', 'href' => null, 'data' => 0],
             ['icon' => 'coins', 'theme' => 'info', 'label' => 'Total Withdraw', 'href' => null, 'data' => 0],
             ['icon' => 'ticket-alt', 'theme' => 'warning', 'label' => 'Support Tickets', 'href' => null, 'data' => 0],

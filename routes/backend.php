@@ -43,6 +43,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('accounts', AccountController::class);
     Route::prefix('deposits')->controller(DepositController::class)->name('deposits.')->group(function () {
         Route::get('/today', 'today')->name('today');
+        Route::post('/{id}/approve', 'approve')->name('approve');
     });
     Route::resource('deposits', DepositController::class);
     Route::prefix('withdraws')->controller(WithdrawController::class)->name('withdraws.')->group(function () {
