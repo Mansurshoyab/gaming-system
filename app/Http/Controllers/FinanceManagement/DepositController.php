@@ -113,6 +113,8 @@ class DepositController extends Controller
 
     public function today(): Response {
         try {
+            $deposits = Deposit::whereDate('created_at', today())->orderBy('created_at', 'DESC')->where('status', Payment::ACCEPTED)->get();
+            $pendings = Deposit::whereDate('created_at', today())->orderBy('created_at', 'DESC')->where('status', Payment::REQUESTED)->get();
             return response()->view('backend.finance-management.deposits.today', get_defined_vars());
         } catch (\Exception $e) {
             return response($e->getMessage());

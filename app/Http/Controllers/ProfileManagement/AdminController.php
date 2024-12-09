@@ -97,7 +97,7 @@ class AdminController extends Controller
     private function defaultWidgets()
     {
         return [
-            ['icon' => 'coins', 'theme' => 'success', 'label' => 'Today Deposit', 'href' => null, 'data' => 0],
+            ['icon' => 'coins', 'theme' => 'success', 'label' => 'Today Deposit', 'href' => route('deposits.today'), 'data' => Transaction::whereDate('created_at', today())->where('type', Purpose::DEPOSIT)->sum('credit') . '/-'],
             ['icon' => 'coins', 'theme' => 'success', 'label' => 'Total Deposit', 'href' => route('deposits.index'), 'data' => Transaction::where('type', Purpose::DEPOSIT)->sum('credit') . '/-'],
             ['icon' => 'coins', 'theme' => 'info', 'label' => 'Today Withdraw', 'href' => null, 'data' => 0],
             ['icon' => 'coins', 'theme' => 'info', 'label' => 'Total Withdraw', 'href' => null, 'data' => 0],
